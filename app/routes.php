@@ -25,3 +25,13 @@ Route::get('register',array(
     'as' => "register",
     'uses' => "UserController@register"
 ));
+
+
+/*
+ *  Unauthenticated group
+ */
+Route::group(array('before' => "guest"), function(){
+
+    
+    
+});
