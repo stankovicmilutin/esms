@@ -1,0 +1,12 @@
+#teamInfo h2, .notopmargin {
+	margin-top: 0;
+}
+
+p.bg-primary
+{
+	padding: 15px;
+}
+
+.formwrap {
+	margin-top: 100px;
+}
