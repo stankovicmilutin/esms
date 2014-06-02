@@ -130,7 +130,7 @@ if (!$con)
 
 					PRIMARY KEY(`locID`),
 					FOREIGN KEY(`tournamentID`) REFERENCES esms_tournaments(tournamentID) ON DELETE CASCADE ON UPDATE CASCADE,
-					FOREIGN KEY(`matchID`) REFERENCES esms_matchs(matchID) ON DELETE NO ACTION ON UPDATE CASCADE,
+					FOREIGN KEY(`matchID`) REFERENCES esms_matches(matchID) ON DELETE NO ACTION ON UPDATE CASCADE,
 					FOREIGN KEY(`playerID`) REFERENCES esms_players(playerID) ON DELETE CASCADE ON UPDATE CASCADE
 					)
 					DEFAULT CHARACTER SET = utf8

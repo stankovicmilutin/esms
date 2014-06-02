@@ -50,11 +50,13 @@ class UserController extends BaseController {
                 ->with('global-class',"danger");
         
     }
-
+    
+    // registerView
     public function register() {
         return View::make("users/register");
     }
 
+    // registerData
     public function createAccount() {
 
         $validator = Validator::make(Input::all(), array(
@@ -138,6 +140,12 @@ class UserController extends BaseController {
                 ->with("global-class","danger");
         }
         
+    }
+    
+    // signout
+    public function signoutView(){
+        Auth::logout();
+        return Redirect::route("index");
     }
     
 }

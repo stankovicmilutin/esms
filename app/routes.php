@@ -18,6 +18,25 @@ Route::get('/', array(
 
 
 /*
+ *  Authenticated group
+ */
+
+Route::group(array('before' =>"auth"),function(){
+    /*
+    *  Sign out
+    */
+    
+    Route::get('sign-out', array(
+       'as' => "signout",
+       'uses' => "UserController@signoutView"
+    ));
+    
+});
+
+
+
+
+/*
  *  Unauthenticated group
  */
 Route::group(array('before' => "guest"), function() {
