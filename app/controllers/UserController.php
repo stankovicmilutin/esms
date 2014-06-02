@@ -58,7 +58,7 @@ class UserController extends BaseController {
             
             // Send email
             Mail::send('emails/activate', array('link' => URL::route('activate-account',$code),'username' => $username ), function($message) {
-                        $message->to("lordmilutin@gmail.com", "Nutic")->subject("Activate your account");
+                        $message->to("dejanstosic7@gmail.com", "Nutic")->subject("Activate your account");
                     });
             
             

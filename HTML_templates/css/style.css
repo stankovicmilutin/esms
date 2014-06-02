@@ -30,7 +30,7 @@ p.bg-primary
 
 
 .esmsTable td {
-	vertical-align: middle;	
+	vertical-align: middle !important;	
 }
 
 .teamStats {
