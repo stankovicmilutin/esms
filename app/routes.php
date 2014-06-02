@@ -21,17 +21,32 @@ Route::get('login', array(
     'uses' => "UserController@login"
 ));
 
-Route::get('register',array(
-    'as' => "register",
-    'uses' => "UserController@register"
-));
-
 
 /*
  *  Unauthenticated group
  */
-Route::group(array('before' => "guest"), function(){
+Route::group(array('before' => "guest"), function() {
 
-    
-    
+    /*
+     *  CSRF protection
+     */
+
+    Route::group(array('before' => 'csrf'), function() {
+        /*
+         *  Accept crate account form data
+         */
+        Route::post('register',array(
+            'as' => "createAccount",
+            'uses' => "UserController@createAccount"
+        ));
+        
+    });
+
+    /*
+     *  Display create account form
+     */
+    Route::get('register', array(
+        'as' => "register",
+        'uses' => "UserController@register"
+    ));
 });
