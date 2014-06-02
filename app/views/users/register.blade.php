@@ -10,24 +10,25 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="formwrap well">
                 <h2 class="notopmargin">Register</h2>
-                <form role="form">
+                <form role="form" method="post" action="{{ URL::route('register') }}">
                     <div class="form-group">
                         <label for="usernameinput">Username:</label>
-                        <input type="email" class="form-control" id="usernameinput" name="usernameinput" placeholder="Enter username">
+                        <input type="username" class="form-control" id="usernameinput" name="username" placeholder="Enter username" >                      
                     </div>
                     <div class="form-group">
                         <label for="emailinput">Email address</label>
-                        <input type="email" class="form-control" id="emailinput" name="emailinput" placeholder="Enter email">
+                        <input type="email" class="form-control" id="emailinput" name="email" placeholder="Enter email">
                     </div>
                     <div class="form-group">
                         <label for="pwinput">Password</label>
-                        <input type="password" class="form-control" id="pwinput" name="pwinput" placeholder="Password">
+                        <input type="password" class="form-control" id="pwinput" name="password" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label for="repwinput">Repeat Password</label>
-                        <input type="password" class="form-control" id="repwinput" name="repwinput" placeholder="Repeat Password">
+                        <input type="password" class="form-control" id="repwinput" name="password_rep" placeholder="Repeat Password">
                     </div>
                     <button type="submit" class="btn btn-default">Register</button>
+                    {{ Form::token() }}
                 </form>
             </div>
         </div>
