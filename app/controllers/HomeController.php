@@ -17,11 +17,14 @@ class HomeController extends BaseController {
 
 	public function index()
 	{   
-            //    Mail::send("emails/auth/email",array("name" => "Alex"), function($message){
-            //           $message->to("lordmilutin@gmail.com","SOMETHING HERE")->subject("TEST EMAIL");
-            //    });
+                Mail::send("emails/auth/email",array("name" => "Alex"), function($message){
+                       $message->to("lordmilutin@gmail.com","SOMETHING HERE")->subject("TEST EMAIL");
+                });
 		return View::make("template/main");
 	}
 
+	/*
+	zdravo milutine kako ste
+	 */
        
 }
