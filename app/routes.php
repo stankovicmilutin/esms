@@ -104,3 +104,18 @@ Route::get('team/{id}',array(
     'as' => 'team',
     'uses' => "TeamController@teamProfile"
 ));
+/**
+ * player settings view
+ */
+Route::get('player-settings', array(
+        'as' => "playerSettingsView",
+        'uses' => "PlayerController@showPlayerSettings"
+    )); 
+
+/*
+ * player settings view
+ */
+Route::post('player-settings/save', array(
+        'as' => "savePlayerSettings",
+        'uses' => "PlayerController@saveSettingsData"
+    )); 
