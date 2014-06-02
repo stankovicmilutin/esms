@@ -1,16 +1,25 @@
 @extends("template/main")
 
+@section("page_title")
+    {{$user->username}}
+@stop
+
+
 @section("container")
         <div class="row">
             <div class="col-md-12">
                 <div id="teamInfo" class="well">
                     <div class="col-md-2">
-                        <img src="img/navi.jpg" alt="Team Logo" class="img-rounded">
+                        @if ($player->avatar)
+                            <img src="{{ $player->avatar }}" alt="{{ $player->name }}" class="img-rounded">
+                        @else
+                            <img src="{{ asset('img/anon.jpg') }}" alt="No photo yet!" class="img-rounded">
+                        @endif
+                        
                     </div>
                     <div class="col-md-10">
                         <h2>{{$user->username}}</h2>
                         <p>{{$player->bio}}</p>
-                        <button type="button" class="btn btn-success">Edit Profile</button>
                     </div>
                     <div class="clearfix"></div>
                     <div class="spacer50"></div>
@@ -23,11 +32,11 @@
                             </tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-child"></i>Full Name: </td>
-                                <td>{{$player->name}} {{$player->lastname}}</td>
+                                <td>{{$player->name}} {{$player->last_name}}</td>
                             </tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-trophy"></i>Team: </td>
-                                <td><a href="#">Na'Vi</a></td>
+                                <td><a href="#"></a></td>
                             </tr>
                         </table>
                     </div>
@@ -35,16 +44,16 @@
                         <table class="table">
                             <tr><th></th><th></th></tr>
                             <tr>
-                                <td class="text-info"><i class="fa fa-thumbs-up"></i>Average Kills: </td>
-                                <td>{{$player->kills}}</td>
+                                <td class="text-info"><i class="fa fa-facebook"></i>Facebook: </td>
+                                <td><a href="{{$player->facebook}}">{{$player->facebook}}</a></td>
                             </tr>
                             <tr>
-                                <td class="text-info"><i class="fa fa-thumbs-down"></i>Average Deaths: </td>
-                                <td>{{$player->deaths}}</td>
+                                <td class="text-info"><i class="fa fa-twitter"></i>Twitter: </td>
+                                <td><a href="{{$player->twitter}}">{{$player->twitter}}</a></td>
                             </tr>
                             <tr>
-                                <td class="text-info"><i class="fa fa-shield"></i>Average Assissts: </td>
-                                <td>{{$player->assists}}</td>
+                                <td class="text-info"><i class="fa fa-steam"></i>Webiste: </td>
+                                <td><a href="{{$player->website}}">{{$player->website}}</a></td>
                             </tr>
                         </table>
                     </div>
@@ -60,7 +69,7 @@
                     <h2 class="notopmargin">Latest Matches</h2>
                     <div class="spacer30"></div>
 
-                    <table class="table table-hover esmsTable">
+                    <!--<table class="table table-hover esmsTable">
                         <tr><th>Opponent</th><th>Tournament</th><th>Result</th><th></th></tr>
                         <tr>
                             <td><a href="#">Empire</a></td>
@@ -111,7 +120,7 @@
                             <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
                         </tr>
                     </table>
-                </div>
+                </div>-->
 
             </div>
         </div>

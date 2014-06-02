@@ -21,7 +21,8 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::check())
-                    <li><a href="#">Hello, {{Auth::user()->username }}</a></li>
+                    <li><a href="{{ URL::route('player-profile', Auth::user()->userID) }}">{{Auth::user()->username }}</a></li>
+                    <li><a href="{{ URL::route('playerSettingsView') }}">Settings</a></li>
                     <li><a href="{{URL::route('signout')}}">Sign out</a></li>
                     @else
                         <li><a href="{{ URL::route('register') }}">Register</a></li>

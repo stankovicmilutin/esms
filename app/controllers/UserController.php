@@ -96,9 +96,10 @@ class UserController extends BaseController {
                         $message->to($user->email, $user->username)->subject("Activate your account");
                     });
             
-            
             // Show notification
             if($user){
+                $player = Player::create(array('userID' => $user->userID ));
+
                 return Redirect::route("index")
                         ->with('global-title','Your account has been created!')
                         ->with('global-text','Please activate your account via email you have provided!')
