@@ -81,7 +81,7 @@ Route::group(array('before' => "guest"), function() {
     
 });
 
-
+ 
 /*
  * player profile
  */
