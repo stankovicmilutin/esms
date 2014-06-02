@@ -55,3 +55,12 @@ Route::group(array('before' => "guest"), function() {
         'uses' => "UserController@activate"
     ));
 });
+
+
+/**
+ * player profile
+ */
+Route::get('player/{id}', array(
+        'as' => "player-profile",
+        'uses' => "PlayerController@showProfile"
+    )); 
