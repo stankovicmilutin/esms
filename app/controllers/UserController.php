@@ -57,8 +57,8 @@ class UserController extends BaseController {
             ));
             
             // Send email
-            Mail::send('emails/activate', array('link' => URL::route('activate-account',$code),'username' => $username ), function($message) {
-                        $message->to("lordmilutin@gmail.com", "Nutic")->subject("Activate your account");
+            Mail::send('emails/activate', array('link' => URL::route('activate-account',$code),'username' => $username ), function($message) use ($user) {
+                        $message->to($user->email, $user->username)->subject("Activate your account");
                     });
             
             
@@ -74,7 +74,36 @@ class UserController extends BaseController {
     }
     
     protected function activate($code) {
-        return $code;
+        
+        $user = User::where('code','=',$code)->where('active','=',0);
+        
+        if($user->count()){
+            $user = $user->first();
+       
+            // Set active to 1 
+            $user->active = 1;
+            $user->code = "";
+            
+            if($user->save()){
+                
+                /*
+                 * Player create goes here
+                */
+                return Redirect::route("index")
+                        ->with('global-title','Your account has been activated!')
+                        ->with('global-text','Welcome! </br> Your account is activated and you can proceed to update your profile!')
+                        ->with('global-class','success');
+            }
+            
+        }
+        else{
+        
+            return Redirect::route("index")
+                ->with("global-title","You account was NOT activated")
+                ->with("global-text","We could not activate your account, please contact support.")
+                ->with("global-class","danger");
+        }
+        
     }
     
 }
