@@ -7,8 +7,8 @@
         <title>E-SMS | @yield('page_title')</title>
 
         <!-- Bootstrap -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
+        {{ HTML::style('css/bootstrap.min.css'); }}
+        {{ HTML::style('css/style.css'); }}
 
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -36,7 +36,7 @@
 
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/docs.min.js"></script>
+        {{ HTML::script('js/bootstrap.min.js'); }}
+        {{ HTML::script('js/scrollTo.js'); }}
     </body>
 </html>

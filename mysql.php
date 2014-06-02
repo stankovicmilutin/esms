@@ -46,6 +46,8 @@ if (!$con)
 					`twiter` varchar(80) NULL,
 					`website` varchar(80) NULL,
 					`about` text NULL,
+					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
 					PRIMARY KEY (`teamID`),
 					UNIQUE(`name`,`tag`)
@@ -58,12 +60,14 @@ if (!$con)
 					`userID` bigint(12) NOT NULL,
 					`name` varchar(60) NULL,
 					`last_name` varchar(60) NULL,
-					`nickname` varchar(60) NULL,
 					`teamID` bigint(12) NULL,
-					`facebook` varchar(80) NULL,
-					`skype` varchar(60) NULL,
-					`twiter` varchar(60) NULL,
-					`steam` varchar(60) NULL,
+					`bio` varchar(255) NULL,
+					`country` varchar(255) NULL,
+					`kills` int NULL DEFAULT 0,
+					`deaths` int NULL DEFAULT 0,
+					`assists` int NULL DEFAULT 0,
+					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
 					PRIMARY KEY(`playerID`),
 					FOREIGN KEY(`userID`) REFERENCES esms_users(userID) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -81,6 +85,8 @@ if (!$con)
 					`winnerID` bigint(12) NULL,
 					`second_place` bigint(12) NULL,
 					`third_place` bigint(12) NULL,
+					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
 					PRIMARY KEY(`tournamentID`),
 					FOREIGN KEY(`winnerID`) REFERENCES esms_teams(teamID) ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -90,7 +96,7 @@ if (!$con)
 					DEFAULT CHARACTER SET = utf8
 				");
 
-	mysql_query("CREATE TABLE IF NOT EXISTS `esms_matchs` (
+	mysql_query("CREATE TABLE IF NOT EXISTS `esms_matches` (
 					`matchID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`host` bigint(12) NOT NULL,
 					`guest` bigint(12) NOT NULL,
@@ -98,6 +104,8 @@ if (!$con)
 					`time` TIMESTAMP NULL,
 					`tournamentID` bigint(12) NOT NULL,
 					`tournament_phase` varchar(60) NULL,
+					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
 					PRIMARY KEY(`matchID`),
 					FOREIGN KEY(`host`) REFERENCES esms_teams(teamID) ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -117,6 +125,8 @@ if (!$con)
 					`a` int(5) NULL,
 					`cs` int(5) NULL,
 					`entity` varchar(30) NULL,
+					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
 					PRIMARY KEY(`locID`),
 					FOREIGN KEY(`tournamentID`) REFERENCES esms_tournaments(tournamentID) ON DELETE CASCADE ON UPDATE CASCADE,

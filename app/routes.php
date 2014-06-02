@@ -64,3 +64,12 @@ Route::group(array('before' => "guest"), function() {
     
     
 });
+
+
+/**
+ * player profile
+ */
+Route::get('player/{id}', array(
+        'as' => "player-profile",
+        'uses' => "PlayerController@showProfile"
+    )); 
