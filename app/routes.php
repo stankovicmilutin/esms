@@ -16,11 +16,6 @@ Route::get('/', array(
     'uses' => 'HomeController@index'
 ));
 
-Route::get('login', array(
-    'as' => "login",
-    'uses' => "UserController@login"
-));
-
 
 /*
  *  Unauthenticated group
@@ -30,7 +25,6 @@ Route::group(array('before' => "guest"), function() {
     /*
      *  CSRF protection
      */
-
     Route::group(array('before' => 'csrf'), function() {
         /*
          *  Accept crate account form data
@@ -40,8 +34,14 @@ Route::group(array('before' => "guest"), function() {
             'uses' => "UserController@createAccount"
         ));
         
+        // Accept data for login
+        Route::post('login', array(
+            'as' => "loginData",
+            'uses' => "UserController@loginData"
+        ));
     });
-
+    
+    
     /*
      *  Display create account form
      */
@@ -54,4 +54,13 @@ Route::group(array('before' => "guest"), function() {
         'as' => "activate-account",
         'uses' => "UserController@activate"
     ));
+    
+    
+    Route::get('login', array(
+    'as' => "loginView",
+    'uses' => "UserController@loginView"
+    ));
+    
+    
+    
 });

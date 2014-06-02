@@ -20,8 +20,12 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ URL::route('register') }}">Register</a></li>
-                    <li><a href="{{ URL::route('login') }}">Login</a></li>
+                    @if (Auth::check())
+                    <li><a href="#">Hello, {{Auth::user()->username }}</a></li>
+                    @else
+                        <li><a href="{{ URL::route('register') }}">Register</a></li>
+                        <li><a href="{{ URL::route('loginView') }}">Login</a></li>
+                    @endif
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

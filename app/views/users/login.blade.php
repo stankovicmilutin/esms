@@ -9,16 +9,27 @@ Login
     <div class="col-md-4 col-md-offset-4">
         <div class="formwrap well">
             <h2 class="notopmargin">Login</h2>
-            <form role="form">
+            <form role="form" action="{{ URL::route("loginData") }}" method="post">
                 <div class="form-group">
-                    <label for="emailinput">Email address</label>
-                    <input type="email" class="form-control" id="emailinput" name="emailinput" placeholder="Enter email">
+                    <label for="usernameinput">Username</label>
+                    <input type="username" class="form-control" id="usernameinput" name="username" placeholder="Enter username">
+                    @if($errors->has('username'))
+                     <label class="text-danger" for="inputError">
+                        {{ $errors->first('username')}}
+                    </label>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="pwinput">Password</label>
-                    <input type="password" class="form-control" id="pwinput" name="pwinput" placeholder="Password">
+                    <input type="password" class="form-control" id="pwinput" name="password" placeholder="Password">
+                    @if($errors->has('password'))
+                    <label class="text-danger" for="inputError">
+                        {{ $errors->first('password')}}
+                    </label>    
+                    @endif
                 </div>
                 <button type="submit" class="btn btn-default">Login</button>
+                {{ Form::token() }}
             </form>
         </div>
     </div>

@@ -14,8 +14,41 @@ class UserController extends BaseController {
       |
      */
 
-    public function login() {
+    public function loginView() {
         return View::make("users/login");
+    }
+    
+    public function loginData(){
+        
+        $validator  = Validator::make(Input::all(), array(
+            'username' =>'required',
+            'password' =>'required'
+        ));
+        
+        if ($validator->fails()){
+            //redirect to login page
+            return Redirect::route('loginView')
+                    ->withErrors($validator);
+        }
+        else{
+            // Login
+            $auth = Auth::attempt(array(
+                'username' => input::get('username'),
+                'password' => input::get('password'),
+                'active' => 1
+            ));
+           
+            if($auth){
+                // Redirect to the intended page
+                return Redirect::intended("/");
+            }
+        }
+        // If all fails show notification
+        return Redirect::route('loginView')
+                ->with('global-title',"An error occured")
+                ->with('global-text',"Wrong username/password combination or account not activated")
+                ->with('global-class',"danger");
+        
     }
 
     public function register() {
@@ -73,7 +106,7 @@ class UserController extends BaseController {
         }
     }
     
-    protected function activate($code) {
+    public function activate($code) {
         
         $user = User::where('code','=',$code)->where('active','=',0);
         
