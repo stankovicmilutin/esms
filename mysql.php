@@ -61,6 +61,7 @@ if (!$con)
 					`name` varchar(60) NULL,
 					`last_name` varchar(60) NULL,
 					`teamID` bigint(12) NULL,
+					`avatar` varchar(255) NULL,
 					`bio` varchar(255) NULL,
 					`country` varchar(255) NULL,
 					`facebook` varchar(80) NULL,

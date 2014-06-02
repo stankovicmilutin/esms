@@ -92,3 +92,19 @@ Route::get('player/{id}', array(
         'as' => "player-profile",
         'uses' => "PlayerController@showProfile"
     )); 
+
+/**
+ * player settings view
+ */
+Route::get('player-settings', array(
+        'as' => "playerSettingsView",
+        'uses' => "PlayerController@showPlayerSettings"
+    )); 
+
+/*
+ * player settings view
+ */
+Route::post('player-settings/save', array(
+        'as' => "savePlayerSettings",
+        'uses' => "PlayerController@saveSettingsData"
+    )); 

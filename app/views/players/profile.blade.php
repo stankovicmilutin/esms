@@ -1,11 +1,21 @@
 @extends("template/main")
 
+@section("page_title")
+    {{$user->username}}
+@stop
+
+
 @section("container")
         <div class="row">
             <div class="col-md-12">
                 <div id="teamInfo" class="well">
                     <div class="col-md-2">
-                        <img src="img/navi.jpg" alt="Team Logo" class="img-rounded">
+                        @if ($player->avatar)
+                            <img src="{{ $player->avatar }}" alt="{{ $player->name }}" class="img-rounded">
+                        @else
+                            <img src="{{ asset('img/anon.jpg') }}" alt="No photo yet!" class="img-rounded">
+                        @endif
+                        
                     </div>
                     <div class="col-md-10">
                         <h2>{{$user->username}}</h2>
@@ -22,7 +32,7 @@
                             </tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-child"></i>Full Name: </td>
-                                <td>{{$player->name}} {{$player->lastname}}</td>
+                                <td>{{$player->name}} {{$player->last_name}}</td>
                             </tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-trophy"></i>Team: </td>
@@ -35,15 +45,15 @@
                             <tr><th></th><th></th></tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-facebook"></i>Facebook: </td>
-                                <td>{{$player->kills}}</td>
+                                <td><a href="{{$player->facebook}}">{{$player->facebook}}</a></td>
                             </tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-twitter"></i>Twitter: </td>
-                                <td>{{$player->deaths}}</td>
+                                <td><a href="{{$player->twitter}}">{{$player->twitter}}</a></td>
                             </tr>
                             <tr>
-                                <td class="text-info"><i class="fa fa-steam"></i>Steam: </td>
-                                <td>{{$player->assists}}</td>
+                                <td class="text-info"><i class="fa fa-steam"></i>Webiste: </td>
+                                <td><a href="{{$player->website}}">{{$player->website}}</a></td>
                             </tr>
                         </table>
                     </div>
