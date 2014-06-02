@@ -1,3 +1,11 @@
+body {
+	background-image: url('../img/bg.jpg');
+	background-position: 0 0;
+	background-size: cover;
+	background-attachment: fixed;
+
+}
+
 #teamInfo h2, .notopmargin {
 	margin-top: 0;
 }
@@ -43,4 +51,16 @@ p.bg-primary
 
 #teamInfo i.fa {
 	margin-right: 10px;
+}
+
+.tournCover {
+	background-size: cover;
+}
+
+.tournamentPlayoff {
+	overflow-x: scroll; 
+}
+
+.matchBox {
+	width: 300px;
 }
