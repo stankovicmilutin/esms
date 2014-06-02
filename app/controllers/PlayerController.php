@@ -9,10 +9,8 @@ class PlayerController extends BaseController {
     {
         $user = User::find($id);
 
-        if (!$user) {
-        	var_dump("baci 404 gresku, user sa ovim id-jem ne postoji");
-        	return;
-        }
+        if (!$user)
+        	App::abort(404);
 
         $player = $user->player;
         

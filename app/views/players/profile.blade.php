@@ -10,7 +10,6 @@
                     <div class="col-md-10">
                         <h2>{{$user->username}}</h2>
                         <p>{{$player->bio}}</p>
-                        <button type="button" class="btn btn-success">Edit Profile</button>
                     </div>
                     <div class="clearfix"></div>
                     <div class="spacer50"></div>
@@ -27,7 +26,7 @@
                             </tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-trophy"></i>Team: </td>
-                                <td><a href="#">Na'Vi</a></td>
+                                <td><a href="#"></a></td>
                             </tr>
                         </table>
                     </div>
@@ -35,15 +34,15 @@
                         <table class="table">
                             <tr><th></th><th></th></tr>
                             <tr>
-                                <td class="text-info"><i class="fa fa-thumbs-up"></i>Average Kills: </td>
+                                <td class="text-info"><i class="fa fa-facebook"></i>Facebook: </td>
                                 <td>{{$player->kills}}</td>
                             </tr>
                             <tr>
-                                <td class="text-info"><i class="fa fa-thumbs-down"></i>Average Deaths: </td>
+                                <td class="text-info"><i class="fa fa-twitter"></i>Twitter: </td>
                                 <td>{{$player->deaths}}</td>
                             </tr>
                             <tr>
-                                <td class="text-info"><i class="fa fa-shield"></i>Average Assissts: </td>
+                                <td class="text-info"><i class="fa fa-steam"></i>Steam: </td>
                                 <td>{{$player->assists}}</td>
                             </tr>
                         </table>
@@ -60,7 +59,7 @@
                     <h2 class="notopmargin">Latest Matches</h2>
                     <div class="spacer30"></div>
 
-                    <table class="table table-hover esmsTable">
+                    <!--<table class="table table-hover esmsTable">
                         <tr><th>Opponent</th><th>Tournament</th><th>Result</th><th></th></tr>
                         <tr>
                             <td><a href="#">Empire</a></td>
@@ -111,7 +110,7 @@
                             <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
                         </tr>
                     </table>
-                </div>
+                </div>-->
 
             </div>
         </div>
