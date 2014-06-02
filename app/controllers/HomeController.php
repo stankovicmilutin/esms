@@ -22,9 +22,4 @@ class HomeController extends BaseController {
                 });
 		return View::make("template/main");
 	}
-
-	/*
-	zdravo milutine kako ste
-	 */
-       
 }

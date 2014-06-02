@@ -1,0 +1,46 @@
+#teamInfo h2, .notopmargin {
+	margin-top: 0;
+}
+
+p.bg-primary
+{
+	padding: 15px;
+}
+
+.formwrap {
+	margin-top: 100px;
+}
+
+.esmsTable table, .esmsTable tr, .esmsTable th {
+	text-align: center;
+}
+
+
+.esmsTable tr, .esmsTable, th {
+	border-bottom: 1px solid #ccc;
+}
+
+
+.esmsTable td {
+	vertical-align: middle;	
+}
+
+.teamStats {
+	margin-top: 30px;
+}
+
+.spacer50 {
+	height: 50px;
+}
+
+.spacer30 {
+	height: 30px;
+}
+
+#teamInfo table {
+	font-size: 20px;
+}
+
+#teamInfo i.fa {
+	margin-right: 10px;
+}
