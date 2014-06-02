@@ -49,4 +49,9 @@ Route::group(array('before' => "guest"), function() {
         'as' => "register",
         'uses' => "UserController@register"
     ));
+    
+    Route::get('activate/{code}',array(
+        'as' => "activate-account",
+        'uses' => "UserController@activate"
+    ));
 });

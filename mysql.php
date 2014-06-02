@@ -27,8 +27,8 @@ if (!$con)
 					`email` varchar(80) NOT NULL,
 					`code` varchar(80) NOT NULL,
 					`active` int(1) NOT NULL,
-					`created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-					`updated` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 					`remember_token` varchar(100) NULL,
 					
 					PRIMARY KEY(`userID`),

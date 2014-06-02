@@ -18,9 +18,21 @@
     <body>
 
         @include('template/nav')
+                
+        <div class="container">
+            @if( Session::has('global-text'))            
+            <div class="panel panel-{{ Session::get('global-class') }}">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ Session::get('global-title') }}</h3>
+                </div>
+                <div class="panel-body">
+                    {{ Session::get('global-text') }}
+                </div>
+            </div>
+        @endif
+            @yield('container')
         
-        @yield('content')
-
+        </div>
 
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

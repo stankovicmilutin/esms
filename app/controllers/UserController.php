@@ -40,8 +40,41 @@ class UserController extends BaseController {
                     ->withInput();
         }
         else {
-            echo "GZ";
+            
+            $username = Input::get('username');
+            $email = Input::get('email');
+            $password = Input::get('password');
+            
+            // Activation code
+            $code = str_random(60);
+            
+            $user = User::create(array(
+                'username' => $username,
+                'email' => $email,
+                'password' => Hash::make($password),
+                'code' => $code,
+                'active' => 0
+            ));
+            
+            // Send email
+            Mail::send('emails/activate', array('link' => URL::route('activate-account',$code),'username' => $username ), function($message) {
+                        $message->to("lordmilutin@gmail.com", "Nutic")->subject("Activate your account");
+                    });
+            
+            
+            // Show notification
+            if($user){
+                return Redirect::route("index")
+                        ->with('global-title','Your account has been created!')
+                        ->with('global-text','Please activate your account via email you have provided!')
+                        ->with('global-class','success');
+            }
+            
         }
     }
-
+    
+    protected function activate($code) {
+        return $code;
+    }
+    
 }
