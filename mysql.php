@@ -63,9 +63,9 @@ if (!$con)
 					`teamID` bigint(12) NULL,
 					`bio` varchar(255) NULL,
 					`country` varchar(255) NULL,
-					`kills` int NULL DEFAULT 0,
-					`deaths` int NULL DEFAULT 0,
-					`assists` int NULL DEFAULT 0,
+					`kills` float(5,2) NULL DEFAULT 0,
+					`deaths` float(5,2) NULL DEFAULT 0,
+					`assists` float(5,2) NULL DEFAULT 0,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 

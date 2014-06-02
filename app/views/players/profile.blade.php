@@ -8,8 +8,8 @@
                         <img src="img/navi.jpg" alt="Team Logo" class="img-rounded">
                     </div>
                     <div class="col-md-10">
-                        <h2>Player Name</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                        <h2>{{$user->username}}</h2>
+                        <p>{{$player->bio}}</p>
                         <button type="button" class="btn btn-success">Edit Profile</button>
                     </div>
                     <div class="clearfix"></div>
@@ -19,11 +19,11 @@
                             <tr><th></th><th></th></tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-flag"></i>Country: </td>
-                                <td>Ukraine</td>
+                                <td>{{$player->country}}</td>
                             </tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-child"></i>Full Name: </td>
-                                <td>Danil Ishutin</td>
+                                <td>{{$player->name}} {{$player->lastname}}</td>
                             </tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-trophy"></i>Team: </td>
@@ -36,15 +36,15 @@
                             <tr><th></th><th></th></tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-thumbs-up"></i>Average Kills: </td>
-                                <td>100</td>
+                                <td>{{$player->kills}}</td>
                             </tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-thumbs-down"></i>Average Deaths: </td>
-                                <td>100</td>
+                                <td>{{$player->deaths}}</td>
                             </tr>
                             <tr>
                                 <td class="text-info"><i class="fa fa-shield"></i>Average Assissts: </td>
-                                <td>100</td>
+                                <td>{{$player->assists}}</td>
                             </tr>
                         </table>
                     </div>
