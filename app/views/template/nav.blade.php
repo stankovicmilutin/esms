@@ -13,7 +13,7 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="{{ URL::route('index') }}">Home</a></li>
                     <li><a href="#">Tournaments</a></li>
-                    <li><a href="#">Teams</a></li>
+                    <li><a href="{{ URL::route('teams') }}">Teams</a></li>
                     <li><a href="#">Players</a></li>
                     <li><a href="#">Blog</a></li>
                     <li><a href="#">Contact</a></li>

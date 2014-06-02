@@ -20,7 +20,6 @@ Route::get('/', array(
 /*
  *  Authenticated group
  */
-
 Route::group(array('before' =>"auth"),function(){
     /*
     *  Sign out
@@ -32,8 +31,6 @@ Route::group(array('before' =>"auth"),function(){
     ));
     
 });
-
-
 
 
 /*
@@ -85,10 +82,25 @@ Route::group(array('before' => "guest"), function() {
 });
 
 
-/**
+/*
  * player profile
  */
 Route::get('player/{id}', array(
         'as' => "player-profile",
         'uses' => "PlayerController@showProfile"
     )); 
+
+
+/*
+ *  Team related routes
+ */
+
+Route::get('teams',array(
+    'as' => 'teams',
+    'uses' => "TeamController@allTeams"
+));
+
+Route::get('team/{id}',array(
+    'as' => 'team',
+    'uses' => "TeamController@teamProfile"
+));
