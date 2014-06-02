@@ -15,9 +15,6 @@
                 <h2>[{{ $team->tag }}] {{ $team->name }}</h2>
                 <p>{{ $team->about }}</p>
             </div>
-            <pre>
-                {{ print_r( $team->getPlayers() ) }}
-            </pre>
             <div class="clearfix"></div>
             <div class="spacer50"></div>
             <div class="col-md-6">
@@ -65,31 +62,15 @@
             <div class="spacer30"></div>
             <table class="table table-hover esmsTable">
                 <tr><th>Name</th><th>Position</th><th><abbr title="Kills / Deaths / Assissts Ratio" class="initialism">K / D / A</abbr></th></tr>
+                @foreach ($team->getPlayers() as $player)
                 <tr>
-                    <td><strong><a href="#">Dendi (c)</a></strong><br/>Danil Ishutin</td>
+                    <td><strong><a href="{{ URL::route('player-profile',$player->playerID) }}">{{$player->name }}</a></strong>
+                        <br/>{{ $player->name, " ", $player->last_name }}
+                    </td>
                     <td>Mid</td>
                     <td>6.4 / 1.8 / 9.2</td>
                 </tr>
-                <tr>
-                    <td><strong><a href="#">Dendi</a></strong><br/>Danil Ishutin</td>
-                    <td>Mid</td>
-                    <td>6.4 / 1.8 / 9.2</td>
-                </tr>
-                <tr>
-                    <td><strong><a href="#">Dendi</a></strong><br/>Danil Ishutin</td>
-                    <td>Mid</td>
-                    <td>6.4 / 1.8 / 9.2</td>
-                </tr>
-                <tr>
-                    <td><strong><a href="#">Dendi</a></strong><br/>Danil Ishutin</td>
-                    <td>Mid</td>
-                    <td>6.4 / 1.8 / 9.2</td>
-                </tr>
-                <tr>
-                    <td><strong><a href="#">Dendi</a></strong><br/>Danil Ishutin</td>
-                    <td>Mid</td>
-                    <td>6.4 / 1.8 / 9.2</td>
-                </tr>
+                @endforeach
             </table>
         </div>
 

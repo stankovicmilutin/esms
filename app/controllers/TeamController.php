@@ -19,12 +19,10 @@ class TeamController extends BaseController {
     public function teamProfile($id){
         
         $team = Team::find($id);
-        
-        $players = Players::where("teamID","=",$team->teamID);
+      
         
         return View::make("teams/team",array(
-            "team" => $team,
-            "players" => $players
+            "team" => $team
             ));
     }
     
