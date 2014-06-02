@@ -90,6 +90,7 @@ Route::get('player/{id}', array(
         'uses' => "PlayerController@showProfile"
     )); 
 
+<<<<<<< HEAD
 
 /*
  *  Team related routes
@@ -104,6 +105,8 @@ Route::get('team/{id}',array(
     'as' => 'team',
     'uses' => "TeamController@teamProfile"
 ));
+=======
+>>>>>>> 4605b1b0b128d74e546cb2959f133a4ebb1d1964
 /**
  * player settings view
  */
@@ -118,4 +121,8 @@ Route::get('player-settings', array(
 Route::post('player-settings/save', array(
         'as' => "savePlayerSettings",
         'uses' => "PlayerController@saveSettingsData"
+<<<<<<< HEAD
     )); 
+=======
+    )); 
+>>>>>>> 4605b1b0b128d74e546cb2959f133a4ebb1d1964
