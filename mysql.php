@@ -25,6 +25,7 @@ if (!$con)
 					`password` varchar(80) NOT NULL,
 					`temp_password` varchar(80) NULL,
 					`email` varchar(80) NOT NULL,
+                                        `level` int(2) NOT NULL DEFAULT 1,
 					`code` varchar(80) NOT NULL,
 					`active` int(1) NOT NULL,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -85,12 +86,13 @@ if (!$con)
 	mysql_query("ALTER TABLE `esms_teams` ADD FOREIGN KEY (`captain`) REFERENCES esms_players(playerID) ");
 
 	mysql_query("CREATE TABLE IF NOT EXISTS `esms_tournaments` (
-					`tournamentID` bigint(12) NOT NULL,
+					`tournamentID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`starting` TIMESTAMP NOT NULL,
 					`max_teams` int(5) NULL,
 					`name` varchar(255) NULL,
 					`prizepool` varchar(255) NULL,
 					`reg_open` int(1) NULL,
+                                        `type` varchar(20) NOT NULL,
 					`winnerID` bigint(12) NULL,
 					`second_place` bigint(12) NULL,
 					`third_place` bigint(12) NULL,
