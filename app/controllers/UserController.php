@@ -98,7 +98,7 @@ class UserController extends BaseController {
             
             // Show notification
             if($user){
-                $player = Player::create(array('userID' => $user->userID ));
+               
 
                 return Redirect::route("index")
                         ->with('global-title','Your account has been created!')
@@ -123,11 +123,13 @@ class UserController extends BaseController {
             if($user->save()){
                 
                 /*
-                 * Player create goes here
+                 * Player create 
                 */
+                $player = Player::create(array('userID' => $user->userID ));
+                
                 return Redirect::route("index")
                         ->with('global-title','Your account has been activated!')
-                        ->with('global-text','Welcome! </br> Your account is activated and you can proceed to update your profile!')
+                        ->with('global-text','Welcome! </br> Your account is activated and your Player profile has been created. Please go and update them!')
                         ->with('global-class','success');
             }
             
