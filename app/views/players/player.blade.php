@@ -1,7 +1,7 @@
 @extends("template/main")
 
 @section("page_title")
-    {{$user->username}}
+    {{$player->nick}}
 @stop
 
 
@@ -18,7 +18,7 @@
                         
                     </div>
                     <div class="col-md-10">
-                        <h2>{{$user->username}}</h2>
+                        <h2>{{$player->nick}}</h2>
                         <p>{{$player->bio}}</p>
                     </div>
                     <div class="clearfix"></div>

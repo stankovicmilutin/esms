@@ -67,7 +67,7 @@
                     <td><strong><a href="{{ URL::route('player-profile',$player->playerID) }}">{{$player->nick }}</a></strong>
                         <br/>{{ $player->name, " ", $player->last_name }}
                     </td>
-                    <td>Mid</td>
+                    <td>{{$player->position}}</td>
                     <td>6.4 / 1.8 / 9.2</td>
                 </tr>
                 @endforeach
