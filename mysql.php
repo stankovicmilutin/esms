@@ -66,6 +66,7 @@ if (!$con)
 					`nick` varchar(100) NULL,
 					`teamID` bigint(12) NULL,
 					`avatar` varchar(255) NULL,
+					`position` varchar(255) NULL,
 					`bio` text NULL,
 					`country` varchar(255) NULL,
 					`facebook` varchar(80) NULL,

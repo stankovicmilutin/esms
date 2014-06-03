@@ -14,7 +14,7 @@ class PlayerController extends BaseController {
 
         $player = $user->player;
         
-        return View::make("players/profile", array('user' => $user, 'player' => $player));
+        return View::make("players/player", array('user' => $user, 'player' => $player));
     }
 
 
