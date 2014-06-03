@@ -32,6 +32,29 @@ Route::group(array('before' =>"auth"),function(){
     
 });
 
+/*
+ *  ADMIN routes
+ */
+
+Route::group(array('before' => "admin"), function(){
+    
+    Route::get('admin/dashboard', array(
+        "as" => "adminDashboard",
+        "uses" => "AdminController@dashboard"
+    ));
+    
+    Route::get('admin/new-tournament', array(
+        "as" => "adminNewTournament",
+        "uses" => "AdminController@newTournamentView"
+    ));
+    
+    Route::post('admin/new-tournament',array(
+       "as" => "adminNewTournament",
+        "uses" => "AdminController@newTournamentData"
+    ));
+    
+});
+
 
 /*
  *  Unauthenticated group

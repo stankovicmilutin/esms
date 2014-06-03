@@ -11,8 +11,8 @@ class TeamController extends BaseController {
         
         $teams = Team::paginate(5);
 
-                
-        return View::make("teams/teams", array('teams' => $teams));
+       return Auth::user()->level;         
+     //   return View::make("teams/teams", array('teams' => $teams));
     }
     
     
