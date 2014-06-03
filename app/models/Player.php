@@ -10,4 +10,11 @@ class Player extends Eloquent {
         return $this->belongsTo('User', 'userID', 'userID');
     }
 
+    public static function playersWithTeams() {
+		return DB::table('players')
+            ->join('teams', 'players.teamID', '=', 'teams.teamID')
+            ->select('players.*', 'teams.name as teamName')
+            ->paginate(15);
+    }
+
 }

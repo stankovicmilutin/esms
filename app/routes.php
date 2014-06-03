@@ -106,14 +106,6 @@ Route::group(array('before' => "guest"), function() {
 
  
 /*
- * player profile
- */
-Route::get('player/{id}', array(
-        'as' => "player-profile",
-        'uses' => "PlayerController@showProfile"
-    )); 
-
-/*
  *  Team related routes
  */
 
@@ -128,6 +120,16 @@ Route::get('team/{id}',array(
 ));
 
 
+
+/**
+ * player profile
+ */
+Route::get('player/{id}', array(
+        'as' => "player-profile",
+        'uses' => "PlayerController@showProfile"
+    )); 
+
+
 /**
  * player settings view
  */
@@ -136,8 +138,17 @@ Route::get('player-settings', array(
         'uses' => "PlayerController@showPlayerSettings"
     )); 
 
-/*
- * player settings view
+/**
+ * all player list
+ */
+Route::get('players', array(
+        'as' => "players",
+        'uses' => "PlayerController@allTeams"
+    )); 
+
+
+/**
+ * player settings save post
  */
 Route::post('player-settings/save', array(
         'as' => "savePlayerSettings",

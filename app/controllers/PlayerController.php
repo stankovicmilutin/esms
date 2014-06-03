@@ -35,11 +35,13 @@ class PlayerController extends BaseController {
 		$currentPlayer = $currentUser->player; 
 
 		$currentPlayer->name = Input::get('name');
+		$currentPlayer->nick = Input::get('nick');
 		$currentPlayer->last_name = Input::get('lastname');
 		$currentPlayer->bio = Input::get('about');
+		$currentPlayer->position = Input::get('position');
 		$currentPlayer->country = Input::get('country');
 		$currentPlayer->facebook = Input::get('fbpro');
-		$currentPlayer->twiter = Input::get('twpro');
+		$currentPlayer->twitter = Input::get('twpro');
 		$currentPlayer->website = Input::get('weblink');
 
 		//DOPRAVI VALIDACIJU ZA SLIKE
@@ -61,5 +63,11 @@ class PlayerController extends BaseController {
             ->with('global-title','Saving complete')
 	        ->with('global-text','Your profile info has been saved!')
 	        ->with('global-class','success');
+    }
+
+    public function allTeams() {
+    	$players = Player::playersWithTeams();
+
+        return View::make("players/players", array('players' => $players));    	
     }
 }

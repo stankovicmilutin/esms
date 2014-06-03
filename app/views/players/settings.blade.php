@@ -26,6 +26,15 @@
                             <input name="image" id="image" type="file" />
                         </div>
                         <div class="form-group">
+                            <label for="nick">Nick:</label>
+                            <input type="text" class="form-control" id="nick" name="nick" placeholder="Enter Nickname" value="{{$player->nick}}" >
+                            @if($errors->has('email'))
+                            <label class="text-danger" for="nick">
+                                {{ $errors->first('email') }}
+                            </label>
+                            @endif 
+                        </div>
+                        <div class="form-group">
                             <label for="usernameinput">Name:</label>
                             <input type="text" class="form-control" id="usernameinput" name="name" placeholder="Enter Firstname" value="{{$player->name}}" >  
                             @if($errors->has('username'))
@@ -39,6 +48,15 @@
                             <input type="text" class="form-control" id="emailinput" name="lastname" placeholder="Enter Lastname" value="{{$player->lastname}}" >
                             @if($errors->has('email'))
                             <label class="text-danger" for="inputError">
+                                {{ $errors->first('email') }}
+                            </label>
+                            @endif 
+                        </div>
+                        <div class="form-group">
+                            <label for="nick">Position:</label>
+                            <input type="text" class="form-control" id="position" name="position" placeholder="Enter Position" value="{{$player->position}}" >
+                            @if($errors->has('email'))
+                            <label class="text-danger" for="nick">
                                 {{ $errors->first('email') }}
                             </label>
                             @endif 

@@ -9,7 +9,7 @@ class TeamController extends BaseController {
     public function allTeams(){
         
         
-        $teams = Team::paginate(5);
+        $teams = Team::paginate(15);
 
        return Auth::user()->level;         
      //   return View::make("teams/teams", array('teams' => $teams));
