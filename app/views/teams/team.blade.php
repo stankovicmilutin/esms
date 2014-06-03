@@ -22,11 +22,11 @@
                     <tr><th></th><th></th></tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-flag"></i>Country: </td>
-                        <td>Ukraine</td>
+                        <td>{{$team->country}}</td>
                     </tr>
                     <tr>
-                        <td class="text-info"><i class="fa fa-calendar"></i>Founded: </td>
-                        <td>1996</td>
+                        <td class="text-info"><i class="fa fa-calendar"></i>Website: </td>
+                        <td>{{$team->website}}</td>
                     </tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-trophy"></i>Top Result: </td>
