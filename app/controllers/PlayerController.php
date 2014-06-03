@@ -26,7 +26,11 @@ class PlayerController extends BaseController {
 		$currentUser = Auth::user();
 		$currentPlayer = $currentUser->player;
 
-        return View::make("players/settings", array('user' => $currentUser, 'player' => $currentPlayer));
+		$team = null;
+		if ($currentPlayer->teamID)
+			$team = Team::find($currentPlayer->teamID);
+
+        return View::make("players/settings", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team));
     }   
 
     public function saveSettingsData() {
@@ -111,10 +115,9 @@ class PlayerController extends BaseController {
 				$filename = str_random(12) . '.' . $file->getClientOriginalExtension(); 
 				$extension = $file->getClientOriginalExtension();
 
-				$currentPlayer->avatar = asset('uploads/' . $filename);
-
 			    $file->move($destinationPath, $filename);
 			}
+
 
             $newTeam = Team::create(array(
                 'name' => Input::get('teamname'),

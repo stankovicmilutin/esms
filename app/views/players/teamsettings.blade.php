@@ -316,5 +316,5 @@
         	<button type="submit" class="btn btn-primary">Create New Team</button>
         {{ Form::close()}}
 @else
-	<p>Your Team bruv</p>
+	<p>{{$team->name}}</p>
 @endif
