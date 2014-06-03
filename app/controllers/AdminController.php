@@ -8,7 +8,10 @@ class AdminController extends BaseController {
     }
     
     public function allTournaments(){
-        // Same as public profile for tournaments
+        
+        $tournaments = Tournament::paginate(10);
+        
+        return View::make("admin/alltournaments", array("tournaments" => $tournaments) );
     }
     
     public function newTournamentView(){

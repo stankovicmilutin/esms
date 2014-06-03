@@ -53,6 +53,11 @@ Route::group(array('before' => "admin"), function(){
         "uses" => "AdminController@newTournamentData"
     ));
     
+    Route::get('admin/all-tournaments', array(
+       "as" => "adminAllTournaments",
+       "uses"=> "AdminController@allTournaments"
+    ));
+    
 });
 
 
