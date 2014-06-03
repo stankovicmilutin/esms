@@ -131,3 +131,12 @@ Route::post('player-settings/save', array(
         'as' => "savePlayerSettings",
         'uses' => "PlayerController@saveSettingsData"
 ));
+
+
+/**
+ * player create new team post
+ */
+Route::post('player-settings/new-team', array(
+        'as' => "createNewTeam",
+        'uses' => "PlayerController@newTeamData"
+));

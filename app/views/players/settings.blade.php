@@ -63,7 +63,7 @@
                         </div>
                         <div class="form-group">
                             <label for="about">About</label>
-                            <textarea type="password" class="form-control" id="about" name="about" placeholder="Enter few lines about yourself.">{{$player->bio}}</textarea>
+                            <textarea class="form-control" id="about" name="about" placeholder="Enter few lines about yourself.">{{$player->bio}}</textarea>
                             @if($errors->has('password'))
                             <label class="text-danger" for="inputError">
                                 {{ $errors->first('password') }}
@@ -350,7 +350,9 @@
                     {{ Form::close() }}              
                   </div>
 
-                  <div class="tab-pane" id="teams"></div>
+                  <div class="tab-pane" id="teams">
+                    @include('players/teamsettings')
+                  </div>
                   <div class="tab-pane" id="account">asdsa</div>
                 </div>
                 </div>
