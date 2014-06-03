@@ -4,7 +4,7 @@ class Tournament extends Eloquent{
     
     protected $primaryKey = "tournamentID";
     protected $table = "tournaments";
-    protected $fillable = array("starting","max_teams","name","prizepool","reg_open","winnerID","second_place","third_place");
+    protected $fillable = array("starting","max_teams","name","prizepool","type","reg_open","winnerID","second_place","third_place");
 
     public function open(){
         $this->reg_open = 1;

@@ -37,18 +37,33 @@ New Tournament
                 <label for="name" class="col-lg-3 control-label">Name</label>
                 <div class="col-lg-8">
                     <input type="text" class="form-control" id="name" placeholder="Tournament name" required name="name" {{ (Input::old('name')) ? ' value="'.e(Input::old('name')).'"' : '' }} >
+                 @if($errors->has('name'))
+                    <label class="text-danger" for="inputError">
+                        {{ $errors->first('name') }}
+                    </label>
+                @endif 
                 </div>
             </div>
             <div class="form-group">
                 <label for="prize" class="col-lg-3 control-label">Prize poll</label>
                 <div class="col-lg-8">
                     <input type="text" class="form-control" id="prize" placeholder="Total prize" name="prize" {{ (Input::old('prize')) ? ' value="'.e(Input::old('prize')).'"' : '' }} >
+                @if($errors->has('name'))
+                    <label class="text-danger" for="inputError">
+                        {{ $errors->first('prize') }}
+                    </label>
+                @endif 
                 </div>
             </div>
             <div class="form-group">
-                <label for="starts" class="col-lg-3 control-label">Starts</label>
+                <label for="starts" class="col-lg-3 control-label">Starting</label>
                 <div class="col-lg-8">
-                    <input type="text" class="form-control" id="starts" placeholder="Starting date in 28/12/2014 format" required name="starts" {{ (Input::old('starts')) ? ' value="'.e(Input::old('starts')).'"' : '' }} >
+                    <input type="text" class="form-control" id="starts" placeholder="Starting date in 28-12-2014 format" required name="starting" {{ (Input::old('starting')) ? ' value="'.e(Input::old('starting')).'"' : '' }} >
+                 @if($errors->has('starting'))
+                    <label class="text-danger" for="inputError">
+                        {{ $errors->first('starting') }}
+                    </label>
+                @endif 
                 </div>
             </div>
             <div class="form-group">

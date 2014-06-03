@@ -18,24 +18,28 @@ class AdminController extends BaseController {
     public function newTournamentData(){
         
         $validator = Validator::make(Input::all(), array(
-                    'max-teams' => "required|",
-                    'name' => "required|max:80|min:4|unique:tournaments",
-                    'starts' => "required"
+                    'max-teams' => "required",
+                    'name' => "required|max:80|min:3|unique:tournaments",
+                    'starting' => "required"
                     ));
         
         if ($validator->fails()){
              return Redirect::route('adminNewTournament')
                     ->withErrors($validator);
+          
         }
         else{
-            
+           
+            if ( input::get('type') == "league") $type="League System";
+            if ( input::get('type') == "knockout") $type="Knockout system";
+           
             $maxTeams = input::get('max-teams');
-            $starting = input::get('starts');
+            $starting = date("Y-m-d",  strtotime(input::get('starting')));
             $name =  input::get('name');
             $prize = input::get('prize');
-            $type = input::get('type');
             
-            $t = Tournament::create(array(
+            
+            $tournament = Tournament::create(array(
                 'max_teams' => $maxTeams,
                 'starting' => $starting,
                 'name' => $name,
@@ -44,8 +48,20 @@ class AdminController extends BaseController {
                 'reg_open' => 1
             ));
             
-            $t->save();
-            
+           if($tournament){
+	        $tournament->save();
+
+                return Redirect::route('adminNewTournament')
+                        ->with('global-title','Success')
+                        ->with('global-text','You you have successfully created a new tournament.')
+                        ->with('global-class','success');
+            }
+            else {
+                return Redirect::route('adminNewTournament')
+                        ->with('global-title','Tournament couldn\'t be created.' )
+                        ->with('global-text','Internal error, please contact support.')
+                        ->with('global-class','error');            	
+            }  
             
         }
         
