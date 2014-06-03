@@ -62,6 +62,23 @@ Route::group(array('before' => "admin"), function(){
 
 
 /*
+ *  Tournament routes 
+ */
+
+Route::get("/tournaments",array(
+    "as" => "tournaments",
+    "uses" => "TournamentController@allTournaments"
+));
+
+Route::get("/tournament/{id}",array(
+    "as" => "tournament",
+    "uses" => "TournamentController@tournament"
+));
+
+
+
+
+/*
  *  Unauthenticated group
  */
 Route::group(array('before' => "guest"), function() {

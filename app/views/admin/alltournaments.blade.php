@@ -5,21 +5,34 @@ All Tournaments
 @stop
 
 @section("content")
+<?php $i=1; ?>
 <div class="row">
     <div class="col-md-12">
-        <div class="well">
+        <div class="well well-sm">
             <h2 class="notopmargin">All Tournaments</h2>
         </div>
+        <table class="table table-striped table-hover " style="background-color:#222222 ">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tournament name</th>
+                    <th>Total prize</th>
+                    <th>Starting</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($tournaments as $t)
+                <tr>
+                    <td>{{ $i++ }}</td>
+                    <td>{{ $t->name}}</td>
+                    <td>{{  number_format((int)$t->prizepool, 0, ',', ', ')   }} $</td>
+                    <td>{{ date("d. M Y", strtotime($t->starting))}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table> 
 
-        @foreach ($tournaments as $t)
-        <div class="jumbotron tournCover" style="background-image: url('img/tourbg1.jpg');">
-            <h1>{{ $t->name}}</h1>
-            <p>Teams: {{$t->max_teams}}</p>
-            <p>Prize Money: {{$t->prizepool}}</p>
-            <p>Starting: {{ date("d. M Y", strtotime($t->starting))}}</p>
-            <p><a class="btn btn-primary btn-lg" role="button">View Tournament</a></p>
-        </div>
-        @endforeach
+        {{ $tournaments->links() }}
 
     </div>
 </div>

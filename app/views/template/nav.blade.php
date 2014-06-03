@@ -12,7 +12,7 @@
             <div id="navbar-main" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ URL::route('index') }}">Home</a></li>
-                    <li><a href="#">Tournaments</a></li>
+                    <li><a href="{{ URL::route('tournaments') }}">Tournaments</a></li>
                     <li><a href="{{ URL::route('teams') }}">Teams</a></li>
                     <li><a href="{{ URL::route('players') }}">Players</a></li>
                     <li><a href="#">Matches</a></li>

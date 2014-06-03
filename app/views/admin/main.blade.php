@@ -47,7 +47,7 @@
                         <li class="disabled"><a href="#">Disabled</a></li>
                     </ul>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     @yield('content')
                 </div>
                 <div class="col-md-2">
