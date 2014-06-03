@@ -6,7 +6,7 @@ class Team extends Eloquent {
     
     protected $table = 'teams';
     
-    protected $fillable = array ('tag','name','captain','facebook','twiter','website','about' );
+    protected $fillable = array ('tag','name','captain','facebook','twiter','website','about', 'avatar' );
     
     public function getCaptain() 
     {
