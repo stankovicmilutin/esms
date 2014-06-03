@@ -16,7 +16,7 @@ Teams
                 @foreach ($teams as $team)
                 <tr>
                     <td><a href="{{ URL::route('team',$team->teamID) }}">[{{ $team->tag }}]</a></td>
-                    <td><a href="#">{{ $team->name }}</a></td>
+                    <td><a href="{{ URL::route('team',$team->teamID) }}">{{ $team->name }}</a></td>
                     <td class="text-success">100</td>
                     <td class="text-danger">30</td>
                     <td>80%</td>

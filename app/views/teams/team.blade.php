@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div id="teamInfo" class="well">
             <div class="col-md-2">
-                <img src="img/navi.jpg" alt="Team Logo" class="img-rounded">
+                <img src="{{ $team->avatar}}" alt="Team Logo" class="img-rounded">
             </div>
             <div class="col-md-10">
                 <h2>[{{ $team->tag }}] {{ $team->name }}</h2>
@@ -64,7 +64,7 @@
                 <tr><th>Name</th><th>Position</th><th><abbr title="Kills / Deaths / Assissts Ratio" class="initialism">K / D / A</abbr></th></tr>
                 @foreach ($team->getPlayers() as $player)
                 <tr>
-                    <td><strong><a href="{{ URL::route('player-profile',$player->playerID) }}">{{$player->name }}</a></strong>
+                    <td><strong><a href="{{ URL::route('player-profile',$player->playerID) }}">{{$player->nick }}</a></strong>
                         <br/>{{ $player->name, " ", $player->last_name }}
                     </td>
                     <td>Mid</td>
