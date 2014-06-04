@@ -56,6 +56,12 @@ Route::group(array('before' =>"auth"),function(){
         'as' => "editTeamData",
         'uses' => "TeamController@editData"
     ));
+
+    Route::post('teams/edit/{id}/removeplayer',array(
+        'as' => "removePlayerFromTeam",
+        'uses' => "TeamController@removePlayer"
+    ));
+    
     
 });
 

@@ -324,7 +324,45 @@ Team Edit
 
         <button type="submit" class="btn btn-primary">Save Team</button>
         {{ Form::close()}}
+
+        <div class="spacer30"></div>
+        <table class="table">
+        	<tr><th>Player Name</th><th></th></tr>
+
+        	@foreach ($teamPlayers as $teamPlayer)
+        	<tr>
+        		<td><a href="{{$teamPlayer->userID}}" target="_BLANK">{{$teamPlayer->name}}</a></td>
+        		@if ($teamPlayer->userID == $captain->userID)
+        		<td>(you)</td>
+        		@else
+        		<td><button class="removePlayerButton btn btn-danger" data-toggle="modal" data-plid="{{$teamPlayer->playerID}}" data-target="#deletePlayer">Remove Player</button></td>
+        		@endif
+        	</tr>
+        	@endforeach
+        </table>
+
     </div>
 </div>
+</div>
+
+<div class="modal fade" id="deletePlayer" tabindex="-1" role="dialog" aria-labelledby="deletePlayer" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Remove a player</h4>
+      </div>
+      <div class="modal-body">
+        Warning! This action can not be undone. Are you sure that you want to delete this player?
+      </div>
+      <div class="modal-footer">
+        <form action="{{URL::route('removePlayerFromTeam', $team->teamID)}}" method="POST">
+        	<input type="hidden" name="playerForRemove" id="playerForRemove" value="">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        	<button type="submit" class="btn btn-primary">Remove</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 @stop

@@ -32,12 +32,13 @@
                         @endif
                         <li><a href="{{ URL::route('playerSettingsView') }}">Account Settings</a></li>
                         <li class="divider"></li>
+                        @if( Auth::user()->level == 5 )
+                        <li><a href="{{ URL::route('adminDashboard') }}">Admin Dashboard</a></li>
+                        @endif
+                        <li class="divider"></li>
                         <li><a href="{{URL::route('signout')}}">Sign out</a></li>
                     </ul>
                 </li>
-                @if( Auth::user()->level == 5 )
-                <li><a href="{{ URL::route('adminDashboard') }}">Dashboard</a></li>
-                @endif
                 @else
                 <li><a href="{{ URL::route('register') }}">Register</a></li>
                 <li><a href="{{ URL::route('loginView') }}">Login</a></li>

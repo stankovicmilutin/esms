@@ -24,7 +24,7 @@
                 @if ($player->teamID == $team->teamID)
                 <ul class="nav nav-pills">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary">My Team</button>
+                        <button type="button" class="btn btn-primary">Team Options</button>
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             @if ($captain)
