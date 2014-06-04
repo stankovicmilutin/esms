@@ -30,10 +30,12 @@ Route::group(array('before' =>"auth"),function(){
     
     
     // TEAM ROUTES
+    
+    /*za brisanje
     Route::get('teams/my-team', array(
        'as' => 'my-team',
         'uses' => "TeamController@myTeam"
-    ));
+    ));*/
     
     Route::get("teams/create",array(
        'as' => "createNewTeam",
@@ -50,7 +52,10 @@ Route::group(array('before' =>"auth"),function(){
         'uses' => "TeamController@editView"
     ));
     
-    
+    Route::post('teams/edit/{id}',array(
+        'as' => "editTeamData",
+        'uses' => "TeamController@editData"
+    ));
     
 });
 

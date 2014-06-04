@@ -15,9 +15,30 @@
                 <img src="{{ asset('img/anonteam.jpg') }}" alt="No photo yet!" class="img-rounded" height="140">
                 @endif
             </div>
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h2>[{{ $team->tag }}] {{ $team->name }}</h2>
                 <p>{{ $team->about }}</p>
+            </div>
+            <div class="col-md-2">
+                <!-- check if current player is memer of this team -->
+                @if ($player->teamID == $team->teamID)
+                <ul class="nav nav-pills">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary">My Team</button>
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            @if ($captain)
+                            <li><a href="{{ URL::route('editTeamView', $team->teamID) }}">Edit team</a></li>
+                            @endif
+                            <li><a href="#" data-toggle="modal" data-target="#invite-players">Invite players</a></li>
+                            <li><a href="#">Change captain</a></li>
+                            <li><a href="#">Leave team</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Disband team</a></li>
+                        </ul>
+                    </div>              
+                </ul>
+                @endif
             </div>
             <div class="clearfix"></div>
             <div class="spacer50"></div>
@@ -138,5 +159,29 @@
 
     </div>
 </div>
-</div>
+
+<!--invite players modal -->
+@if ($player->teamID == $team->teamID)
+    <div class="modal fade" id="invite-players" tabindex="-1" role="dialog" aria-labelledby="invite-players">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Invite players to {{$team->name}} team</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="player">Search for a player by nickname</label>
+                        <input type="text" class="form-control" id="player" name="player" placeholder="Enter Nickname" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Invite</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
 @stop

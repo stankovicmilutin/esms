@@ -24,12 +24,15 @@
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->username }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ URL::route('player-profile', Auth::user()->userID) }}">Player profile</a></li>
-                        <li><a href="{{ URL::route('my-team') }}">Team profile</a></li>
+                        <li><a href="{{ URL::route('player-profile', Auth::user()->userID) }}">My Profile</a></li>
+                        @if (Auth::user()->player->teamID)
+                        <li><a href="{{ URL::route('team', Auth::user()->player->teamID) }}">My Team</a></li>
+                        @else
+                        <li><a href="{{ URL::route('createNewTeam') }}">My Team</a></li>
+                        @endif
                         <li><a href="{{ URL::route('playerSettingsView') }}">Account Settings</a></li>
-                        <li><a href="{{URL::route('signout')}}">Sign out</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="{{URL::route('signout')}}">Sign out</a></li>
                     </ul>
                 </li>
                 @if( Auth::user()->level == 5 )

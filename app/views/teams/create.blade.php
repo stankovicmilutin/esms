@@ -6,6 +6,21 @@ Create new team
 
 @section("container")
 <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">You have no team</h3>
+            </div>
+            <div class="panel-body">
+                You have no team at the moment. You can join existing one, or create a new one and invite other players! </br>
+                </br>
+                To create a new one, please fill in the form below.</br>
+                </br>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-md-6 col-md-offset-3 ">
         <div class="well">
         {{ Form::open(array('url' => URL::route('createNewTeam'), 'files' => true )) }}
