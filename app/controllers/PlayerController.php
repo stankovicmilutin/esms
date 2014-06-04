@@ -74,4 +74,11 @@ class PlayerController extends BaseController {
         return View::make("players/players", array('players' => $players));
     }
 
+    public function myInvitesView(){
+        $player = Auth::user()->player;
+        $player->getInvites();
+        
+        
+        return View::make("players/myinvites",array("invites" => $player->invites));
+    }
 }

@@ -16,5 +16,11 @@ class Player extends Eloquent {
             ->select('players.*', 'teams.name as teamName')
             ->paginate(15);
     }
+    
+    public function getInvites(){
+        
+        $this->invites = PlayerInvite::getInvites($this->playerID);
+        return $this->invites;
+    }
 
 }
