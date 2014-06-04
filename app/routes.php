@@ -63,6 +63,13 @@ Route::group(array('before' =>"auth"),function(){
     ));
     
     
+    // PLAYER-ONLY ROUTES
+    Route::get("my-invites",array(
+       'as' => "my-invites",
+       'uses' => "PlayerController@myInvitesView"
+    ));
+    
+    
 });
 
 /*

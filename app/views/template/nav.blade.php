@@ -18,9 +18,15 @@
                 <li><a href="{{ URL::route('matches') }}">Matches</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::check())
+                     <?php
+                        $player = Auth::user()->player;
+                        $player->getInvites();
+                    ?>
+                    @if ( count($player->invites) > 0 )
+                    <li><a href="{{ URL::route('my-invites') }}">Invites( {{ count($player->invites) }} )</a></li>
+                    @endif
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->username }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -45,6 +51,6 @@
                 @endif
 
             </ul>
-        </div><!--/.nav-collapse -->
+        </div><!--/.nav-collapse --> 
     </div>
 </div>
