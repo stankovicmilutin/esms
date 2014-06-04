@@ -58,7 +58,7 @@ Team Edit
             <label for="twitter">Twitter:</label>
             <input type="text" class="form-control" id="twitter" name="twitter" placeholder="Enter Twtitter Link" value="{{$team->twitter}}" >
             @if($errors->has('facebook'))
-            <label class="text-twitter" for="twitter">
+            <label class="text-danger" for="twitter">
                 {{ $errors->first('twitter') }}
             </label>
             @endif 
@@ -67,7 +67,7 @@ Team Edit
             <label for="twitter">Website:</label>
             <input type="text" class="form-control" id="website" name="website" placeholder="Enter Website Link" value="{{$team->website}}" >
             @if($errors->has('website'))
-            <label class="text-twitter" for="twitter">
+            <label class="text-danger" for="website">
                 {{ $errors->first('website') }}
             </label>
             @endif 
