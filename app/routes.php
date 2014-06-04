@@ -67,10 +67,15 @@ Route::group(array('before' =>"auth"),function(){
         'uses' => "TeamController@disbandTeam"
     ));    
     
-    // PLAYER-ONLY ROUTES
-    Route::get("my-invites",array(
+    // PLAYER INVITE ROUTES
+    Route::get("player/my-invites",array(
        'as' => "my-invites",
        'uses' => "PlayerController@myInvitesView"
+    ));
+    
+    Route::get("player/answer-invite/{id}/{answer}", array(
+        'as' => 'answerInvitePlayer',
+        'uses' => "PlayerController@answerInvite"
     ));
     
 
