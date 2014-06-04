@@ -142,4 +142,79 @@ class TeamController extends BaseController {
         
          }
     }
+
+    public function editData($id) {
+        $team = Team::find($id);
+        $player = Auth::user()->player;
+
+        if ( $player->teamID == $id && $team->captain == $player->playerID )
+        {
+            $validator = Validator::make(Input::all(), array(
+                        'teamname' => "required|max:80|min:3|unique:teams,name," . $team->name . ",name",
+                        'teamtag' => "required|max:20|min:3",
+                        'image' => "image|mimes:jpeg,bmp,png|max:512",
+                        'twitter' => "url",
+                        'facebook' => "url",
+                        'website' => "url"
+                            )
+            );
+
+            if ($validator->fails()) {
+                return Redirect::route('editTeamView', $id)
+                                // Send errors
+                                ->withErrors($validator)
+                                // Send old inputs
+                                ->withInput();
+            } else {
+                $currentUser = Auth::user();
+                $currentPlayer = $currentUser->player;
+
+                //$filename = null;
+                if (Input::hasFile('image')) {
+                    $file = Input::file('image');
+
+                    $destinationPath = public_path() . '/uploads/';
+                    $filename = str_random(12) . '.' . $file->getClientOriginalExtension();
+                    $extension = $file->getClientOriginalExtension();
+
+                    $file->move($destinationPath, $filename);
+
+                    $team->avatar = $filename;
+                }
+
+
+                $team->name = Input::get('teamname');
+                $team->tag = Input::get('teamtag');
+                //$team->captain = $currentPlayer->playerID,
+                $team->facebook = Input::get('facebook');
+                $team->twitter = Input::get('twitter');
+                $team->website = Input::get('website');
+                $team->about = Input::get('about');
+                $team->country = Input::get('country');
+
+
+                if ($team->save()) {
+                    //$currentPlayer->teamID = $newTeam->teamID;
+                    //$currentPlayer->save();
+
+                    return Redirect::route('editTeamView', $id)
+                                    ->with('global-title', 'Success')
+                                    ->with('global-text', 'Team changes are saved.')
+                                    ->with('global-class', 'success');
+                } else {
+                    return Redirect::route('editTeamView', $id)
+                                    ->with('global-title', 'Team settings couldn\'t be saved.')
+                                    ->with('global-text', 'Internal error, sorry for the inconvenience. Please contact support.')
+                                    ->with('global-class', 'error');
+                }
+            }            
+        }
+        else{
+            return Redirect::route("index")
+                        ->with('global-title', 'Error!')
+                        ->with('global-text', 'You have no permission to edit this team! If you belive this is an error, please contact support!')
+                        ->with('global-class', 'danger');
+        
+        }        
+    }
 }

@@ -52,7 +52,10 @@ Route::group(array('before' =>"auth"),function(){
         'uses' => "TeamController@editView"
     ));
     
-    
+    Route::post('teams/edit/{id}',array(
+        'as' => "editTeamData",
+        'uses' => "TeamController@editData"
+    ));
     
 });
 
