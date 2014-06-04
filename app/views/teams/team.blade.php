@@ -29,12 +29,16 @@
                         <ul class="dropdown-menu">
                             @if ($captain)
                             <li><a href="{{ URL::route('editTeamView', $team->teamID) }}">Edit team</a></li>
-                            @endif
                             <li><a href="#" data-toggle="modal" data-target="#invite-players">Invite players</a></li>
                             <li><a href="#">Change captain</a></li>
+                            @endif
+                            @if (!$captain)
                             <li><a href="#">Leave team</a></li>
+                            @endif
+                            @if ($captain)
                             <li class="divider"></li>
-                            <li><a href="#">Disband team</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#disband-team">Disband team</a></li>
+                            @endif
                         </ul>
                     </div>              
                 </ul>
@@ -160,28 +164,55 @@
     </div>
 </div>
 
-<!--invite players modal -->
 @if ($player->teamID == $team->teamID)
+    <!--invite players modal -->
     <div class="modal fade" id="invite-players" tabindex="-1" role="dialog" aria-labelledby="invite-players">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Invite players to {{$team->name}} team</h4>
+                    <h4 class="modal-title">Invite players to {{$team->name}}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="player">Search for a player by nickname</label>
-                        <input type="text" class="form-control" id="player" name="player" placeholder="Enter Nickname" >
+                        <input type="text" class="form-control" id="playerSearchInvite" name="player" placeholder="Enter Nickname" data-action="{{URL::route('playersLiveSearch')}}"  data-teamid="{{$team->teamID}}">
+                            <ul id="playerSearchResults" class="list-group">
+                              <!--<li class="list-group-item">Cras justo odio</li>-->
+                            </ul>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Invite</button>
                 </div>
             </div>
         </div>
     </div>
+
+
+    @if ($player->playerID == $team->captain)
+    <!--disband team modal -->
+    <div class="modal fade" id="disband-team" tabindex="-1" role="dialog" aria-labelledby="disband-team">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Disband {{$team->name}}</h4>
+                </div>
+                <div class="modal-body">
+                    Warning! This action can not be undone. Disbanding will remove all players from this team, including you!
+                </div>
+                <div class="modal-footer">
+                <form method="post" action="{{URL::route('disbandTeamData', $team->teamID)}}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Disband</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>    
+    @endif
 @endif
+
 
 @stop

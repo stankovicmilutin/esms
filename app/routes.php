@@ -61,7 +61,11 @@ Route::group(array('before' =>"auth"),function(){
         'as' => "removePlayerFromTeam",
         'uses' => "TeamController@removePlayer"
     ));
-    
+
+    Route::post('teams/edit/{id}/disband',array(
+        'as' => "disbandTeamData",
+        'uses' => "TeamController@disbandTeam"
+    ));    
     
 });
 
@@ -208,7 +212,7 @@ Route::get('player-settings', array(
 Route::get('players', array(
         'as' => "players",
         'uses' => "PlayerController@allTeams"
-    )); 
+)); 
 
 
 /**
@@ -220,4 +224,10 @@ Route::post('player-settings/save', array(
 ));
 
 
-
+/**
+ * ajax routes
+ */
+Route::post('/ajax/playersearch', array(
+        'as' => "playersLiveSearch",
+        'uses' => "AjaxController@findPlayers"
+)); 

@@ -225,10 +225,10 @@ class TeamController extends BaseController {
         $player = Player::find($playerId);
 
         //proveri da nije mrckao po inputi
-        if ($player->teamID != $id) {
+        if ($player->teamID != $id ) {
             return Redirect::route('index')
                             ->with('global-title', 'Error')
-                            ->with('global-text', 'That player is not in your team!')
+                            ->with('global-text', 'That is not allowed!')
                             ->with('global-class', 'error');
         } else {
             $player->teamID = null;
@@ -237,6 +237,34 @@ class TeamController extends BaseController {
                                     ->with('global-title', 'Success')
                                     ->with('global-text', 'Player is not in your team anymore')
                                     ->with('global-class', 'success');
+        }
+    }
+
+    public function disbandTeam($id) {
+        $team = Team::find($id);
+        $player = Auth::user()->player;
+        $teamPlayers = Player::where('teamID', '=', $id)->get();
+
+        if ($team->captain != $player->playerID) {
+            return Redirect::route('index')
+                            ->with('global-title', 'Error')
+                            ->with('global-text', 'Only captains can disband teams!')
+                            ->with('global-class', 'error');
+        } else {
+            $team->captain = null;
+
+            foreach ($teamPlayers as $teamPlayer) {
+                $teamPlayer->teamID = null;
+
+                $teamPlayer->save();
+            }
+
+            $team->save();
+
+            return Redirect::route('index')
+                            ->with('global-title', 'Success')
+                            ->with('global-text', 'Team successfully disbanded.')
+                            ->with('global-class', 'success');
         }
     }
 
