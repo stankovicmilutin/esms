@@ -15,13 +15,17 @@ class TeamController extends BaseController {
 
         $team = Team::find($id);
 
-        $currentUser = Auth::user();
-        $currentPlayer = $currentUser->player;
-
         $captain = false;
-        if ($currentPlayer->playerID == $team->captain)
-            $captain = true;
+        $currentUser = null;
+        $currentPlayer = null;
 
+        if (Auth::check()) {
+            $currentUser = Auth::user();
+            $currentPlayer = $currentUser->player;
+
+            if ($currentPlayer->playerID == $team->captain)
+                $captain = true;
+        }
         return View::make("teams/team", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team, 'captain' => $captain));
     }
 
@@ -30,10 +34,7 @@ class TeamController extends BaseController {
         $validator = Validator::make(Input::all(), array(
                     'teamname' => "required|max:80|min:3|unique:teams,name",
                     'teamtag' => "required|max:20|min:3",
-                    'image' => "image|mimes:jpeg,bmp,png|max:512",
-                    'twitter' => "url",
-                    'facebook' => "url",
-                    'website' => "url"
+                    'image' => "image|mimes:jpeg,bmp,png|max:512"
                         )
         );
 
@@ -58,14 +59,32 @@ class TeamController extends BaseController {
                 $file->move($destinationPath, $filename);
             }
 
+            //parse urls
+            $parsed = parse_url(Input::get('facebook'));
+            if (empty($parsed['scheme'])) 
+                $facebook = 'http://' . ltrim(Input::get('facebook'), '/');
+            else
+                $facebook = Input::get('facebook'); 
+
+            $parsed = parse_url(Input::get('twitter'));
+            if (empty($parsed['scheme'])) 
+                $twitter = 'http://' . ltrim(Input::get('twitter'), '/');
+            else
+                $twitter = Input::get('twitter'); 
+            
+            $parsed = parse_url(Input::get('website'));
+            if (empty($parsed['scheme'])) 
+                $website = 'http://' . ltrim(Input::get('website'), '/');
+            else
+                $website = Input::get('website'); 
 
             $newTeam = Team::create(array(
                         'name' => Input::get('teamname'),
                         'tag' => Input::get('teamtag'),
                         'captain' => $currentPlayer->playerID,
-                        'facebook' => Input::get('facebook'),
-                        'twitter' => Input::get('twitter'),
-                        'website' => Input::get('website'),
+                        'facebook' => $facebook,
+                        'twitter' => $twitter,
+                        'website' => $website,
                         'about' => Input::get('about'),
                         'avatar' => $filename,
                         'country' => Input::get('country')
@@ -159,13 +178,31 @@ class TeamController extends BaseController {
                     $team->avatar = $filename;
                 }
 
+                //parse urls
+                $parsed = parse_url(Input::get('facebook'));
+                if (empty($parsed['scheme'])) 
+                    $facebook = 'http://' . ltrim(Input::get('facebook'), '/');
+                else
+                    $facebook = Input::get('facebook'); 
+
+                $parsed = parse_url(Input::get('twitter'));
+                if (empty($parsed['scheme'])) 
+                    $twitter = 'http://' . ltrim(Input::get('twitter'), '/');
+                else
+                    $twitter = Input::get('twitter'); 
+                
+                $parsed = parse_url(Input::get('website'));
+                if (empty($parsed['scheme'])) 
+                    $website = 'http://' . ltrim(Input::get('website'), '/');
+                else
+                    $website = Input::get('website'); 
 
                 $team->name = Input::get('teamname');
                 $team->tag = Input::get('teamtag');
                 //$team->captain = $currentPlayer->playerID,
-                $team->facebook = Input::get('facebook');
-                $team->twitter = Input::get('twitter');
-                $team->website = Input::get('website');
+                $team->facebook = $facebook;
+                $team->twitter = $twitter;
+                $team->website = $website;
                 $team->about = Input::get('about');
                 $team->country = Input::get('country');
 

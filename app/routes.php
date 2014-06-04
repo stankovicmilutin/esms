@@ -11,14 +11,10 @@
 |
 */
 
-Route::get('/', array(
-    'as' => 'index',
-    'uses' => 'HomeController@index'
-));
-
-
-/*
- *  Authenticated group
+/**
+ * 
+ * AUTH ROUTES
+ * 
  */
 Route::group(array('before' =>"auth"),function(){
   
@@ -27,8 +23,9 @@ Route::group(array('before' =>"auth"),function(){
        'uses' => "UserController@signoutView"
     ));
     
-    
-    // TEAM ROUTES 
+    /**
+     * TEAM ROUTES
+     */
     Route::get("teams/create",array(
        'as' => "createNewTeam",
        'uses' => "TeamController@createView"
@@ -69,7 +66,9 @@ Route::group(array('before' =>"auth"),function(){
         'uses' => "TeamController@changeCaptain"
     ));    
     
-    // PLAYER INVITE ROUTES
+    /**
+     * PLAYER ROUTES
+     */
     Route::get("player/my-invites",array(
        'as' => "my-invites",
        'uses' => "PlayerController@myInvitesView"
@@ -81,37 +80,36 @@ Route::group(array('before' =>"auth"),function(){
     ));
     
 
-    /**
-     * player settings save post
-     */
+    //player settings save post
     Route::post('player-settings/save', array(
             'as' => "savePlayerSettings",
             'uses' => "PlayerController@saveSettingsData"
     ));
 
-
-    /**
-     * ajax search players
-     */
+    //ajax search players
     Route::post('/ajax/playersearch', array(
             'as' => "playersLiveSearch",
             'uses' => "AjaxController@findPlayers"
     )); 
 
-    /**
-     * ajax send invite to player
-     */
+    //ajax send invite to player
     Route::post('/ajax/playerinvite', array(
             'as' => "playersLiveInvite",
             'uses' => "AjaxController@invitePlayer"
     )); 
 
+    // Player settings
+    Route::get('player-settings', array(
+            'as' => "playerSettingsView",
+            'uses' => "PlayerController@showPlayerSettings"
+    )); 
 });
 
-/*
- *  ADMIN routes
+/**
+ * 
+ * ADMIN ROUTES
+ * 
  */
-
 Route::group(array('before' => "admin"), function(){
     
     Route::get('admin/dashboard', array(
@@ -136,13 +134,19 @@ Route::group(array('before' => "admin"), function(){
     
 });
 
-// PUBLIC ROUTES
+/**
+ * 
+ * PUBLIC ROUTES
+ * 
+ */
+Route::get('/', array(
+    'as' => 'index',
+    'uses' => 'HomeController@index'
+));
 
-
-/*
+/**
  *  Tournament routes 
  */
-
 Route::get("/tournaments",array(
     "as" => "tournaments",
     "uses" => "TournamentController@allTournaments"
@@ -154,20 +158,18 @@ Route::get("/tournament/{id}",array(
 ));
 
 
-/*
+/**
  *  Match routes
  */
-
 Route::get("/matches", array(
     "as" => "matches",
     "uses" => "MatchController@matches"
 ));
 
 
-/*
- *  Team related routes
+/**
+ *  Team routes
  */
-
 Route::get('teams',array(
     'as' => 'teams',
     'uses' => "TeamController@allTeams"
@@ -180,18 +182,14 @@ Route::get('team/{id}',array(
 
 
 
-/*
+/**
  * player routes 
  */
 Route::get('player/{id}', array(
         'as' => "player-profile",
         'uses' => "PlayerController@showProfile"
-    )); 
-// Player settings
-Route::get('player-settings', array(
-        'as' => "playerSettingsView",
-        'uses' => "PlayerController@showPlayerSettings"
-    )); 
+)); 
+
 // All players list
 Route::get('players', array(
         'as' => "players",
@@ -199,7 +197,7 @@ Route::get('players', array(
 )); 
 
 
-/*
+/**
  *  Unauthenticated group
  */
 Route::group(array('before' => "guest"), function() {
@@ -242,7 +240,5 @@ Route::group(array('before' => "guest"), function() {
     'as' => "loginView",
     'uses' => "UserController@loginView"
     ));
-    
-    
     
 });
