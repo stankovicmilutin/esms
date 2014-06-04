@@ -33,8 +33,8 @@ $i=1;
                             <td>{{ $i++ }}</td>
                             <td>{{ $invite->inviterPlayer->nick }} is inviting you to join his </td>
                             <td>{{ "[",$invite->invitedTeam->tag, "] ",  $invite->invitedTeam->name }} team</td>
-                            <td>Accept</td>
-                            <td>Decline</td>
+                            <td><a href="{{ URL::route('answerInvitePlayer', array($invite->locID, "accept"))}}">Accept</a></td>
+                            <td><a href="{{ URL::route('answerInvitePlayer', array($invite->locID, "decline"))}}">Decline</a></td>
                         </tr>
                         @endforeach
                     </tbody>
