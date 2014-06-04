@@ -15,7 +15,7 @@
                     <li><a href="{{ URL::route('tournaments') }}">Tournaments</a></li>
                     <li><a href="{{ URL::route('teams') }}">Teams</a></li>
                     <li><a href="{{ URL::route('players') }}">Players</a></li>
-                    <li><a href="#">Matches</a></li>
+                    <li><a href="{{ URL::route('matches') }}">Matches</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
 

@@ -76,6 +76,15 @@ Route::get("/tournament/{id}",array(
 ));
 
 
+/*
+ *  Match routes
+ */
+
+Route::get("/matches", array(
+    "as" => "matches",
+    "uses" => "MatchController@matches"
+));
+
 
 
 /*
