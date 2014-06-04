@@ -30,10 +30,10 @@
                             @if ($captain)
                             <li><a href="{{ URL::route('editTeamView', $team->teamID) }}">Edit team</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#invite-players">Invite players</a></li>
-                            <li><a href="#">Change captain</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#change-captain">Change captain</a></li>
                             @endif
                             @if (!$captain)
-                            <li><a href="#">Leave team</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#leave-team">Leave team</a></li>
                             @endif
                             @if ($captain)
                             <li class="divider"></li>
@@ -165,6 +165,48 @@
 </div>
 
 @if ($player->teamID == $team->teamID)
+
+    <!--leave team modal -->
+    <div class="modal fade" id="leave-team" tabindex="-1" role="dialog" aria-labelledby="leave-team">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Leave {{$team->name}}</h4>
+                </div>
+                <div class="modal-body">
+                    Warning! This action can not be undone. Are you sure that you want to leave this team?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a href="{{URL::route('leaveTeamData')}}"><button type="button" class="btn btn-primary">Leave</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if ($captain)
+    <!--disband team modal -->
+    <div class="modal fade" id="disband-team" tabindex="-1" role="dialog" aria-labelledby="disband-team">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Disband {{$team->name}}</h4>
+                </div>
+                <div class="modal-body">
+                    Warning! This action can not be undone. Disbanding will remove all players from this team, including you!
+                </div>
+                <div class="modal-footer">
+                <form method="post" action="{{URL::route('disbandTeamData', $team->teamID)}}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Disband</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--invite players modal -->
     <div class="modal fade" id="invite-players" tabindex="-1" role="dialog" aria-labelledby="invite-players">
         <div class="modal-dialog">
@@ -190,28 +232,36 @@
         </div>
     </div>
 
-
-    @if ($player->playerID == $team->captain)
-    <!--disband team modal -->
-    <div class="modal fade" id="disband-team" tabindex="-1" role="dialog" aria-labelledby="disband-team">
+    <!--change captain modal -->
+    <div class="modal fade" id="change-captain" tabindex="-1" role="dialog" aria-labelledby="change-captain">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Disband {{$team->name}}</h4>
+                    <h4 class="modal-title">Change captain of {{$team->name}}</h4>
                 </div>
                 <div class="modal-body">
-                    Warning! This action can not be undone. Disbanding will remove all players from this team, including you!
+                    <table class="table table-hover esmsTable">
+                        <tr><th>Name</th><th></th></tr>
+                        @foreach ($team->getPlayers() as $player)
+                        <tr>
+                            <td><a href="{{ URL::route('player-profile',$player->playerID) }}">{{$player->nick }}</td>
+                            @if ($player->playerID == $team->captain)
+                            <td>(Captain)</td>
+                            @else
+                            <td><a href="{{ URL::route('changeCaptainData', array('id' => $player->playerID, 'teamid' => $team->teamID) ) }}">Promote to Captain</a></td>
+                            @endif
+                        </tr>
+                        @endforeach
+                    </table>
+                    <p>Warning! By promoting another player to captain, you will lose your captain status. Only one player can be a captain of a team.</p>
                 </div>
                 <div class="modal-footer">
-                <form method="post" action="{{URL::route('disbandTeamData', $team->teamID)}}">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Disband</button>
-                </form>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
     @endif
 @endif
 

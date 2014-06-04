@@ -7,10 +7,10 @@ Tournaments
 @section("container")
 <div class="row">
     <div class="col-md-12">
-        <div class="well">
-        <div class="well well-sm">
+
+        <!--<div class="well well-sm">
             <h2 class="notopmargin">All Tournaments</h2>
-        </div>
+        </div>-->
         @foreach ($tournaments as $t)
         @if ($t->cover)
         <div class="jumbotron tournCover" style="background-image: url({{ asset('uploads') . '/' . $t->cover }});">
@@ -28,6 +28,6 @@ Tournaments
 
         {{ $tournaments->links() }}
         </div>
-    </div>
+
 </div>
 @stop

@@ -58,6 +58,16 @@ Route::group(array('before' =>"auth"),function(){
         'as' => "disbandTeamData",
         'uses' => "TeamController@disbandTeam"
     ));    
+
+    Route::get('teams/leave',array(
+        'as' => "leaveTeamData",
+        'uses' => "TeamController@leaveTeam"
+    ));    
+
+    Route::get('teams/changecap/{id}-{teamid}',array(
+        'as' => "changeCaptainData",
+        'uses' => "TeamController@changeCaptain"
+    ));    
     
     // PLAYER INVITE ROUTES
     Route::get("player/my-invites",array(
