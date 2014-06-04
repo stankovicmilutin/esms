@@ -129,10 +129,11 @@ class TeamController extends BaseController {
         
         $team = Team::find($id);
         $player = Auth::user()->player;
+        $teamPlayers = Player::where('teamID', '=', $id)->get();
         
         if ( $player->teamID == $id && $team->captain == $player->playerID )
         {
-            return View::make("teams/edit", array( "team" => $team, "captain" => $player));
+            return View::make("teams/edit", array( "team" => $team, "captain" => $player, "teamPlayers" => $teamPlayers));
         }
         else{
             return Redirect::route("index")
@@ -217,4 +218,26 @@ class TeamController extends BaseController {
         
         }        
     }
+
+    public function removePlayer($id) {
+        $playerId = Input::get("playerForRemove");
+
+        $player = Player::find($playerId);
+
+        //proveri da nije mrckao po inputi
+        if ($player->teamID != $id) {
+            return Redirect::route('index')
+                            ->with('global-title', 'Error')
+                            ->with('global-text', 'That player is not in your team!')
+                            ->with('global-class', 'error');
+        } else {
+            $player->teamID = null;
+            $player->save();
+                    return Redirect::route('editTeamView', $id)
+                                    ->with('global-title', 'Success')
+                                    ->with('global-text', 'Player is not in your team anymore')
+                                    ->with('global-class', 'success');
+        }
+    }
+
 }
