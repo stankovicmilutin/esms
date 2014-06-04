@@ -7,7 +7,11 @@
 @section("container")
 <div class="row">
     <div class="col-md-12">
-        <div class="jumbotron tournCover" style="background-image: url({{ URL::asset('uploads/tournaments/'.$tournament->cover)}}); ">
+        @if ($tournament->cover)
+        <div class="jumbotron tournCover" style="background-image: url({{ asset('uploads') . '/' . $tournament->cover }});">
+        @else
+        <div class="jumbotron tournCover">
+        @endif
             <h1>{{ $tournament->name}}</h1>
             <p>Teams: {{ $tournament->max_teams }}</p>
             <p>Prize Money: ${{  number_format((int)$tournament->prizepool, 0, ',', ', ')   }}</p>
