@@ -15,9 +15,29 @@
                     <img src="{{ asset('img/anonteam.jpg') }}" alt="No photo yet!" class="img-rounded" height="140">
                 @endif
             </div>
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h2>[{{ $team->tag }}] {{ $team->name }}</h2>
                 <p>{{ $team->about }}</p>
+            </div>
+            <div class="col-md-2">
+                @if ($player->teamID == $team->teamID)
+                <ul class="nav nav-pills">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary">My Team</button>
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            @if ($captain)
+                            <li><a href="{{ URL::route('editTeamView', $team->teamID) }}">Edit team</a></li>
+                            @endif
+                            <li><a href="#" id="invite-players">Invite players</a></li>
+                            <li><a href="#">Change captain</a></li>
+                            <li><a href="#">Leave team</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Disband team</a></li>
+                        </ul>
+                    </div>              
+                </ul>
+                @endif
             </div>
             <div class="clearfix"></div>
             <div class="spacer50"></div>

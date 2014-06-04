@@ -15,10 +15,14 @@ class TeamController extends BaseController {
 
         $team = Team::find($id);
 
+        $currentUser = Auth::user();
+        $currentPlayer = $currentUser->player;
 
-        return View::make("teams/team", array(
-                    "team" => $team
-        ));
+        $captain = false;
+        if ($currentPlayer->playerID == $team->captain)
+            $captain = true;
+        
+        return View::make("teams/team", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team, 'captain' => $captain));
     }
 
     public function myTeam() {
@@ -34,7 +38,8 @@ class TeamController extends BaseController {
             if ($currentPlayer->playerID == $team->captain)
                 $captain = true;
         }
-        return View::make("teams/myteam", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team, 'captain' => $captain));
+
+        //return View::make("teams/myteam", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team, 'captain' => $captain));
     }
 
     public function createData() {
