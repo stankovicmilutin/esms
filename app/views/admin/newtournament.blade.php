@@ -67,8 +67,18 @@ New Tournament
                 </div>
             </div>
             <div class="form-group">
+                <label for="image" class="col-lg-3 control-label">Cover Image (1000x625)</label>
+                <div class="col-lg-8">
+                <input name="image" id="image" type="file" class="form-control" />
+                    @if($errors->has('image'))
+                    <label class="text-danger" for="image">
+                        {{ $errors->first('image') }}
+                    </label>
+                    @endif
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-4">
-                    <button class="btn btn-default">Cancel</button>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>

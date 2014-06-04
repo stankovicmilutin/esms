@@ -7,12 +7,16 @@ Tournaments
 @section("container")
 <div class="row">
     <div class="col-md-12">
-        <div class="well">
-        <div class="well well-sm">
+
+        <!--<div class="well well-sm">
             <h2 class="notopmargin">All Tournaments</h2>
-        </div>
+        </div>-->
         @foreach ($tournaments as $t)
-        <div class="jumbotron tournCover" style="background-image: url('img/{{ $t->cover }}');">
+        @if ($t->cover)
+        <div class="jumbotron tournCover" style="background-image: url({{ asset('uploads') . '/' . $t->cover }});">
+        @else
+        <div class="jumbotron tournCover">
+        @endif
             <h1>Join {{ $t->name}}</h1>
             <p>Teams: {{ $t->max_teams}}</p>
             <p>Prize Money: {{  number_format((int)$t->prizepool, 0, ',', ', ')   }}</p>
@@ -24,6 +28,6 @@ Tournaments
 
         {{ $tournaments->links() }}
         </div>
-    </div>
+
 </div>
 @stop

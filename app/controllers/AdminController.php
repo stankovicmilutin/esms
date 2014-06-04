@@ -23,6 +23,7 @@ class AdminController extends BaseController {
         $validator = Validator::make(Input::all(), array(
                     'max-teams' => "required",
                     'name' => "required|max:80|min:3|unique:tournaments",
+                    'image' => "image|mimes:jpeg,bmp,png|max:512",
                     'starting' => "required"
                     ));
         
@@ -41,12 +42,23 @@ class AdminController extends BaseController {
             $name =  input::get('name');
             $prize = input::get('prize');
             
+            $filename = null;
+            if (Input::hasFile('image')) {
+                $file = Input::file('image');
+
+                $destinationPath = public_path() . '/uploads/';
+                $filename = str_random(12) . '.' . $file->getClientOriginalExtension();
+                $extension = $file->getClientOriginalExtension();
+
+                $file->move($destinationPath, $filename);
+            }
             
             $tournament = Tournament::create(array(
                 'max_teams' => $maxTeams,
                 'starting' => $starting,
                 'name' => $name,
                 'prizepool' => $prize,
+                'cover' => $filename,
                 'type' => $type,
                 'reg_open' => 1
             ));

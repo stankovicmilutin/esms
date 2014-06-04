@@ -244,4 +244,39 @@ class TeamController extends BaseController {
         }
     }
 
+    public function leaveTeam() {
+        $player = Auth::user()->player;
+
+        $player->teamID = NULL;
+
+        $player->save();
+
+        return Redirect::route('player-profile', $player->userID)
+                        ->with('global-title', 'Success')
+                        ->with('global-text', 'You have left the team.')
+                        ->with('global-class', 'success');
+    }
+
+    public function changeCaptain($id, $teamid) {
+
+        $team = Team::find($teamid);
+        $player = Auth::user()->player;
+        $newCap = Player::find($id);
+
+        if ($team->captain != $player->playerID || $newCap->teamID != $team->teamID ) {
+            return Redirect::route('index')
+                            ->with('global-title', 'Error')
+                            ->with('global-text', 'You can\'t do that')
+                            ->with('global-class', 'error');
+        } else {
+            $team->captain = $id;
+            $team->save();
+
+            return Redirect::route('team', $teamid)
+                            ->with('global-title', 'Success')
+                            ->with('global-text', 'Captain successfully changed!')
+                            ->with('global-class', 'success');
+        }
+    }
+
 }
