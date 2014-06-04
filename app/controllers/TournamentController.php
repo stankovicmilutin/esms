@@ -16,8 +16,8 @@ class TournamentController extends BaseController {
     public function tournament($id){
         
         $tournament = Tournament::find($id);
-        
-        return View::make("tournaments/tournament",array("tournament" => $tournament));
+        $currentPlayer = Auth::user()->player;
+        return View::make("tournaments/tournament",array("tournament" => $tournament, "currentPlayer" => $currentPlayer));
         
     }
 }

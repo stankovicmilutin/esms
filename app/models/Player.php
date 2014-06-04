@@ -22,5 +22,22 @@ class Player extends Eloquent {
         $this->invites = PlayerInvite::getInvites($this->playerID);
         return $this->invites;
     }
-
+    
+    public function getTeam(){
+        return Team::find($this->teamID);
+    }
+    
+    public function isCaptain(){
+        
+        if ( $this->teamID != null){
+            $team = Team::find($this->teamID);
+            if ($team->captain == $this->playerID)
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+         
+    }
 }
