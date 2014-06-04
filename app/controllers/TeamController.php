@@ -21,11 +21,15 @@ class TeamController extends BaseController {
         $captain = false;
         if ($currentPlayer->playerID == $team->captain)
             $captain = true;
-        
+
         return View::make("teams/team", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team, 'captain' => $captain));
     }
 
-    public function myTeam() {
+    /**
+     * ZA BRISANJE
+     * zamenjeno sa teamProfile i createView (vidi nav.blade.php) linije 28-32
+     */
+    /*public function myTeam() {
 
         $currentUser = Auth::user();
         $currentPlayer = $currentUser->player;
@@ -39,8 +43,8 @@ class TeamController extends BaseController {
                 $captain = true;
         }
 
-        //return View::make("teams/myteam", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team, 'captain' => $captain));
-    }
+        return View::make("teams/myteam", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team, 'captain' => $captain));
+    }*/
 
     public function createData() {
 
@@ -111,9 +115,9 @@ class TeamController extends BaseController {
         $currentPlayer = $currentUser->player;
         
          if ($currentPlayer->teamID) {
-             return Redirect::route("my-team")
+             return Redirect::route("team", $currentPlayer->teamID)
                         ->with('global-title', 'You have team already!')
-                        ->with('global-text', 'You are in team at the moment. You can not be in two teams in same time. Please leave your team, and try again!')
+                        ->with('global-text', 'You are in a team at the moment. You can not be in two teams in same time. Please leave your team, and try again!')
                         ->with('global-class', 'success');
          }
         else{
