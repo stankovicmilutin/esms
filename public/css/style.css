@@ -2,7 +2,7 @@ body {
 	background-image: url('../img/bg.jpg');
 	background-position: top center;
 	background-attachment: fixed;
-
+	overflow-y: scroll;
 }
 
 #teamInfo h2, .notopmargin {
