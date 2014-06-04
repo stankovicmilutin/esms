@@ -21,14 +21,36 @@ Route::get('/', array(
  *  Authenticated group
  */
 Route::group(array('before' =>"auth"),function(){
-    /*
-    *  Sign out
-    */
-    
+  
     Route::get('sign-out', array(
        'as' => "signout",
        'uses' => "UserController@signoutView"
     ));
+    
+    
+    
+    // TEAM ROUTES
+    Route::get('teams/my-team', array(
+       'as' => 'my-team',
+        'uses' => "TeamController@myTeam"
+    ));
+    
+    Route::get("teams/create",array(
+       'as' => "createNewTeam",
+       'uses' => "TeamController@createView"
+    ));
+    
+    Route::post('teams/create', array(
+        'as' => "createNewTeamData",
+        'uses' => "TeamController@createData"
+    ));
+    
+    Route::get('teams/edit/{id}',array(
+        'as' => "editTeamView",
+        'uses' => "TeamController@editView"
+    ));
+    
+    
     
 });
 
@@ -187,10 +209,4 @@ Route::post('player-settings/save', array(
 ));
 
 
-/**
- * player create new team post
- */
-Route::post('player-settings/new-team', array(
-        'as' => "createNewTeam",
-        'uses' => "PlayerController@newTeamData"
-));
+

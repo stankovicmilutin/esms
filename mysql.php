@@ -127,7 +127,7 @@ if (!$con)
 					)
 					DEFAULT CHARACTER SET = utf8
 				");
-	mysql_query("CREATE TABLE IF NOT EXISTS `esms_players_scores` (
+	mysql_query("CREATE TABLE IF NOT EXISTS `esms_player_scores` (
 					`locID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`tournamentID` bigint(12) NOT NULL,
 					`matchID` bigint(12) NOT NULL,
@@ -144,6 +144,36 @@ if (!$con)
 					FOREIGN KEY(`tournamentID`) REFERENCES esms_tournaments(tournamentID) ON DELETE CASCADE ON UPDATE CASCADE,
 					FOREIGN KEY(`matchID`) REFERENCES esms_matches(matchID) ON DELETE NO ACTION ON UPDATE CASCADE,
 					FOREIGN KEY(`playerID`) REFERENCES esms_players(playerID) ON DELETE CASCADE ON UPDATE CASCADE
+					)
+					DEFAULT CHARACTER SET = utf8
+				");
+        
+        mysql_query("CREATE TABLE IF NOT EXISTS `esms_player_invites` (
+					`locID` bigint(12) NOT NULL AUTO_INCREMENT,
+					`inviter` bigint(12) NOT NULL,
+					`invited` bigint(12) NOT NULL,
+					`team` bigint(12) NOT NULL,
+					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+					PRIMARY KEY(`locID`),
+					FOREIGN KEY(`inviter`) REFERENCES esms_players(playerID) ON DELETE CASCADE ON UPDATE CASCADE,
+					FOREIGN KEY(`invited`) REFERENCES esms_players(playerID) ON DELETE CASCADE ON UPDATE CASCADE,
+					FOREIGN KEY(`team`) REFERENCES esms_teams(teamID) ON DELETE CASCADE ON UPDATE CASCADE
+					)
+					DEFAULT CHARACTER SET = utf8
+				");
+        
+        mysql_query("CREATE TABLE IF NOT EXISTS `esms_tour_applies` (
+					`locID` bigint(12) NOT NULL AUTO_INCREMENT,
+					`tournament` bigint(12) NOT NULL,
+					`team` bigint(12) NOT NULL,
+					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+					PRIMARY KEY(`locID`),
+					FOREIGN KEY(`tournament`) REFERENCES esms_tournaments(tournamentID) ON DELETE CASCADE ON UPDATE CASCADE,
+					FOREIGN KEY(`team`) REFERENCES esms_teams(teamID) ON DELETE CASCADE ON UPDATE CASCADE
 					)
 					DEFAULT CHARACTER SET = utf8
 				");

@@ -63,3 +63,9 @@ p.bg-primary
 .matchBox {
 	width: 300px;
 }
+
+.modal-dialog{
+    position: absolute;
+    top: 25%;
+    left: 35%
+}

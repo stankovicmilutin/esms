@@ -11,7 +11,6 @@
                        <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#profile" data-toggle="tab">Profile Settings</a></li>
-                  <li><a href="#teams" data-toggle="tab">Teams</a></li>
                   <li><a href="#account" data-toggle="tab">Account Settings</a></li>
                 </ul>
                 <div class="spacer50"></div>
@@ -350,9 +349,6 @@
                     {{ Form::close() }}              
                   </div>
 
-                  <div class="tab-pane" id="teams">
-                    @include('players/teamsettings')
-                  </div>
                   <div class="tab-pane" id="account">asdsa</div>
                 </div>
                 </div>
