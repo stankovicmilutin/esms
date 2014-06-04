@@ -331,7 +331,7 @@ Team Edit
 
         	@foreach ($teamPlayers as $teamPlayer)
         	<tr>
-        		<td><a href="{{$teamPlayer->userID}}" target="_BLANK">{{$teamPlayer->name}}</a></td>
+        		<td><a href="{{ URL::route('player-profile',$teamPlayer->playerID) }}" target="_BLANK">{{$teamPlayer->name}}</a></td>
         		@if ($teamPlayer->userID == $captain->userID)
         		<td>(you)</td>
         		@else
