@@ -20,4 +20,21 @@ class AjaxController extends BaseController {
 
 		echo json_encode($res);
 	}
+
+	public function invitePlayer() {
+		$playerid = Input::get("playerid"); 
+		$teamid = Input::get('teamid');
+		$inviterid = Input::get('inviterid');	
+
+		$invite = PlayerInvite::create(array(
+                        'inviter' => $inviterid,
+                        'invited' => $playerid,
+                        'team' => $teamid,
+            ));
+
+		if ($invite) 
+			echo 1; //all oke
+		else
+			echo 0; //fok
+	}
 }

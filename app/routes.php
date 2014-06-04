@@ -73,7 +73,32 @@ Route::group(array('before' =>"auth"),function(){
        'uses' => "PlayerController@myInvitesView"
     ));
     
-    
+
+    /**
+     * player settings save post
+     */
+    Route::post('player-settings/save', array(
+            'as' => "savePlayerSettings",
+            'uses' => "PlayerController@saveSettingsData"
+    ));
+
+
+    /**
+     * ajax search players
+     */
+    Route::post('/ajax/playersearch', array(
+            'as' => "playersLiveSearch",
+            'uses' => "AjaxController@findPlayers"
+    )); 
+
+    /**
+     * ajax send invite to player
+     */
+    Route::post('/ajax/playerinvite', array(
+            'as' => "playersLiveInvite",
+            'uses' => "AjaxController@invitePlayer"
+    )); 
+
 });
 
 /*
@@ -219,22 +244,4 @@ Route::get('player-settings', array(
 Route::get('players', array(
         'as' => "players",
         'uses' => "PlayerController@allTeams"
-)); 
-
-
-/**
- * player settings save post
- */
-Route::post('player-settings/save', array(
-        'as' => "savePlayerSettings",
-        'uses' => "PlayerController@saveSettingsData"
-));
-
-
-/**
- * ajax routes
- */
-Route::post('/ajax/playersearch', array(
-        'as' => "playersLiveSearch",
-        'uses' => "AjaxController@findPlayers"
 )); 

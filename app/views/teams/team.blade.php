@@ -176,7 +176,8 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="player">Search for a player by nickname</label>
-                        <input type="text" class="form-control" id="playerSearchInvite" name="player" placeholder="Enter Nickname" data-action="{{URL::route('playersLiveSearch')}}"  data-teamid="{{$team->teamID}}">
+                        <input type="text" class="form-control" id="playerSearchInvite" name="player" placeholder="Enter Nickname" 
+                        data-action="{{URL::route('playersLiveSearch')}}" data-action-invite="{{URL::route('playersLiveInvite')}}"  data-teamid="{{$team->teamID}}" data-playerid="{{$player->playerID}}">
                             <ul id="playerSearchResults" class="list-group">
                               <!--<li class="list-group-item">Cras justo odio</li>-->
                             </ul>

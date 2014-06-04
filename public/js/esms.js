@@ -6,7 +6,9 @@ $(document).ready(function(){
 
         var playerSearch = $("#playerSearchInvite");
         var teamID = playerSearch.attr("data-teamid");
+        var inviterID = playerSearch.attr("data-playerid");
         var playerSearchUrl = playerSearch.attr("data-action");
+        var playerInviteUrl = playerSearch.attr("data-action-invite");
 
         playerSearch.keydown(function() {
         	var playerName = playerSearch.val();
@@ -27,16 +29,41 @@ $(document).ready(function(){
 						$("#playerSearchResults").html('');
 
 						for (var i = 0; i < data.length; i++) {
-						    $("#playerSearchResults").append('<li class="list-group-item playerNameResult"><a href="#" data-userid="'+data[i]['id']+'">'+data[i]['username']+'</a></li>');
+						    $("#playerSearchResults").append('<li class="list-group-item playerNameResult">'+data[i]['username']+' - <a href="#" data-playerid="'+data[i]['id']+'">Invite</a></li>');
 						}
 
-						$(".playerNameResult a").click(function() {invitePlayer();});
+						$(".playerNameResult a").click(invitePlayer);
 					}
 					//console.log( data );
 				});
         });
 
         function invitePlayer() {
-        	alert("ll");
+
+        	var playerId = $(this).attr("data-playerid");
+
+        	//console.log(this.attr())
+			$.ajax({
+				type: "POST",
+				url: playerInviteUrl,
+				data: { playerid: playerId, teamid: teamID, inviterid: inviterID }
+				})
+				.done( function( data ) {
+		        	playerSearch.val("");
+		        	$("#playerSearchResults").html("");
+
+					if (data == 1) {
+		        		$("#invite-players .modal-body").prepend('<div class="alert alert-dismissable alert-success">'+
+															  '<button type="button" class="close" data-dismiss="alert">×</button>'+
+															  'Player is invited to join your team.'+
+															'</div>');
+					} else {
+		        		$("#invite-players .modal-body").prepend('<div class="alert alert-dismissable alert-error">'+
+															  '<button type="button" class="close" data-dismiss="alert">×</button>'+
+															  'Internal error, sorry for the inconvinience.'+
+															'</div>');
+		        	}
+				});
+
         }
 });
