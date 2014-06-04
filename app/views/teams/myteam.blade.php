@@ -10,6 +10,22 @@ No team
 
 @section("container")
 <div class="row">
+    @if (!$player->teamID)
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">You have no team</h3>
+            </div>
+            <div class="panel-body">
+                You have no team at the moment. You can join existing one, or create a new one and invite other players! </br>
+                </br>
+                To create a new one, please click on the button below!</br>
+                </br>
+                <a href="{{ URL::route("createNewTeam")}}"><button type="button" class="btn btn-primary btn-lg">Create new team</button></a>
+            </div>
+        </div>
+    </div>
+    @else
     <div class="modal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -30,22 +46,6 @@ No team
             </div>
         </div>
     </div>
-    @if (!$player->teamID)
-    <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title">You have no team</h3>
-            </div>
-            <div class="panel-body">
-                You have no team at the moment. You can join existing one, or create a new one and invite other players! </br>
-                </br>
-                To create a new one, please click on the button below!</br>
-                </br>
-                <a href="{{ URL::route("createNewTeam")}}"><button type="button" class="btn btn-primary btn-lg">Create new team</button></a>
-            </div>
-        </div>
-    </div>
-    @else
     <div class="col-md-12">
         <div id="teamInfo" class="well">
             <div class="col-md-2">
