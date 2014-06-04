@@ -28,15 +28,7 @@ Route::group(array('before' =>"auth"),function(){
     ));
     
     
-    
-    // TEAM ROUTES
-    
-    /*za brisanje
-    Route::get('teams/my-team', array(
-       'as' => 'my-team',
-        'uses' => "TeamController@myTeam"
-    ));*/
-    
+    // TEAM ROUTES 
     Route::get("teams/create",array(
        'as' => "createNewTeam",
        'uses' => "TeamController@createView"
@@ -134,6 +126,8 @@ Route::group(array('before' => "admin"), function(){
     
 });
 
+// PUBLIC ROUTES
+
 
 /*
  *  Tournament routes 
@@ -159,6 +153,40 @@ Route::get("/matches", array(
     "uses" => "MatchController@matches"
 ));
 
+
+/*
+ *  Team related routes
+ */
+
+Route::get('teams',array(
+    'as' => 'teams',
+    'uses' => "TeamController@allTeams"
+));
+
+Route::get('team/{id}',array(
+    'as' => 'team',
+    'uses' => "TeamController@teamProfile"
+));
+
+
+
+/*
+ * player routes 
+ */
+Route::get('player/{id}', array(
+        'as' => "player-profile",
+        'uses' => "PlayerController@showProfile"
+    )); 
+// Player settings
+Route::get('player-settings', array(
+        'as' => "playerSettingsView",
+        'uses' => "PlayerController@showPlayerSettings"
+    )); 
+// All players list
+Route::get('players', array(
+        'as' => "players",
+        'uses' => "PlayerController@allTeams"
+)); 
 
 
 /*
@@ -208,45 +236,3 @@ Route::group(array('before' => "guest"), function() {
     
     
 });
-
- 
-/*
- *  Team related routes
- */
-
-Route::get('teams',array(
-    'as' => 'teams',
-    'uses' => "TeamController@allTeams"
-));
-
-Route::get('team/{id}',array(
-    'as' => 'team',
-    'uses' => "TeamController@teamProfile"
-));
-
-
-
-/**
- * player profile
- */
-Route::get('player/{id}', array(
-        'as' => "player-profile",
-        'uses' => "PlayerController@showProfile"
-    )); 
-
-
-/**
- * player settings view
- */
-Route::get('player-settings', array(
-        'as' => "playerSettingsView",
-        'uses' => "PlayerController@showPlayerSettings"
-    )); 
-
-/**
- * all player list
- */
-Route::get('players', array(
-        'as' => "players",
-        'uses' => "PlayerController@allTeams"
-)); 

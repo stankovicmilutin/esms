@@ -8,10 +8,16 @@
 <div class="row">
     <div class="col-md-12">
         <div class="jumbotron tournCover" style="background-image: url({{ URL::asset('uploads/tournaments/'.$tournament->cover)}}); ">
+            <div class="col-md-2 col-md-offset-11">
+                
+                    <button type="button" class="btn btn-success">Apply</button>
+                
+            </div>
             <h1>{{ $tournament->name}}</h1>
             <p>Teams: {{ $tournament->max_teams }}</p>
             <p>Prize Money: ${{  number_format((int)$tournament->prizepool, 0, ',', ', ')   }}</p>
             <p>Starting on: {{ date("d. M Y", strtotime($tournament->starting))}}</p>
+
         </div>
         <div class="well">
             <h2 class="notopmargin">Standings</h2>
