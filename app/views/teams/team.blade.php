@@ -10,9 +10,9 @@
         <div id="teamInfo" class="well">
             <div class="col-md-2">
                 @if ($team->avatar)
-                    <img src="{{ asset('uploads') . '/' . $team->avatar }}" alt="{{ $team->name }}" class="img-rounded" width="140">
+                <img src="{{ asset('uploads') . '/' . $team->avatar }}" alt="{{ $team->name }}" class="img-rounded" width="140">
                 @else
-                    <img src="{{ asset('img/anonteam.jpg') }}" alt="No photo yet!" class="img-rounded" height="140">
+                <img src="{{ asset('img/anonteam.jpg') }}" alt="No photo yet!" class="img-rounded" height="140">
                 @endif
             </div>
             <div class="col-md-10">
