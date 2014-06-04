@@ -153,10 +153,7 @@ class TeamController extends BaseController {
             $validator = Validator::make(Input::all(), array(
                         'teamname' => "required|max:80|min:3|unique:teams,name," . $team->name . ",name",
                         'teamtag' => "required|max:20|min:3",
-                        'image' => "image|mimes:jpeg,bmp,png|max:512",
-                        'twitter' => "url",
-                        'facebook' => "url",
-                        'website' => "url"
+                        'image' => "image|mimes:jpeg,bmp,png|max:512"
                             )
             );
 
