@@ -25,27 +25,6 @@ class TeamController extends BaseController {
         return View::make("teams/team", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team, 'captain' => $captain));
     }
 
-    /**
-     * ZA BRISANJE
-     * zamenjeno sa teamProfile i createView (vidi nav.blade.php) linije 28-32
-     */
-    /*public function myTeam() {
-
-        $currentUser = Auth::user();
-        $currentPlayer = $currentUser->player;
-
-        $team = null;
-        $captain = false;
-        if ($currentPlayer->teamID) {
-            $team = Team::find($currentPlayer->teamID);
-
-            if ($currentPlayer->playerID == $team->captain)
-                $captain = true;
-        }
-
-        return View::make("teams/myteam", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team, 'captain' => $captain));
-    }*/
-
     public function createData() {
 
         $validator = Validator::make(Input::all(), array(
