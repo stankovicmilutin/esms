@@ -23,6 +23,14 @@ Route::group(array('before' =>"auth"),function(){
        'uses' => "UserController@signoutView"
     ));
     
+    // Apply for tournament
+    Route::get('/tournament/{id}/apply', array(
+       'as' => "applyForTournamentData",
+       'uses' => "TournamentController@applyTeam"
+    ));
+    
+    
+    // TEAM ROUTES 
     /**
      * TEAM ROUTES
      */
