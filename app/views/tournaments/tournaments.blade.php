@@ -13,7 +13,7 @@ Tournaments
         @else
         <div class="jumbotron tournCover">
         @endif
-            <h1>Join {{ $t->name}}</h1>
+            <h1>{{ $t->name}}</h1>
             <p>Teams: {{ $t->max_teams}}</p>
             <p>Prize Money: {{  number_format((int)$t->prizepool, 0, ',', ', ')   }}</p>
             <p>Starting on: {{ date("d. M Y", strtotime($t->starting))}}</p>

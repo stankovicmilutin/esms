@@ -5,21 +5,21 @@ $user = "root";
 $password = "";
 $database = "esms";
 
-$con = mysql_connect($host, $user , $password);
+$con = mysqli_connect($host, $user , $password, $database);
 if (!$con)
  {die('Could not connect: ' . mysql_error());} 
  	
- 	mysql_query("CREATE DATABASE IF NOT EXISTS `esms`");
-    mysql_select_db( $database , $con); 
+ 	mysqli_query($con, "CREATE DATABASE IF NOT EXISTS `esms`");
+    //mysqli_select_db( $database , $con); 
     
-	mysql_query("SET character_set_results=utf8", $con);
+	mysqli_query($con, "SET character_set_results=utf8");
 	mb_language('uni'); 
 	mb_internal_encoding('UTF-8');
-	mysql_query("set names 'utf8'",$con);
+	mysqli_query($con, "set names 'utf8'");
 
 
 
-	mysql_query("CREATE TABLE IF NOT EXISTS `esms_users`(
+	mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_users`(
 					`userID` bigint(12) NOT NULL AUTO_INCREMENT ,
 					`username` varchar(80) NOT NULL,
 					`password` varchar(80) NOT NULL,
@@ -38,7 +38,7 @@ if (!$con)
 					DEFAULT CHARACTER SET = utf8
 				");
 
-	mysql_query("CREATE TABLE IF NOT EXISTS `esms_teams` (
+	mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_teams` (
 					`teamID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`tag` varchar(30) NOT NULL,
 					`name` varchar(60) NOT NULL,
@@ -59,7 +59,7 @@ if (!$con)
 					DEFAULT CHARACTER SET = utf8
 				");
 
-	mysql_query("CREATE TABLE IF NOT EXISTS `esms_players`(
+	mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_players`(
 					`playerID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`userID` bigint(12) NOT NULL,
 					`name` varchar(60) NULL,
@@ -83,9 +83,9 @@ if (!$con)
 					DEFAULT CHARACTER SET = utf8
 				");
 
-	mysql_query("ALTER TABLE `esms_teams` ADD FOREIGN KEY (`captain`) REFERENCES esms_players(playerID) ");
+	mysqli_query($con, "ALTER TABLE `esms_teams` ADD FOREIGN KEY (`captain`) REFERENCES esms_players(playerID) ");
 
-	mysql_query("CREATE TABLE IF NOT EXISTS `esms_tournaments` (
+	mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_tournaments` (
 					`tournamentID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`starting` TIMESTAMP NOT NULL,
 					`max_teams` int(5) NULL,
@@ -108,7 +108,7 @@ if (!$con)
 					DEFAULT CHARACTER SET = utf8
 				");
 
-	mysql_query("CREATE TABLE IF NOT EXISTS `esms_matches` (
+	mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_matches` (
 					`matchID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`host` bigint(12) NOT NULL,
 					`guest` bigint(12) NOT NULL,
@@ -127,7 +127,7 @@ if (!$con)
 					)
 					DEFAULT CHARACTER SET = utf8
 				");
-	mysql_query("CREATE TABLE IF NOT EXISTS `esms_player_scores` (
+	mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_player_scores` (
 					`locID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`tournamentID` bigint(12) NOT NULL,
 					`matchID` bigint(12) NOT NULL,
@@ -148,7 +148,7 @@ if (!$con)
 					DEFAULT CHARACTER SET = utf8
 				");
         
-        mysql_query("CREATE TABLE IF NOT EXISTS `esms_player_invites` (
+        mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_player_invites` (
 					`locID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`inviter` bigint(12) NOT NULL,
 					`invited` bigint(12) NOT NULL,
@@ -164,7 +164,7 @@ if (!$con)
 					DEFAULT CHARACTER SET = utf8
 				");
         
-        mysql_query("CREATE TABLE IF NOT EXISTS `esms_tour_applies` (
+        mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_tour_applies` (
 					`locID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`tournament` bigint(12) NOT NULL,
 					`team` bigint(12) NOT NULL,
