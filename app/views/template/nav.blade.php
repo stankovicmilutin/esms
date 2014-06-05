@@ -22,10 +22,10 @@
                 @if (Auth::check())
                      <?php
                         $player = Auth::user()->player;
-                        $player->getInvites();
+                        $count = $player->getInvites()->count();
                     ?>
-                    @if ( count($player->invites) > 0 )
-                    <li><a href="{{ URL::route('my-invites') }}">Invites( {{ count($player->invites) }} )</a></li>
+                    @if ( $count > 0 )
+                    <li><a href="{{ URL::route('my-invites') }}">Invites( {{ $count }} )</a></li>
                     @endif
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->username }} <b class="caret"></b></a>
