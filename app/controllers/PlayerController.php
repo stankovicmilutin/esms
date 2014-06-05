@@ -12,8 +12,11 @@ class PlayerController extends BaseController {
             App::abort(404);
 
         $player = $user->player;
+        $team = null;
+        if ($player->teamID)
+            $team = Team::find($player->teamID);
 
-        return View::make("players/player", array('user' => $user, 'player' => $player));
+        return View::make("players/player", array('user' => $user, 'player' => $player, 'team' => $team));
     }
 
     public function showPlayerSettings() {

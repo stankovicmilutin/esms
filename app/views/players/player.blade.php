@@ -34,7 +34,11 @@
                     </tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-trophy"></i>Team: </td>
-                        <td><a href="#"></a></td>
+                        @if ($team)
+                        <td><a href="{{URL::route('team', $team->teamID)}}">{{$team->name}}</a></td>
+                        @else
+                        <td>(No team yet)</td>
+                        @endif
                     </tr>
                 </table>
             </div>

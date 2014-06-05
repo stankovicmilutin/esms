@@ -11,15 +11,15 @@
                 <a class="navbar-brand" href="#">eSports Management System</a>
             </div>
             <div id="navbar-main" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ URL::route('adminDashboard') }}">Admin Dashboard</a></li>  
-                    <li class="active"><a href="{{ URL::route('index') }}">Home</a></li>
-                </ul>
-
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ URL::route('player-profile', Auth::user()->userID) }}">{{Auth::user()->username }}</a></li>
-                    <li><a href="{{ URL::route('playerSettingsView') }}">Settings</a></li>
-                    <li><a href="{{URL::route('signout')}}">Sign out</a></li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->username}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ URL::route('index') }}">Back to Frontend</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{URL::route('signout')}}">Sign out</a></li>
+                    </ul>
+                </li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

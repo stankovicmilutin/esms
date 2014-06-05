@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-2">
                 <!-- check if current player is memer of this team -->
-                @if ($player->teamID == $team->teamID)
+                @if (Auth::check() && $player->teamID == $team->teamID)
                 <ul class="nav nav-pills">
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary">Team Options</button>
@@ -55,7 +55,7 @@
                     </tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-calendar"></i>Website: </td>
-                        <td>{{$team->website}}</td>
+                        <td><a href="{{$team->website}}">{{$team->website}}</a></td>
                     </tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-trophy"></i>Top Result: </td>
