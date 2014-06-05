@@ -26,8 +26,7 @@ Tournaments
             </p>
         </div>
         @endforeach
-
-
+        
         {{ $tournaments->links() }}
         </div>
 

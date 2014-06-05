@@ -23,5 +23,12 @@ class Tournament extends Eloquent{
             $this->winner = "No winner";
         return $this->winner;
     }
-    
+
+    public static function appliedTeams($id) {
+        return DB::table('tour_applies')
+            ->where('tournament', '=', $id)
+            ->join('teams', 'tour_applies.team', '=', 'teams.teamID')
+            ->select()
+            ->get();
+    }
 }
