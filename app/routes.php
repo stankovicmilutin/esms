@@ -29,11 +29,7 @@ Route::group(array('before' =>"auth"),function(){
        'uses' => "TournamentController@applyTeam"
     ));
     
-    
     // TEAM ROUTES 
-    /**
-     * TEAM ROUTES
-     */
     Route::get("teams/create",array(
        'as' => "createNewTeam",
        'uses' => "TeamController@createView"
