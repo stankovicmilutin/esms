@@ -5,6 +5,7 @@
 @stop
 
 @section("container")
+@if ($currentPlayer)
 <div class="modal fade" id="apply">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -13,21 +14,27 @@
         <h4 class="modal-title">Sign up for {{ $tournament->name}}</h4>
       </div>
       <div class="modal-body">
-        <p>Are you sure you would like to apply your {{"[",$currentPlayer->getTeam()->tag,"] ", $currentPlayer->getTeam()->name  }}</p>
+        <p>
+            Are you sure you would like to apply your {{"[",$currentPlayer->getTeam()->tag,"] ", $currentPlayer->getTeam()->name  }}
+            team for {{ $tournament->name}} ?
+        </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Yes</button>
+          <a href="{{ URL::route('applyForTournamentData',$tournament->tournamentID,"/apply")}}"><button type="button" class="btn btn-primary">Yes</button></a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
+@endif
 <div class="row">
     <div class="col-md-12">
         <div class="jumbotron tournCover" style="background-image: url({{ URL::asset('uploads/tournaments/'.$tournament->cover)}}); ">
             <div class="col-md-2 col-md-offset-11">
-                @if ( $currentPlayer->isCaptain() )
-                <button data-toggle="modal" data-target="#apply" type="button" class="btn btn-success">Apply</button>
+                @if ($currentPlayer)
+                    @if ( $currentPlayer->isCaptain() )
+                    <button data-toggle="modal" data-target="#apply" type="button" class="btn btn-success">Apply</button>
+                    @endif
                 @endif
             </div>
             <h1>{{ $tournament->name}}</h1>

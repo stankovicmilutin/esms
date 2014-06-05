@@ -33,8 +33,8 @@ class AjaxController extends BaseController {
             ));
 
 		if ($invite) 
-			echo 1; //all oke
+			echo 1; 
 		else
-			echo 0; //fok
+			echo 0; 
 	}
 }
