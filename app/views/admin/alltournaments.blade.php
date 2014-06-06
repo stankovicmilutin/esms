@@ -18,6 +18,7 @@ All Tournaments
                     <th>Tournament name</th>
                     <th>Total prize</th>
                     <th>Starting</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,10 @@ All Tournaments
                     <td><a href="{{URL::Route('adminEditTournament', $t->tournamentID)}}">{{ $t->name}}</a></td>
                     <td>{{  number_format((int)$t->prizepool, 0, ',', ', ')   }} $</td>
                     <td>{{ date("d. M Y", strtotime($t->starting))}}</td>
+                    <td>
+                        <a href="{{URL::Route('adminTournamentApplies', $t->tournamentID)}}"><button type="button" class="btn btn-info">Applies</button></a>
+                        <a href="{{URL::Route('adminEditTournament', $t->tournamentID)}}"><button type="button" class="btn btn-warning" style="margin-left:10px">Edit</button></a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

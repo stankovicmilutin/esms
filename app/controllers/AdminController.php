@@ -15,7 +15,7 @@ class AdminController extends BaseController {
     }
     
     public function newTournamentView(){
-        return View::make("admin/newtournament");
+        return View::make("tournaments/create");
     }
     
     public function newTournamentData(){
@@ -84,11 +84,15 @@ class AdminController extends BaseController {
 
     public function editTournamentView($id) {
         $tour = Tournament::find($id);
-        $teams = Tournament::appliedTeams($id);
-        //var_dump($teams);
+        return View::make("tournaments/edit", array("tour" => $tour) );
+    }
+    
+    public function tourApplies($id){
         
-        //die();
-
-        return View::make("admin/edittournament", array("tour" => $tour, "teams" => $teams) );
+      //  $applies = TourApply::all();
+        $t = Tournament::find($id);
+        $teams = Tournament::appliedTeams($id);
+       
+       return View::make("tournaments/applies", array("teams" => $teams, "tournament" => $t));
     }
 }

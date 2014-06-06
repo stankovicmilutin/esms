@@ -12,12 +12,4 @@ class TourApply extends Eloquent {
         $this->tourObj = Tournament::find($this->tournament);
     }
 
-    /*public function tourApply()
-    {
-        return $this->hasOne('Tournament', 'tournamentID', 'tournament');
-    }
-
-    public function appliedTeams() {
-        return $this->hasMany('Team', 'teamID', 'team');
-    }*/
 }

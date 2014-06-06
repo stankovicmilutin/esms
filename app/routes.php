@@ -121,25 +121,35 @@ Route::group(array('before' => "admin"), function(){
         "uses" => "AdminController@dashboard"
     ));
     
-    Route::get('admin/new-tournament', array(
+    Route::get('admin/tournament/new', array(
         "as" => "adminNewTournament",
         "uses" => "AdminController@newTournamentView"
     ));
     
-    Route::post('admin/new-tournament',array(
+    Route::post('admin/tournament/new',array(
        "as" => "adminNewTournament",
         "uses" => "AdminController@newTournamentData"
     ));
     
-    Route::get('admin/all-tournaments', array(
+    Route::get('admin/tournament/all', array(
        "as" => "adminAllTournaments",
        "uses"=> "AdminController@allTournaments"
     ));
 
-    Route::get('admin/edit-tournament/{id}', array(
+    Route::get('admin/tournament/{id}/edit', array(
         "as" => "adminEditTournament",
         "uses" => "AdminController@editTournamentView"
     ));
+    
+    Route::get('admin/tournament/{id}/applies',array(
+       "as" => "adminTournamentApplies",
+       "uses" => "AdminController@tourApplies"
+    ));
+    
+    Route::get('admin/tournament/{id}/start',array(
+       "as" => "adminStartTournament" 
+    ));
+    
 });
 
 /**
