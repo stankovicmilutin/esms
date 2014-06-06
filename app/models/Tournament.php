@@ -24,11 +24,24 @@ class Tournament extends Eloquent{
         return $this->winner;
     }
 
-    public static function appliedTeams($id) {
+    /*public static function appliedTeams($id) {
         return DB::table('tour_applies')
             ->where('tournament', '=', $id)
             ->join('teams', 'tour_applies.team', '=', 'teams.teamID')
             ->select()
             ->get();
+    }*/
+
+    public function teams() {
+        return $this->belongsToMany('Team', 'tour_applies', 'tournament', 'team')
+                    ->withPivot('played')
+                    ->withPivot('won')
+                    ->withPivot('lost')
+                    ->orderBy('won', 'desc');
+    }
+
+    public function matches() {
+        return $this->hasMany('Match', 'tournamentID', 'tournamentID')
+                    ->orderBy('time', 'asc');
     }
 }

@@ -147,7 +147,8 @@ Route::group(array('before' => "admin"), function(){
     ));
     
     Route::get('admin/tournament/{id}/start',array(
-       "as" => "adminStartTournament" 
+       "as" => "adminStartTournament",
+       "uses" => "AdminController@startTournament"
     ));
     
 });

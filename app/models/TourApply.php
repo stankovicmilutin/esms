@@ -4,7 +4,7 @@ class TourApply extends Eloquent {
     
     protected $table = "tour_applies";
     protected $primaryKey = "locID";
-    protected $fillable = array ("tournament", "team");
+    protected $fillable = array ("tournament", "team", "played", "won", "lost");
     
     
     public function getData(){

@@ -112,7 +112,7 @@ if (!$con)
 					`matchID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`host` bigint(12) NOT NULL,
 					`guest` bigint(12) NOT NULL,
-					`winnerID` bigint(12) NOT NULL,
+					`winnerID` bigint(12) NULL,
 					`time` TIMESTAMP NULL,
 					`tournamentID` bigint(12) NOT NULL,
 					`tournament_phase` varchar(60) NULL,
@@ -122,7 +122,6 @@ if (!$con)
 					PRIMARY KEY(`matchID`),
 					FOREIGN KEY(`host`) REFERENCES esms_teams(teamID) ON DELETE NO ACTION ON UPDATE CASCADE,
 					FOREIGN KEY(`guest`) REFERENCES esms_teams(teamID) ON DELETE NO ACTION ON UPDATE CASCADE,
-					FOREIGN KEY(`winnerID`) REFERENCES esms_teams(teamID) ON DELETE NO ACTION ON UPDATE CASCADE,
 					FOREIGN KEY(`tournamentID`) REFERENCES esms_tournaments(tournamentID) ON DELETE CASCADE ON UPDATE CASCADE
 					)
 					DEFAULT CHARACTER SET = utf8
@@ -168,6 +167,9 @@ if (!$con)
 					`locID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`tournament` bigint(12) NOT NULL,
 					`team` bigint(12) NOT NULL,
+					`played` int(5) NULL DEFAULT 0,
+					`won` int(5) NULL DEFAULT 0,
+					`lost` int(5) NULL DEFAULT 0,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 

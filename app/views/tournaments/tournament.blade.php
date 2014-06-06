@@ -30,31 +30,84 @@
 <div class="row">
     <div class="col-md-12">
         <div class="jumbotron tournCover" style="background-image: url({{ URL::asset('uploads/tournaments/'.$tournament->cover)}}); ">
-            <div class="col-md-2 col-md-offset-11">
-                @if ($currentPlayer)
+            <div class="col-md-10"><h1 class="notopmargin">{{ $tournament->name}}</h1>
+                <p>Teams: {{ $tournament->max_teams }}</p>
+                <p>Prize Money: ${{  number_format((int)$tournament->prizepool, 0, ',', ', ')   }}</p>
+                <p>Starting on: {{ date("d. M Y", strtotime($tournament->starting))}}</p>
+                @if ($currentPlayer && $tournament->reg_open == 1)
                     @if ( $currentPlayer->isCaptain() )
-                    <button data-toggle="modal" data-target="#apply" type="button" class="btn btn-success">Apply</button>
+                    <p><a data-toggle="modal" data-target="#apply" role="button" class="btn btn-success btn-lg" href="#">Apply for this Tournament</a></p>
                     @endif
                 @endif
             </div>
-            <h1>{{ $tournament->name}}</h1>
-            <p>Teams: {{ $tournament->max_teams }}</p>
-            <p>Prize Money: ${{  number_format((int)$tournament->prizepool, 0, ',', ', ')   }}</p>
-            <p>Starting on: {{ date("d. M Y", strtotime($tournament->starting))}}</p>
 
+            <div class="col-md-2">
+                @if ($tournament->reg_open == 1)
+                <p><span class="label label-info">Not started</span></p>
+                @elseif ($tournament->winnerID)
+                <p><span class="label label-info">Finished</span></p>
+                @else
+                <p><span class="label label-info">Playing</span></p>
+                @endif
+            </div>
+            <div class="clearfix"></div>
         </div>
         <div class="well">
             <h2 class="notopmargin">Standings</h2>
+            <table class="table table-hover esmsTable">
+                <tr>
+                    <th>Position</th>
+                    <th>Team</th>
+                    <th>Played</th>
+                    <th>Won</th>
+                    <th>Lost</th>
+                </tr>
+                <?php $c = 1; ?>
+                @foreach ($teams as $team)
+                <tr></tr>
+                <tr>
+                    <td>{{$c}}</td>
+                    <td><a href="{{URL::Route('team', $team->teamID)}}">{{$team->name}}</a></td>
+                    <td>{{$team->pivot->played}}</td>
+                    <td>{{$team->pivot->won}}</td>
+                    <td>{{$team->pivot->lost}}</td>
+                </tr>
+                <?php $c++; ?>
+                @endforeach
+            </table>
+        </div>
 
-            <div class="tournamentPlayoff">
-                <div class="panel panel-default matchBox">
-                    <div class="panel-heading">Group A</div>
-                    <div class="panel-body">
-                        Team_1
-                        Team_2
-                    </div>
-                </div>
-            </div>
+        <div class="well">
+            <h2 class="notopmargin">Matches</h2>
+            <table class="table table-hover esmsTable">
+                <tr>
+                    <th>Host</th>
+                    <th></th>
+                    <th>Guest</th>
+                    <th>Date</th>
+                    <th>Winner</th>
+                    <th></th>
+                </tr>
+                @foreach ($matches as $match)
+                 <tr>
+                    <td><a href="{{URL::Route('team', $match->hostTeam->teamID)}}">{{ $match->hostTeam->name }}</a></td>
+                    <td>vs</td>
+                    <td><a href="{{URL::Route('team', $match->guestTeam->teamID)}}">{{ $match->guestTeam->name }}</a></td>
+                    <td>{{ date( "d M Y", strtotime($match->time)) }}</td>
+
+                    @if ($match->winnerID == $match->hostTeam->teamID)
+                    <td class="text-info">{{ $match->hostTeam->name }}</td>
+                    @elseif ($match->winnerID == $match->guestTeam->teamID)
+                    <td class="text-info">{{ $match->awayTeam->name }}</td>
+                    @else
+                    <td>Not Played</td>
+                    @endif
+                    <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
+                </tr>
+                @endforeach
+            </table>
+
+            {{ $matches->links() }}
         </div>
     </div>
 </div>

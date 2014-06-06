@@ -11,21 +11,36 @@ Matches
             <h2 class="notopmargin">All Matches</h2>
             <div class="spacer30"></div>
             <table class="table table-hover esmsTable">
-                <tr><th>Teams</th><th>Tournament</th><th>Series</th><th>Date</th><th></th></tr>
+                <tr>
+                    <th>Host</th>
+                    <th></th>
+                    <th>Guest</th>
+                    <th>Tournament</th>
+                    <th>Date</th>
+                    <th>Winner</th>
+                    <th></th>
+                </tr>
                 @foreach ($matches as $match)
-                <?php $match->loadData(); ?>
                  <tr>
-                    <td><a href="#">{{ $match->host->name }}</a> vs <a href="#">{{  $match->guest->name }}</a></td>
-                    <td>{{ $match->tournament->name}}</td>
-                    <td>{{ $match->tournament_phase }}</td>
-                    <td>{{ $match->time }}</td>
+                    <td><a href="{{URL::Route('team', $match->hostTeam->teamID)}}">{{ $match->hostTeam->name }}</a></td>
+                    <td>vs</td>
+                    <td><a href="{{URL::Route('team', $match->guestTeam->teamID)}}">{{ $match->guestTeam->name }}</a></td>
+                    <td><a href="{{URL::Route('tournament', $match->tournament->tournamentID)}}">{{ $match->tournament->name }}</a></td>
+                    <td>{{ date( "d M Y", strtotime($match->time)) }}</td>
+
+                    @if ($match->winnerID == $match->hostTeam->teamID)
+                    <td class="text-info">{{ $match->hostTeam->name }}</td>
+                    @elseif ($match->winnerID == $match->guestTeam->teamID)
+                    <td class="text-info">{{ $match->awayTeam->name }}</td>
+                    @else
+                    <td>Not Played</td>
+                    @endif
                     <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
                 </tr>
                 @endforeach
             </table>
 
-
-             {{ $matches->links() }}
+            {{ $matches->links() }}
         </div>
 
     </div>

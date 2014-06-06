@@ -19,11 +19,15 @@ $teamNum = count($teams);
         </div>
         <div class="well">
             <h4 class="notopmargin">Tournament options</h4>
-            <button type="button" class="btn btn-primary">Start tournament!</button>
+            @if ($tournament->reg_open == 1)
+            <a href="{{ URL::route('adminStartTournament', $tournament->tournamentID) }}"><button type="button" class="btn btn-primary">Start tournament!</button></a>
+            @else
+            <a href=""><button type="button" class="btn btn-primary">Edit Matches</button></a>
+            @endif            
             <a href="{{URL::Route('adminEditTournament', $tournament->tournamentID)}}"><button type="button" class="btn btn-primary" style="margin-left: 15px">Edit tournament</button></a>
             <a href="{{ URL::route('adminAllTournaments') }}"><button type="button" class="btn btn-primary" style="margin-left: 15px">All tournaments</button></a>
             <div class="panel-body">
-                    <p>- Starting tournament will generate match schedule from applied teams.</p>
+                    <p>- Starting tournament will generate match schedule from applied teams and will close tournament applications.</p>
                     <p>- If there are not enough teams, random team will get free pass to next round (Knockout system only)</p>
             </div>
         </div>
@@ -32,6 +36,7 @@ $teamNum = count($teams);
         </div>
         <table class="table">
             <tr><th>#</th><th>Tag</th><th>Team</th><tr/>
+            @if ($teams)
             @foreach ($teams as $team)
             <tr>
                 <th>{{ $i++ }}</th>
@@ -39,6 +44,7 @@ $teamNum = count($teams);
                 <th><a href="{{URL::Route('team', $team->teamID)}}">{{$team->name}}</a><th>
             </tr>
             @endforeach
+            @endif
         </table>
     </div>
 </div>

@@ -88,11 +88,70 @@ class AdminController extends BaseController {
     }
     
     public function tourApplies($id){
-        
-      //  $applies = TourApply::all();
         $t = Tournament::find($id);
-        $teams = Tournament::appliedTeams($id);
-       
+        $teams = $t->teams;
+
        return View::make("tournaments/applies", array("teams" => $teams, "tournament" => $t));
     }
+
+
+    public function startTournament($id) {
+        $tour = Tournament::find($id);
+        $teams = $tour->teams;
+        $teamsNumber = count($teams);
+
+        if ($teamsNumber % 2 != 0) 
+            die("trenutno radim samo za paran broj timova");
+
+        $generatedMatches = array();
+
+        /**
+         * round robin algoritam
+         * trenutno radi samo za paran broj timova
+         */
+        for ($k = 1; $k < $teamsNumber; $k++) {
+            //echo "</br></br>Round " . $k . "</br>";
+
+            //pamti meceve za ovu rundu
+            for ($i = 0; $i < ($teamsNumber/2); $i++)
+            {
+                //echo $teams[$i]->name . ' vs ' . $teams[($teamsNumber/2)+$i]->name. "<br/>"; 
+                array_push($generatedMatches, array('host' => $teams[$i]->teamID,
+                                                    'guest' => $teams[($teamsNumber/2)+$i]->teamID,
+                                                    'time' => date('Y-m-d H:i:s', strtotime($tour->starting . ' + '.($k-1).' day')),
+                                                    'tournamentID' => $tour->tournamentID
+                                                    ));
+            }
+
+            //shiftuj niz za stampaje sledecih rundi
+            for ($i = 1; $i < $teamsNumber-1; $i++) {
+                if (($i+2) == $teamsNumber) {
+                    $pom = $teams[1];
+                    $teams[1] = $teams[$teamsNumber-1];
+                    $teams[$teamsNumber-1] = $pom;
+                } else {
+                    $pom = $teams[$i];
+                    $teams[$i] = $teams[$i+1];
+                    $teams[$i+1] = $pom;
+                }
+            }
+        }
+
+        if (DB::table("matches")->insert($generatedMatches)) {
+            $tour->reg_open = 0;
+            $tour->save();
+
+            return Redirect::route('adminTournamentApplies', $id)
+                    ->with('global-title','Success' )
+                    ->with('global-text','Matches succesffully generated.')
+                    ->with('global-class','success');    
+        }
+        else {
+            return Redirect::route('adminTournamentApplies', $id)
+                    ->with('global-title','Error' )
+                    ->with('global-text','Internal error, matches couldn\'t be generated.')
+                    ->with('global-class','error');    
+        }
+    }
+
 }
