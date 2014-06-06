@@ -81,4 +81,14 @@ class AdminController extends BaseController {
         }
         
     }
+
+    public function editTournamentView($id) {
+        $tour = Tournament::find($id);
+        $teams = Tournament::appliedTeams($id);
+        //var_dump($teams);
+        
+        //die();
+
+        return View::make("admin/edittournament", array("tour" => $tour, "teams" => $teams) );
+    }
 }

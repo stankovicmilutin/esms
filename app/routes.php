@@ -135,7 +135,11 @@ Route::group(array('before' => "admin"), function(){
        "as" => "adminAllTournaments",
        "uses"=> "AdminController@allTournaments"
     ));
-    
+
+    Route::get('admin/edit-tournament/{id}', array(
+        "as" => "adminEditTournament",
+        "uses" => "AdminController@editTournamentView"
+    ));
 });
 
 /**

@@ -20,4 +20,5 @@ class Team extends Eloquent {
         return $players;
     }
   
+  
 }

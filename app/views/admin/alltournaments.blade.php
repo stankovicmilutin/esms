@@ -24,7 +24,7 @@ All Tournaments
                 @foreach ($tournaments as $t)
                 <tr>
                     <td>{{ $i++ }}</td>
-                    <td>{{ $t->name}}</td>
+                    <td><a href="{{URL::Route('adminEditTournament', $t->tournamentID)}}">{{ $t->name}}</a></td>
                     <td>{{  number_format((int)$t->prizepool, 0, ',', ', ')   }} $</td>
                     <td>{{ date("d. M Y", strtotime($t->starting))}}</td>
                 </tr>
