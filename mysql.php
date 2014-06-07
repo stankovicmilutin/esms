@@ -5,12 +5,12 @@ $user = "root";
 $password = "";
 $database = "esms";
 
-$con = mysqli_connect($host, $user , $password, $database);
+$con = mysqli_connect($host, $user , $password);
 if (!$con)
  {die('Could not connect: ' . mysql_error());} 
  	
  	mysqli_query($con, "CREATE DATABASE IF NOT EXISTS `esms`");
-    //mysqli_select_db( $database , $con); 
+        mysqli_select_db($con, $database); 
     
 	mysqli_query($con, "SET character_set_results=utf8");
 	mb_language('uni'); 
@@ -110,8 +110,8 @@ if (!$con)
 
 	mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_matches` (
 					`matchID` bigint(12) NOT NULL AUTO_INCREMENT,
-					`host` bigint(12) NOT NULL,
-					`guest` bigint(12) NOT NULL,
+					`host` bigint(12) NULL,
+					`guest` bigint(12) NULL,
 					`winnerID` bigint(12) NULL,
 					`time` TIMESTAMP NULL,
 					`tournamentID` bigint(12) NOT NULL,
@@ -176,6 +176,23 @@ if (!$con)
 					PRIMARY KEY(`locID`),
 					FOREIGN KEY(`tournament`) REFERENCES esms_tournaments(tournamentID) ON DELETE CASCADE ON UPDATE CASCADE,
 					FOREIGN KEY(`team`) REFERENCES esms_teams(teamID) ON DELETE CASCADE ON UPDATE CASCADE
+					)
+					DEFAULT CHARACTER SET = utf8
+				");
+        
+        mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_brackets` (
+					`locID` bigint(12) NOT NULL AUTO_INCREMENT,
+					`tournament` bigint(12) NOT NULL,
+					`matchID` bigint(12) NOT NULL,
+					`childID1` bigint(12) NULL,
+					`childID2` bigint(12) NULL,
+					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+					PRIMARY KEY(`locID`),
+					FOREIGN KEY(`matchID`) REFERENCES esms_matches(matchID) ON DELETE CASCADE ON UPDATE CASCADE,
+					FOREIGN KEY(`parentID1`) REFERENCES esms_matches(matchID) ON DELETE CASCADE ON UPDATE CASCADE,
+					FOREIGN KEY(`parentID2`) REFERENCES esms_matches(matchID) ON DELETE CASCADE ON UPDATE CASCADE
 					)
 					DEFAULT CHARACTER SET = utf8
 				");
