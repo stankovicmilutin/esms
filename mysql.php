@@ -116,6 +116,8 @@ if (!$con)
 					`time` TIMESTAMP NULL,
 					`tournamentID` bigint(12) NOT NULL,
 					`tournament_phase` varchar(60) NULL,
+					`child_match_a` bigint(12) NULL,
+					`child_match_b` bigint(12) NULL,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
