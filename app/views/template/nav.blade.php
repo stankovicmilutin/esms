@@ -36,7 +36,7 @@
                         @else
                         <li><a href="{{ URL::route('createNewTeam') }}">My Team</a></li>
                         @endif
-                        <li><a href="{{ URL::route('playerSettingsView') }}">Account Settings</a></li>
+                        <li><a href="{{ URL::route('accountSettingsView') }}">Account Settings</a></li>
                         @if( Auth::user()->level == 5 )
                         <li class="divider"></li>
                         <li><a href="{{ URL::route('adminDashboard') }}">Admin Dashboard</a></li>

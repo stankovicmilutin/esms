@@ -108,9 +108,9 @@ Route::group(array('before' =>"auth"),function(){
     )); 
 
     // Player settings
-    Route::get('player-settings', array(
-            'as' => "playerSettingsView",
-            'uses' => "PlayerController@showPlayerSettings"
+    Route::get('account-settings', array(
+            'as' => "accountSettingsView",
+            'uses' => "UserController@accountSettingsView"
     )); 
 });
 

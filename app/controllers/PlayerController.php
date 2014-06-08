@@ -20,7 +20,10 @@ class PlayerController extends BaseController {
     }
 
     // Player profile edit view
-    
+    public function editPlayerProfileView($id){
+        $player = Player::find($id);
+        return View::make("players/edit",array("player" => $player));
+    }
     
     
     // Account setting acctually
@@ -70,7 +73,7 @@ class PlayerController extends BaseController {
 
         $currentPlayer->save();
 
-        return Redirect::route("playerSettingsView")
+        return Redirect::route("player-profile",$currentPlayer->playerID)
                         ->with('global-title', 'Saving complete')
                         ->with('global-text', 'Your profile info has been saved!')
                         ->with('global-class', 'success');

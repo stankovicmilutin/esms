@@ -150,4 +150,9 @@ class UserController extends BaseController {
         return Redirect::route("index");
     }
     
+    public function accountSettingsView(){
+        $user = Auth::user();
+        return View::make("users/settings", array("user" => $user));
+    }
+    
 }

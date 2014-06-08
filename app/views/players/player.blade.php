@@ -23,7 +23,7 @@
             <div class="col-md-2">
                 <ul class="nav nav-pills">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary">Edit profile</button>
+                        <a href="{{ URL::route("editPlayerProfile",$player->playerID)}}"><button type="button" class="btn btn-primary">Edit profile</button></a>
                     </div>              
                 </ul>
             </div>
