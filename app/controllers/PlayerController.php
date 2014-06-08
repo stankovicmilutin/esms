@@ -19,6 +19,11 @@ class PlayerController extends BaseController {
         return View::make("players/player", array('user' => $user, 'player' => $player, 'team' => $team));
     }
 
+    // Player profile edit view
+    
+    
+    
+    // Account setting acctually
     public function showPlayerSettings() {
         if (!Auth::check())
             return Redirect::route("index");
