@@ -3,7 +3,7 @@
 class Match extends Eloquent {
     
     protected $primaryKey = "matchID";
-    protected $fillable = array('host', 'guest', 'winnerID', 'time', 'tournamentID','tournament_phase');
+    protected $fillable = array('host', 'guest', 'winnerID', 'time', 'tournamentID','tournament_phase', 'child_match_a', 'child_match_b');
     protected $table = "matches";
     
    
