@@ -146,68 +146,34 @@ class AdminController extends BaseController {
                                 ->with('global-class', 'error');
             }
         }
-        
-        if($tour->type == "Knockout System"){
-            
-            
+
+        if ($tour->type == "Knockout System") {
+
             $teams; // -> Array of applied teams
             $tour; // -> Tournament
+            
+            $tableInfo = DB::select(DB::raw("SHOW TABLE STATUS LIKE 'esms_brackets'"));
+            $nextLocID = $tableInfo[0]->Auto_increment;
             // Create final match and insert it
-            $finalMatch = Match::create(array(
-                "tournamentID" => $tour->tournamentID,                
-            ));
-            $finalNode= Brackets::create(array(
-                "tournament" => $tour->tournamentID,
-                "matchID" =>$finalMatch->matchID
-            ));
-            
-            $lastNode = $finalNode;
+         
+            $matchCounter = $nextLocID+1;
                         
-            for($i=0; $i<count($teams)-1; $i++){
-                
-                // Create new match to insert in this round
+            for ($i = 0; $i < count($teams)-1; $i++) {
                 $match = Match::create(array(
-                    "tournamentID" => $tour->tournamentID,
-                ));
-                
-                If($lastNode->childID1 == NULL ){
-                    $lastNode->addChild1($match->matchID);
-                }
-                elseif ($lastNode->childID2 == NULL){
-                    $lastNode->addChild2($match->matchID);
-                }
-                else {
-                    $newNode = Brackets::create(array(
+                        "tournamentID" => $tour->tournamentID,
+                )); 
+               $node = Brackets::create(array(
                         "tournament" => $tour->tournamentID,
-                        "matchID" => $match->matchID
-                    ));
-                    $lastNode = $newNode;
-                }
-                
-                
-           //     $lastMatch ;
+                        "matchID" => $match->matchID,
+                        "childID1" => $matchCounter++,
+                        "childID2" => $matchCounter++
+            ));
             }
+
             
             
             
-            // Kategorizuj velicinu turnira
-            /*$i=22;
-            while ( $i/2 >= 2 ){
-                if($i%2 == 1){
-                    $i=$i-1;
-                    echo " mod ";
-                }
-                $i = $i/2 ;
-                 echo $i, "<br>";
-            }
-            */
-            
-            //Za citanje
-          //  $finale = Brackets::where("tournament", "=", $tour->id)
-          //          ->orderBy("locID", "DESC")->get();
-            
-          //  var_dump($lastBracket->childID1);
-          //  var_dump($teams);
+           
         }
     }
 
