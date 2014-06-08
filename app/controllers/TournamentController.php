@@ -67,6 +67,5 @@ class TournamentController extends BaseController {
                                 ->with('global-text', 'Your team is already applied for this tournament!')
                                 ->with('global-class', 'warning');
         }
-            
     }
 }
