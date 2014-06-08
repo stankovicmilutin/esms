@@ -83,6 +83,11 @@ Route::group(array('before' =>"auth"),function(){
         'uses' => "PlayerController@answerInvite"
     ));
     
+    // Edit player profile
+    Route::get("player/{id}/edit", array(
+        'as' =>"editPlayerProfile",
+        'uses' => "PlayerController@editPlayerProfileView"
+    ));
 
     //player settings save post
     Route::post('player-settings/save', array(

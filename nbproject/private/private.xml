@@ -6,7 +6,10 @@
             <file>file:/E:/wamp/www/esms/app/views/tournaments/tournament.blade.php</file>
             <file>file:/E:/wamp/www/esms/app/routes.php</file>
             <file>file:/E:/wamp/www/esms/app/views/teams/team.blade.php</file>
+            <file>file:/E:/wamp/www/esms/app/models/Brackets.php</file>
             <file>file:/E:/wamp/www/esms/app/views/template/nav.blade.php</file>
+            <file>file:/E:/wamp/www/esms/app/models/Tournament.php</file>
+            <file>file:/E:/wamp/www/esms/app/controllers/AdminController.php</file>
             <file>file:/E:/wamp/www/esms/app/controllers/TournamentController.php</file>
             <file>file:/E:/wamp/www/esms/app/controllers/TeamController.php</file>
         </group>

@@ -15,10 +15,19 @@
                 <img src="{{ asset('img/anon.jpg') }}" alt="No photo yet!" class="img-rounded" height="140">
                 @endif
             </div>
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h2>{{$player->nick}}</h2>
                 <p>{{$player->bio}}</p>
             </div>
+            @if(Auth::user()->player->playerID == $player->playerID)
+            <div class="col-md-2">
+                <ul class="nav nav-pills">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary">Edit profile</button>
+                    </div>              
+                </ul>
+            </div>
+            @endif
             <div class="clearfix"></div>
             <div class="spacer50"></div>
             <div class="col-md-6">

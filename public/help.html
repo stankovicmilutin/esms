@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>User's manual</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+        <!-- Fixed navbar -->
+        <div  class="navbar navbar-default" role="navigation" id="top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">eSports Management System - User's manual</a>
+                </div>
+                <div id="navbar-main" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Home</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="well">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="#"><h4>Preface</h4></a>
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a href="#about">About</a></li>
+                                    <li class="list-group-item"><a href="#system-requirements">System Requirements</a></li>
+                                    <li class="list-group-item"><a href="#installation">Installation</a></li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#"><h4>Getting Started</h4></a>
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a href="#register-account">Register account</a></li>
+                                    <li class="list-group-item"><a href="#activate-account">Activate account</a></li>
+                                    <li class="list-group-item"><a href="#login">Login</a></li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#"><h4>Players</h4></a>
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a href="#player-profile">Player profile</a></li>
+                                    <li class="list-group-item"><a href="#team-profile">Team Profile</a></li>
+                                    <li class="list-group-item"><a href="#edit-team">Edit team</a></li>
+                                    <li class="list-group-item"><a href="#leave-team">Leave team</a></li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#"><h4>Administrators</h4></a>
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a href="#admin-dashboard">Admin dashboard</a></li>
+                                    <li class="list-group-item"><a href="#create-new-tournament">Create new tournament</a></li>
+                                    <li class="list-group-item"><a href="#edit-tournament">Edit tournament</a></li>
+                                    <li class="list-group-item"><a href="#start-tournament">Start tournament</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="well">
+                        <h1 class="notopmargin">Preface</h1>
+                        <div id="about">
+                            <h3 class="notopmargin">About</h3>
+                            <p>E-Sports Management System (ESMS) is web application based on Laravel4 framework developed by ESMS team.</p>
+                            <p>ESMS is application made for big gamming communities for on-line games. Application has built-in options
+                            to start and run tournaments and tracking all relevant data for community members.</p>
+                            <p>Current version: v1.0</p>
+                            <p>Copyright © 2014 ESMS team. All rights reserved.</p>
+                        </div>
+                        <hr>
+                        <div id="system-requirements">
+                            <h3 class="notopmargin">System Requirements</h3>
+                            <p>E-Sports Management System (ESMS) is web application and for using it you need any device with internet
+                            connection.</p>
+                            <p>Application is optimized for all devices and it has responsive design.</p>
+                            <p>In case you are administrator and want to run this application on your server, you must meet the following: </p>
+                                <ol>
+                                    <li>PHP version: 5.4 or above</li>
+                                    <li>MySQL version: 5.6 or above</li>
+                                    <li>Minimum of 100mb hosting space</li>
+                                    <li>Apache mod_rewrite enabled</li>
+                                    <li>PHP_fileinfo extension enabled</li>
+                                    <li>MCrypt PHP extension enabled</li>
+                                </ol>
+                        </div>
+                        <hr>
+                        <div id="installation">
+                            <h3 class="notopmargin">Installation </h3>
+                            <p>
+                                If you are <b>regular user</b>, you do not have to install anything in order to use this application. All you have to do is
+                                to go on specified url: www.esms.com and login with your data
+                            </p>
+                            <p>
+                                If you are <b>administrator</b> and you want to install applcation on your server, after meeting <a href="#system-requirements">System Requirements</a>
+                                you have just to extract esms.rar archive and upload it to your server. </p>
+                            <p>
+                                After upload is done, you need to edit mysql.php file on line 3 to 6 with your database configuration. After that is done, go to your server URL,
+                                and run www.serverURL.com/public/mysql.php for ESMS to create required database and tables.
+                            </p>
+                        </div>
+                        <hr>
+                        <h1 class="notopmargin">Getting started</h1>
+                        <div id="register-account">
+                            <h3>Register account</h3>
+                            <p>
+                                To create new account, you have to navigate to top right corner, and in main menu click on "Register".
+                                After that, the following form will be displayed. </br>
+                                <img src="user-manual/register.png" class="col-md-offset-3"></br>
+                                You must enter unique username, valid e-mail address and safe password.
+                                After you submit this form, we will send you e-mail message on the address you have provided, to <a href="#activate-account">activate your account.</a> 
+                            </p>
+                        </div>
+                        <hr>
+                        <div id="activate-account">
+                            <h3>Activate account</h3>
+                            <p>
+                                After submitting the register form, you will get e-mail with the activation link. Please click on that link and your account will be activated,
+                                and you will be able to access your player profile. Note that account has to be activated for user to access the application.
+                            </p>
+                        </div>
+                        <hr>
+                        <div id="login">
+                            <h3>Login</h3>
+                            <p>
+                                To login with your account, you have to navigate to top right corner, and in main menu click on "Login".
+                                After that, the following form will be displayed. </br>
+                                <img src="user-manual/login.png" class="col-md-offset-3"></br>
+                                Here you enter your account username and password. Account has to be <a href="#activate-account">activated.</a> 
+                            </p>
+                        </div>
+                        <hr>
+                        <h1 class="notopmargin">Players</h1>
+                        <hr>
+                        <div id="player-profile">
+                            <h3>Player profile</h3>
+                            <p>
+                             To open your profile, you must <a href="#login">login first.</a>
+                            </p>
+                            <p>
+                                After login, navigate in top right corner. You will see your username there. Click on it will display following
+                            </p>
+                            <img src="user-manual/my-profile.png" class="col-md-offset-3">
+                            <p>
+                                Click on "My profile" will lead you to your profile page.
+                            </p>
+                            <p>
+                                To edit your profile, a "Edit profile" button will be shown on your profile page. Click on it and edit form will appear.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>
