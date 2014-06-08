@@ -151,11 +151,20 @@ Route::group(array('before' => "admin"), function(){
        "uses" => "AdminController@tourApplies"
     ));
     
-    Route::get('admin/tournament/{id}/start',array(
-       "as" => "adminStartTournament",
-       "uses" => "AdminController@startTournament"
+    Route::get('admin/tournament/{id}/startl',array(
+       "as" => "adminStartTournamentLeague",
+       "uses" => "AdminController@startTournamentLeague"
     ));
-    
+
+    Route::get('admin/tournament/{id}/startko',array(
+       "as" => "adminStartTournamentKnock",
+       "uses" => "AdminController@startTournamentKnock"
+    )); 
+
+    Route::get('admin/match/{id}/edit',array(
+       "as" => "adminEditMatch",
+       "uses" => "AdminController@editMatch"
+    ));  
 });
 
 /**

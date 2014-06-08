@@ -24,7 +24,6 @@ class TournamentController extends BaseController {
         //ovakvo ucitavanje da se izbegne N+1 query problem
         //tj da se ne ucitava za svaki mec away team i guest team posebno 
         $matches = Match::with('hostTeam')->with('guestTeam')->where('tournamentID', '=', $id)->orderby('time', 'asc')->paginate(15);
-        //var_dump($matches[0]->hostTeam);die();
 
         if ( Auth::check())
             $currentPlayer = Auth::user()->player;
@@ -36,7 +35,7 @@ class TournamentController extends BaseController {
                                                         "matches" => $matches));
     }
     
-    public function applyTeam($tournamentID){
+    public function applyTeam($tournamentID) {
         
         $teamID = Auth::user()->player->teamID;
         

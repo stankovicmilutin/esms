@@ -87,186 +87,125 @@ class AdminController extends BaseController {
     public function tourApplies($id) {
         $t = Tournament::find($id);
         $teams = $t->teams;
+        $matches = Match::with('hostTeam')->with('guestTeam')->where('tournamentID', '=', $id)->orderby('time', 'asc')->paginate(15);
 
-        return View::make("tournaments/applies", array("teams" => $teams, "tournament" => $t));
+        return View::make("tournaments/applies", array("teams" => $teams, "tournament" => $t, 'matches' => $matches ));
     }
 
-    public function startTournament($id) {
+    public function startTournamentLeague($id) {
+        if (!Auth::check())
+            return Redirect::route('index')
+                            ->with('global-title', 'Error')
+                            ->with('global-text', 'Nope.')
+                            ->with('global-class', 'error');           
+
         $tour = Tournament::find($id);
+        
+        if ($tour->reg_open == 0)
+            return Redirect::route('adminTournamentApplies', $id)
+                            ->with('global-title', 'Error')
+                            ->with('global-text', 'Tournament Already Started!')
+                            ->with('global-class', 'error'); 
+
         $teams = $tour->teams;
         $teamsNumber = count($teams);
 
-        if ($tour->type == "League System") {
-            if ($teamsNumber % 2 != 0)
-                die("trenutno radim samo za paran broj timova");
+        if ($teamsNumber % 2 != 0)
+            die("trenutno radim samo za paran broj timova");
 
-            $generatedMatches = array();
+        $generatedMatches = array();
 
-            /**
-             * round robin algoritam
-             * trenutno radi samo za paran broj timova
-             */
-            for ($k = 1; $k < $teamsNumber; $k++) {
-                //echo "</br></br>Round " . $k . "</br>";
-                //pamti meceve za ovu rundu
-                for ($i = 0; $i < ($teamsNumber / 2); $i++) {
-                    //echo $teams[$i]->name . ' vs ' . $teams[($teamsNumber/2)+$i]->name. "<br/>"; 
-                    array_push($generatedMatches, array('host' => $teams[$i]->teamID,
-                        'guest' => $teams[($teamsNumber / 2) + $i]->teamID,
-                        'time' => date('Y-m-d H:i:s', strtotime($tour->starting . ' + ' . ($k - 1) . ' day')),
-                        'tournamentID' => $tour->tournamentID,
-                        'tournament_phase' => 'League Match'
-                    ));
-                }
-
-                //shiftuj niz za stampaje sledecih rundi
-                for ($i = 1; $i < $teamsNumber - 1; $i++) {
-                    if (($i + 2) == $teamsNumber) {
-                        $pom = $teams[1];
-                        $teams[1] = $teams[$teamsNumber - 1];
-                        $teams[$teamsNumber - 1] = $pom;
-                    } else {
-                        $pom = $teams[$i];
-                        $teams[$i] = $teams[$i + 1];
-                        $teams[$i + 1] = $pom;
-                    }
-                }
+        /**
+         * round robin algoritam
+         * trenutno radi samo za paran broj timova
+         */
+        for ($k = 1; $k < $teamsNumber; $k++) {
+            //echo "</br></br>Round " . $k . "</br>";
+            //pamti meceve za ovu rundu
+            for ($i = 0; $i < ($teamsNumber / 2); $i++) {
+                //echo $teams[$i]->name . ' vs ' . $teams[($teamsNumber/2)+$i]->name. "<br/>"; 
+                array_push($generatedMatches, array('host' => $teams[$i]->teamID,
+                    'guest' => $teams[($teamsNumber / 2) + $i]->teamID,
+                    'time' => date('Y-m-d H:i:s', strtotime($tour->starting . ' + ' . ($k - 1) . ' day')),
+                    'tournamentID' => $tour->tournamentID,
+                    'tournament_phase' => 'League Match'
+                ));
             }
 
-            if (DB::table("matches")->insert($generatedMatches)) {
-                $tour->reg_open = 0;
-                $tour->save();
-
-                return Redirect::route('adminTournamentApplies', $id)
-                                ->with('global-title', 'Success')
-                                ->with('global-text', 'Matches succesffully generated.')
-                                ->with('global-class', 'success');
-            } else {
-                return Redirect::route('adminTournamentApplies', $id)
-                                ->with('global-title', 'Error')
-                                ->with('global-text', 'Internal error, matches couldn\'t be generated.')
-                                ->with('global-class', 'error');
+            //shiftuj niz za stampaje sledecih rundi
+            for ($i = 1; $i < $teamsNumber - 1; $i++) {
+                if (($i + 2) == $teamsNumber) {
+                    $pom = $teams[1];
+                    $teams[1] = $teams[$teamsNumber - 1];
+                    $teams[$teamsNumber - 1] = $pom;
+                } else {
+                    $pom = $teams[$i];
+                    $teams[$i] = $teams[$i + 1];
+                    $teams[$i + 1] = $pom;
+                }
             }
         }
 
-        if ($tour->type == "Knockout System") {
+        if (DB::table("matches")->insert($generatedMatches)) {
+            $tour->reg_open = 0;
+            $tour->save();
 
-            $teams; // -> Array of applied teams
-            $tour; // -> Tournament
-           /* 
-            $tableInfo = DB::select(DB::raw("SHOW TABLE STATUS LIKE 'esms_brackets'"));
-            $nextLocID = $tableInfo[0]->Auto_increment;
-            // Create final match and insert it
-         
-            $matchCounter = $nextLocID+1;
-                        
-            for ($i = 0; $i < count($teams)-1; $i++) {
-                $match = Match::create(array(
-                        "tournamentID" => $tour->tournamentID,
-                )); 
-               $node = Brackets::create(array(
-                        "tournament" => $tour->tournamentID,
-                        "matchID" => $match->matchID,
-                        "childID1" => $matchCounter++,
-                        "childID2" => $matchCounter++
-            ));
-            }
-
-            */
-           
-           /**
-            * MOJE NOVO
-            * 
-            */
-            /*$c = array('id' => 0, 'dete1' => NULL, 'dete2' => NULL );
-
-            $this->genFaze($c, 3, 1);*/
-
-            //odredi broj faza. - 1 zato sto finale rucno pravimo
-            $brFaza = log($teamsNumber, 2)-1;
-
-            $finalMatch = Match::create(array(
-                    "tournamentID" => $tour->tournamentID,
-                    "tournament_phase" => "Finals",
-                    'time' => date('Y-m-d H:i:s', strtotime($tour->starting . ' + ' . $brFaza . ' day'))
-            ));
-            $this->genFaze($teams, $tour, $finalMatch->matchID, $brFaza, 1);
+            return Redirect::route('adminTournamentApplies', $id)
+                            ->with('global-title', 'Success')
+                            ->with('global-text', 'Matches succesffully generated.')
+                            ->with('global-class', 'success');
+        } else {
+            return Redirect::route('adminTournamentApplies', $id)
+                            ->with('global-title', 'Error')
+                            ->with('global-text', 'Internal error, matches couldn\'t be generated.')
+                            ->with('global-class', 'error');
         }
+
     }
 
-    /**
-     * rekurzivno generise stablo (bracket) turnira
-     * @param  EloquentCollection $teams       = lista modela timova
-     * @param  EloquentModel $tournament       = model turnira
-     * @param  int $caleID                     = roditeljski mec ID
-     * @param  int $brFaza                     = faza takmicenja 
-     * @param  int $trenutnaFaza [description] = faza koja se trenutno obradjuje
-     * @return void
-     */
-    public function genFaze($teams, $tournament, $caleID, $brFaza, $trenutnaFaza) {
-        //odredi fazu turnira
-
-        if (($brFaza - $trenutnaFaza) == 1)
-            $phase = "Semi-Final";
-        elseif (($brFaza - $trenutnaFaza) == 0)
-            $phase = "Quarter-Final";
-        else
-            $phase = ($brFaza - $trenutnaFaza +1) . ". round";
+    public function startTournamentKnock($id) {
+        if (!Auth::check())
+            return Redirect::route('index')
+                            ->with('global-title', 'Error')
+                            ->with('global-text', 'Nope.')
+                            ->with('global-class', 'error');         
 
 
-        if ($trenutnaFaza < $brFaza) {
+        $tour = Tournament::find($id);
 
-            $newMatchA = Match::create(array('time' => date('Y-m-d H:i:s', strtotime($tournament->starting . ' + ' . ($brFaza - $trenutnaFaza) . ' day')),
-                            'tournamentID' => $tournament->tournamentID,
-                            "tournament_phase" => $phase
-                        ));
+        if ($tour->reg_open == 0)
+            return Redirect::route('adminTournamentApplies', $id)
+                            ->with('global-title', 'Error')
+                            ->with('global-text', 'Tournament Already Started!')
+                            ->with('global-class', 'error');   
 
-            $newMatchB = Match::create(array('time' => date('Y-m-d H:i:s', strtotime($tournament->starting . ' + ' . ($brFaza - $trenutnaFaza)  . ' day')),
-                            'tournamentID' => $tournament->tournamentID,
-                            "tournament_phase" => $phase
-                        ));
+        $teams = $tour->teams;
+        $teamsNumber = count($teams);
 
-            //dodaj decu caletu
-            $parMatch = Match::find($caleID);
-            $parMatch->child_match_a = $newMatchA->matchID;
-            $parMatch->child_match_b = $newMatchB->matchID;
-            $parMatch->save();
+        $brFaza = log($teamsNumber, 2)-1;
 
-            $trenutnaFaza++;
-            $this->genFaze($teams, $tournament, $newMatchA->matchID, $brFaza, $trenutnaFaza);
-            $this->genFaze($teams, $tournament, $newMatchB->matchID, $brFaza, $trenutnaFaza);
-        } else {
+        $finalMatch = Match::create(array(
+                "tournamentID" => $tour->tournamentID,
+                "tournament_phase" => "Finals",
+                'time' => date('Y-m-d H:i:s', strtotime($tour->starting . ' + ' . $brFaza . ' day'))
+        ));
+        $tour->reg_open = 0;
+        $tour->save();
 
-            $newMatchA = Match::create(array('time' => date('Y-m-d H:i:s', strtotime($tournament->starting . ' + ' . ($brFaza - $trenutnaFaza)  . ' day')),
-                            'tournamentID' => $tournament->tournamentID,
-                            'host' => $teams[0]->teamID,
-                            'guest' => $teams[1]->teamID,
-                            "tournament_phase" => $phase
-                        ));
+        EsmsHelper::genFaze($teams, $tour, $finalMatch->matchID, $brFaza, 1);
 
-            //izbaci prvi i drugi tim iz liste timova
-            $teams->shift();
-            $teams->shift();
+        return Redirect::route('adminTournamentApplies', $id)
+                        ->with('global-title', 'Success')
+                        ->with('global-text', 'Matches succesffully generated.')
+                        ->with('global-class', 'success');
+    }
 
-            $newMatchB = Match::create(array('time' => date('Y-m-d H:i:s', strtotime($tournament->starting . ' + ' . ($brFaza - $trenutnaFaza)  . ' day')),
-                            'tournamentID' => $tournament->tournamentID,
-                            'host' => $teams[0]->teamID,
-                            'guest' => $teams[1]->teamID,
-                            "tournament_phase" => $phase
-                        ));
 
-            //izbaci prvi i drugi tim iz liste timova
-            $teams->shift();
-            $teams->shift();
+    public function editMatch($id) {
+        $match = Match::with('hostTeam')->with('guestTeam')->find($id);
 
-            //dodaj decu caletu
-            $parMatch = Match::find($caleID);
-            $parMatch->child_match_a = $newMatchA->matchID;
-            $parMatch->child_match_b = $newMatchB->matchID;
-            $parMatch->save();
 
-        }
-
+        return View::make("admin/admineditmatch", array("match" => $match));
     }
 
 }

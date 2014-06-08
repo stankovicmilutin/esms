@@ -13,14 +13,22 @@ $teamNum = count($teams);
     <div class="col-md-12">
         <div class="well">
             <h4 class="notopmargin">Tournament info</h4>
+            @if ($tournament->reg_open == 1)
             There is space for {{ $tournament->max_teams - $teamNum == 1 ? $tournament->max_teams - $teamNum." team" : $tournament->max_teams - $teamNum." teams"   }} 
             more to apply for the {{ $tournament->name }}. </br>
             Tournament starts: {{ date( "d M Y", strtotime($tournament->starting)) }}
+            @elseif ($tournament->winnerID)
+            Tournament finished.
+            @else
+            Tournament in progress!
+            @endif
         </div>
         <div class="well">
             <h4 class="notopmargin">Tournament options</h4>
-            @if ($tournament->reg_open == 1)
-            <a href="{{ URL::route('adminStartTournament', $tournament->tournamentID) }}"><button type="button" class="btn btn-primary">Start tournament!</button></a>
+            @if ($tournament->reg_open == 1 && $tournament->type == "League System")
+            <a href="{{ URL::route('adminStartTournamentLeague', $tournament->tournamentID) }}"><button type="button" class="btn btn-primary">Start tournament!</button></a>
+            @elseif ($tournament->reg_open == 1 && $tournament->type == "Knockout System")
+            <a href="{{ URL::route('adminStartTournamentKnock', $tournament->tournamentID) }}"><button type="button" class="btn btn-primary">Start tournament!</button></a>
             @else
             <a href=""><button type="button" class="btn btn-primary">Edit Matches</button></a>
             @endif            
@@ -31,6 +39,51 @@ $teamNum = count($teams);
                     <p>- If there are not enough teams, random team will get free pass to next round (Knockout system only)</p>
             </div>
         </div>
+        @if ($tournament->reg_open == 0)
+        <div class="well well-sm">
+            <h4>Matches</h4>
+            <table class="table table-hover esmsTable">
+                <tr>
+                    <th>Host</th>
+                    <th></th>
+                    <th>Guest</th>
+                    <th>Date</th>
+                    <th>Phase</th>
+                    <th>Winner</th>
+                    <th></th>
+                </tr>
+                @foreach ($matches as $match)
+                 <tr>
+                    @if ($match->hostTeam)
+                    <td><a href="{{URL::Route('team', $match->hostTeam->teamID)}}">{{ $match->hostTeam->name }}</a></td>
+                    @else 
+                    <td>TBA</td>
+                    @endif
+                    <td>vs</td>
+                    @if ($match->hostTeam)
+                    <td><a href="{{URL::Route('team', $match->hostTeam->teamID)}}">{{ $match->guestTeam->name }}</a></td>
+                    @else 
+                    <td>TBA</td>
+                    @endif
+
+                    <td>{{ date( "d M Y", strtotime($match->time)) }}</td>
+                    <td>{{ $match->tournament_phase }}</td>
+
+                    @if ($match->hostTeam && $match->winnerID == $match->hostTeam->teamID)
+                    <td class="text-info">{{ $match->hostTeam->name }}</td>
+                    @elseif ($match->guestTeam && $match->winnerID == $match->guestTeam->teamID)
+                    <td class="text-info">{{ $match->awayTeam->name }}</td>
+                    @else
+                    <td>Not Played</td>
+                    @endif
+                    <td><a href="{{URL::Route('adminEditMatch', $match->matchID)}}"><button type="button" class="btn btn-info">Edit</button></a></td>
+                </tr>
+                @endforeach
+            </table>
+
+            {{ $matches->links() }}
+        </div>
+        @endif
         <div class="well well-sm">
             <h4>Applied Teams ( {{ $teamNum,"/",$tournament->max_teams}} ) for {{ $tournament->name}}</h4>
         </div>
