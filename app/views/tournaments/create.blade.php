@@ -11,7 +11,7 @@ New Tournament
     </div>
     <div class="panel-body">
         </br>
-        <form class="form-horizontal" method="post" action="{{ URL::route('adminNewTournament')}}">
+        <form class="form-horizontal" method="post" action="{{ URL::route('adminNewTournament')}}" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="max-teams" class="col-lg-3 control-label">Max teams</label>
                 <div class="col-lg-8">

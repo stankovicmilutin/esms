@@ -48,9 +48,10 @@ class AdminController extends BaseController {
                 $destinationPath = public_path() . '/uploads/';
                 $filename = str_random(12) . '.' . $file->getClientOriginalExtension();
                 $extension = $file->getClientOriginalExtension();
-
+                var_dump($filename);
                 $file->move($destinationPath, $filename);
             }
+
 
             $tournament = Tournament::create(array(
                         'max_teams' => $maxTeams,
