@@ -44,7 +44,7 @@
                     <div class="well">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <a href="#"><h4>Preface</h4></a>
+                                <a href="#preface"><h4>Preface</h4></a>
                                 <ul class="list-group">
                                     <li class="list-group-item"><a href="#about">About</a></li>
                                     <li class="list-group-item"><a href="#system-requirements">System Requirements</a></li>
@@ -52,7 +52,7 @@
                                 </ul>
                             </li>
                             <li class="list-group-item">
-                                <a href="#"><h4>Getting Started</h4></a>
+                                <a href="#getting-started"><h4>Getting Started</h4></a>
                                 <ul class="list-group">
                                     <li class="list-group-item"><a href="#register-account">Register account</a></li>
                                     <li class="list-group-item"><a href="#activate-account">Activate account</a></li>
@@ -60,16 +60,17 @@
                                 </ul>
                             </li>
                             <li class="list-group-item">
-                                <a href="#"><h4>Players</h4></a>
+                                <a href="#players"><h4>Players</h4></a>
                                 <ul class="list-group">
                                     <li class="list-group-item"><a href="#player-profile">Player profile</a></li>
                                     <li class="list-group-item"><a href="#team-profile">Team Profile</a></li>
                                     <li class="list-group-item"><a href="#edit-team">Edit team</a></li>
+                                    <li class="list-group-item"><a href="#apply-for-tournament">Apply for tournament</a></li>
                                     <li class="list-group-item"><a href="#leave-team">Leave team</a></li>
                                 </ul>
                             </li>
                             <li class="list-group-item">
-                                <a href="#"><h4>Administrators</h4></a>
+                                <a href="#administrators"><h4>Administrators</h4></a>
                                 <ul class="list-group">
                                     <li class="list-group-item"><a href="#admin-dashboard">Admin dashboard</a></li>
                                     <li class="list-group-item"><a href="#create-new-tournament">Create new tournament</a></li>
@@ -82,7 +83,7 @@
                 </div>
                 <div class="col-md-9">
                     <div class="well">
-                        <h1 class="notopmargin">Preface</h1>
+                        <h1 class="notopmargin" id="preface">Preface</h1>
                         <div id="about">
                             <h3 class="notopmargin">About</h3>
                             <p>E-Sports Management System (ESMS) is web application based on Laravel4 framework developed by ESMS team.</p>
@@ -123,7 +124,7 @@
                             </p>
                         </div>
                         <hr>
-                        <h1 class="notopmargin">Getting started</h1>
+                        <h1 class="notopmargin" id="getting-started">Getting started</h1>
                         <div id="register-account">
                             <h3>Register account</h3>
                             <p>
@@ -153,7 +154,7 @@
                             </p>
                         </div>
                         <hr>
-                        <h1 class="notopmargin">Players</h1>
+                        <h1 class="notopmargin" id="players">Players</h1>
                         <hr>
                         <div id="player-profile">
                             <h3>Player profile</h3>
@@ -169,6 +170,155 @@
                             </p>
                             <p>
                                 To edit your profile, a "Edit profile" button will be shown on your profile page. Click on it and edit form will appear.
+                            </p>
+                            <img src="user-manual/edit-profile.png" class="col-md-offset-2">
+                        </div>
+                        <hr>
+                        <div id="team-profile">
+                            <h3>Team profile</h3>
+                            <p>
+                             To open your team profile, you must <a href="#login">login first.</a>
+                            </p>
+                            <p>
+                                After login, navigate in top right corner. You will see your username there. Click on it will display following
+                            </p>
+                            <img src="user-manual/my-team-profile.png" class="col-md-offset-3">
+                            <p>
+                                Click on "My team" will lead you to your team profile page.
+                            </p>
+                            <p>
+                                Edit for team page will appear only to team captains. Regular players in team can only leave team, they can't edit.
+                            </p>
+                        </div>
+                        <hr>
+                        <div id="edit-team">
+                            <h3>Edit team</h3>
+                            <h4>Captain's only!</h4>
+                            <img src="user-manual/captain-menu.png" class="col-md-offset-3">
+                            <p>
+                                Click on Invite players will display the following form: 
+                            </p>
+                            <img src="user-manual/invite-player.png" class="col-md-offset-2">
+                            <p>
+                                Note: You can search only for players that have no team at the moment. </br>
+                                Click on change captain will display the following form:
+                            </p>
+                            <img src="user-manual/change-captain.png" class="col-md-offset-2">
+                            <p>
+                                Note: You can't undo this action. Promoting other player to captain, you will not be able to edit team and invite players any longer.
+                            </p>
+                            <img src="user-manual/disband-team.png" class="col-md-offset-3">
+                            <p>
+                                Note: You can't undo this action. This will kick all players from team (including captain).
+                            </p>
+                        </div>
+                        <hr>
+                        <div id="apply-for-tournament">
+                            <h3>Apply for tournament</h3>
+                            <h4>Captain's only!</h4>
+                            <p>
+                                To apply for some tournament, first navigate to top menu, and click on "Tournaments".
+                                Find tournament in the list and click "View Tournament".
+                            </p>
+                            <img src="user-manual/tournament.png" width="100%">
+                            <p>
+                                Note: Tournament must be i phase "Not started" before you apply. </br>
+                                If you are captain, you will see button for tournament apply.
+                            </p>
+                            <img src="user-manual/apply-for-tournament.PNG" width="100%">
+                        </div>
+                        <hr>
+                        <div id="leave-team">
+                            <h3>Leave team</h3>
+                            <p>
+                             To open your team profile, you must <a href="#login">login first.</a>
+                            </p>
+                            <p>
+                                After login, navigate in top right corner. You will see your username there. Click on it will display following
+                            </p>
+                            <img src="user-manual/my-team-profile.png" class="col-md-offset-3">
+                            <p>
+                                Click on "My team" will lead you to your team profile page.
+                            </p>
+                            <p>
+                                Leave option will appear only to players ( not captains ).
+                            </p>
+                            <img src="user-manual/leave-team.png" class="col-md-offset-3">
+                        </div>
+                        <hr>
+                        <h1 class="notopmargin" id="administrators">Administrators</h1>
+                        <hr>
+                        <div id="admin-dashboard">
+                            <h3>Admin Dashboard</h3>
+                            <p>
+                                To access admin dashboard, you must <a href="#login">login first</a> with administrator account.
+                            </p>
+                            <p>
+                                After login, navigate in top right corner. You will see your username there. Click on it will display following
+                            </p>
+                            <img src="user-manual/admin-dashboard.png" class="col-md-offset-3">
+                            <p>
+                                Click on "Admin Dashboard" will lead you to admin panel.
+                            </p>
+                        </div>
+                        <hr>
+                        <div id="create-new-tournament">
+                            <h3>Create New Tournament</h3>
+                            <p>
+                                To create new tournament you have to access <a href="#admin-dashboard">admin dashboard</a> first. </br>
+                                Then navigate to left menu:
+                            </p>
+                            <img src="user-manual/new-tournament.png" class="col-md-offset-3">
+                            <p>
+                                Click on "+ New Tournament" and following form will appear
+                            </p>
+                            <img src="user-manual/create-new-tournament.png" class="col-md-offset-1">
+                            <p>
+                                Submitting this form will create new tournament that players can see and captain can apply their teams.
+                            </p>
+                        </div>
+                        <hr>
+                        <div id="edit-tournament">
+                            <h3>Edit Tournament</h3>
+                            <p>
+                                To edit tournament you have to access <a href="#admin-dashboard">admin dashboard</a> first.
+                            </p>
+                            <p>
+                                Navigate to left menu and click on All tournaments
+                            </p>
+                            <img src="user-manual/all-tournaments.png" class="col-md-offset-3">
+                            <p>
+                                The following will appear:
+                            </p>
+                            <img src="user-manual/edit-tournaments.PNG" class="col-md-offset-1">
+                            <p>
+                                Click on edit and edit form will appear. </br>
+                                Click on manage button if you want to <a href="#start-tournament">start tournament.</a>
+                            </p>
+                        </div>
+                        <hr>
+                        <div id="start-tournament">
+                            <h3>Start tournament</h3>
+                            <p>
+                                To start tournament you have to access <a href="#admin-dashboard">admin dashboard</a> first.
+                            </p>
+                            <p>
+                                Navigate to left menu and click on All tournaments
+                            </p>
+                            <img src="user-manual/all-tournaments.png" class="col-md-offset-3">
+                            <p>
+                                The following will appear:
+                            </p>
+                            <img src="user-manual/edit-tournaments.PNG" class="col-md-offset-1">
+                            <p>
+                               Click on manage button to open tournament management page:
+                            </p>
+                            <img src="user-manual/tournament-management.PNG" class="col-md-offset-1">
+                            <p>
+                                Click on "Start Tournament!" will automatically  generate matches for this tournament and 
+                                applies for tournament will not be longer active.
+                                You can start tournament only once! </br>
+                                Edit tournament leads to <a href="#edit-tournament">Edit tournament</a> page.
                             </p>
                         </div>
                     </div>
