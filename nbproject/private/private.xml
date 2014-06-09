@@ -3,15 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/wamp/www/esms/app/views/tournaments/tournament.blade.php</file>
-            <file>file:/E:/wamp/www/esms/app/routes.php</file>
-            <file>file:/E:/wamp/www/esms/app/views/teams/team.blade.php</file>
-            <file>file:/E:/wamp/www/esms/app/models/Brackets.php</file>
-            <file>file:/E:/wamp/www/esms/app/views/template/nav.blade.php</file>
-            <file>file:/E:/wamp/www/esms/app/models/Tournament.php</file>
-            <file>file:/E:/wamp/www/esms/app/controllers/AdminController.php</file>
-            <file>file:/E:/wamp/www/esms/app/controllers/TournamentController.php</file>
-            <file>file:/E:/wamp/www/esms/app/controllers/TeamController.php</file>
+            <file>file:/E:/wamp/www/esms/public/help.html</file>
         </group>
     </open-files>
 </project-private>
