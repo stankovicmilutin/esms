@@ -23,7 +23,6 @@ if (!$con)
 					`userID` bigint(12) NOT NULL AUTO_INCREMENT ,
 					`username` varchar(80) NOT NULL,
 					`password` varchar(80) NOT NULL,
-					`temp_password` varchar(80) NULL,
 					`email` varchar(80) NOT NULL,
                                         `level` int(2) NOT NULL DEFAULT 1,
 					`code` varchar(80) NOT NULL,
