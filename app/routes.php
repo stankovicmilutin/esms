@@ -107,11 +107,22 @@ Route::group(array('before' =>"auth"),function(){
             'uses' => "AjaxController@invitePlayer"
     )); 
 
-    // Player settings
+    // account settings
     Route::get('account-settings', array(
             'as' => "accountSettingsView",
             'uses' => "UserController@accountSettingsView"
-    )); 
+    ));
+    
+    // CSRF prottection group
+    Route::group(array('before' => 'csrf'), function() {
+        
+        Route::post('account-settings', array(
+           'as' => "accountSettingsData",
+           'uses' => "UserController@accountSettingsData"
+        ));
+        
+        
+    });
 });
 
 /**

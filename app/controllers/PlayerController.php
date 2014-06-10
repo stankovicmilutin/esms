@@ -20,12 +20,18 @@ class PlayerController extends BaseController {
     }
 
     // Player profile edit view
-    public function editPlayerProfileView($id){
-        $player = Player::find($id);
-        return View::make("players/edit",array("player" => $player));
+    public function editPlayerProfileView($id) {
+        if (Auth::user()->player->playerID == $id) {
+            $player = Player::find($id);
+            return View::make("players/edit", array("player" => $player));
+        }
+        else
+            return Redirect::route("player-profile", Auth::user()->player->playerID)
+                        ->with('global-title', 'Access denied')
+                        ->with('global-text', 'You have no permission to edit other profiles!')
+                        ->with('global-class', 'danger');
     }
-    
-    
+
     // Account setting acctually
     public function showPlayerSettings() {
         if (!Auth::check())
@@ -73,7 +79,7 @@ class PlayerController extends BaseController {
 
         $currentPlayer->save();
 
-        return Redirect::route("player-profile",$currentPlayer->playerID)
+        return Redirect::route("player-profile", $currentPlayer->playerID)
                         ->with('global-title', 'Saving complete')
                         ->with('global-text', 'Your profile info has been saved!')
                         ->with('global-class', 'success');
@@ -85,49 +91,44 @@ class PlayerController extends BaseController {
         return View::make("players/players", array('players' => $players));
     }
 
-    public function myInvitesView(){
+    public function myInvitesView() {
         $player = Auth::user()->player;
         $player->getInvites();
-        
-        
-        return View::make("players/myinvites",array("invites" => $player->invites));
+
+
+        return View::make("players/myinvites", array("invites" => $player->invites));
     }
-    
+
     public function answerInvite($id, $answer) {
 
         $invite = PlayerInvite::find($id);
-        
+
         $player = Auth::user()->player;
-        
-        if ( ($invite->invited == $player->playerID) && ($answer == "accept" || $answer == "decline")) {
+
+        if (($invite->invited == $player->playerID) && ($answer == "accept" || $answer == "decline")) {
 
             if ($answer == "accept") {
                 $player->teamID = $invite->team;
                 $player->save();
                 $invite->delete();
-                PlayerInvite::where("invited", "=", $player->playerID )->delete();
-                return Redirect::route('team',$player->teamID)
-                            ->with('global-title', 'Congratulations!')
-                            ->with('global-text', 'You have successfully joined your new team!')
-                            ->with('global-class', 'success');
-            }
-            else{
+                PlayerInvite::where("invited", "=", $player->playerID)->delete();
+                return Redirect::route('team', $player->teamID)
+                                ->with('global-title', 'Congratulations!')
+                                ->with('global-text', 'You have successfully joined your new team!')
+                                ->with('global-class', 'success');
+            } else {
                 $invite->delete();
                 return Redirect::route('my-invites')
-                            ->with('global-title', 'Team invite declined!')
-                            ->with('global-text', 'You have declined joining team!')
-                            ->with('global-class', 'success');
+                                ->with('global-title', 'Team invite declined!')
+                                ->with('global-text', 'You have declined joining team!')
+                                ->with('global-class', 'success');
             }
-            
-            
-            
         } else {
             return Redirect::route('index')
                             ->with('global-title', 'Access denied')
                             ->with('global-text', 'If you belive this was an error, please contact support!')
                             ->with('global-class', 'danger');
         }
-     
     }
 
 }

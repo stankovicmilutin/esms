@@ -817,7 +817,8 @@ Edit profile {{$player->nick}}
                 </label>
                 @endif 
             </div>
-            <button type="submit" class="btn btn-default">Save</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{{URL::previous()}}"><button type="button" class="btn btn-default">Back</button></a>
             {{ Form::token() }}
             {{ Form::close() }}  
         </div>

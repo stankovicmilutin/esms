@@ -322,16 +322,17 @@ Team Edit
         </div>
         {{ Form::token() }}
 
-        <button type="submit" class="btn btn-primary">Save Team</button>
+            <button type="submit" class="btn btn-primary">Save Team</button>
+            <a href="{{URL::previous()}}"><button type="button" class="btn btn-default">Back</button></a>
         {{ Form::close()}}
 
         <div class="spacer30"></div>
         <table class="table">
-        	<tr><th>Player Name</th><th></th></tr>
+        	<tr><th>Player Name</th><th>Kick from team</th></tr>
 
         	@foreach ($teamPlayers as $teamPlayer)
         	<tr>
-        		<td><a href="{{ URL::route('player-profile',$teamPlayer->playerID) }}" target="_BLANK">{{$teamPlayer->name}}</a></td>
+        		<td><a href="{{ URL::route('player-profile',$teamPlayer->playerID) }}" target="_BLANK">{{$teamPlayer->nick}}</a></td>
         		@if ($teamPlayer->userID == $captain->userID)
         		<td>(you)</td>
         		@else
@@ -353,7 +354,7 @@ Team Edit
         <h4 class="modal-title" id="myModalLabel">Remove a player</h4>
       </div>
       <div class="modal-body">
-        Warning! This action can not be undone. Are you sure that you want to delete this player?
+        Warning! This action can not be undone. Are you sure that you want to kick this player from team?
       </div>
       <div class="modal-footer">
         <form action="{{URL::route('removePlayerFromTeam', $team->teamID)}}" method="POST">

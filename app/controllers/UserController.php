@@ -32,11 +32,12 @@ class UserController extends BaseController {
         }
         else{
             // Login
+            $remember = (Input::has("remember")) ? true : false ;
             $auth = Auth::attempt(array(
                 'username' => input::get('username'),
                 'password' => input::get('password'),
                 'active' => 1
-            ));
+            ), $remember);
            
             if($auth){
                 // Redirect to the intended page
@@ -153,6 +154,42 @@ class UserController extends BaseController {
     public function accountSettingsView(){
         $user = Auth::user();
         return View::make("users/settings", array("user" => $user));
+    }
+    
+    public function accountSettingsData(){
+        $validator = Validator::make(Input::all(),array(
+            'old_password' => 'required',
+            'new_password' => 'required|min:6',
+            'new_password_again' => 'required|same:new_password'
+        ));
+        
+        if ($validator->fails()){
+            return Redirect::route('accountSettingsView')
+                    ->withErrors($validator);
+        } 
+        else {
+           $user = User::find(Auth::user()->userID);
+           
+            $oldPassword = Input::get('old_password');
+            $newPassword = Input::get('new_password');
+        
+            if(Hash::check($oldPassword,$user->getAuthPassword())){
+                $user->password = Hash::make($newPassword);
+                if($user->save()){
+                    return Redirect::route("index")
+                        ->with('global-title','Your password has been changed!')
+                        ->with('global-text','You have changed your password')
+                        ->with('global-class','success');
+                }
+                
+            }
+          
+        }
+        
+        return Redirect::route("index")
+                        ->with('global-title','Error')
+                        ->with('global-text','Your password was not changed!')
+                        ->with('global-class','danger');
     }
     
 }

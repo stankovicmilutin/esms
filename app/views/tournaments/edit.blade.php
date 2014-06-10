@@ -61,7 +61,7 @@ Edit Tournament
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-4">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{URL::previous()}}"><button type="button" class="btn btn-primary">Back</button></a>
+                    <a href="{{URL::previous()}}"><button type="button" class="btn btn-default">Back</button></a>
                 </div>
             </div>
         </form>

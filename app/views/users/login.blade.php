@@ -14,7 +14,7 @@ Login
                     <label for="usernameinput">Username</label>
                     <input type="username" class="form-control" id="usernameinput" name="username" placeholder="Enter username">
                     @if($errors->has('username'))
-                     <label class="text-danger" for="inputError">
+                    <label class="text-danger" for="inputError">
                         {{ $errors->first('username')}}
                     </label>
                     @endif
@@ -27,6 +27,13 @@ Login
                         {{ $errors->first('password')}}
                     </label>    
                     @endif
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="remember"> Remember me
+                        </label>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-default">Login</button>
                 {{ Form::token() }}
