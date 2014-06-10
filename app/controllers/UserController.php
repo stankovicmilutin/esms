@@ -100,7 +100,6 @@ class UserController extends BaseController {
             // Show notification
             if($user){
                
-
                 return Redirect::route("index")
                         ->with('global-title','Your account has been created!')
                         ->with('global-text','Please activate your account via email you have provided!')
@@ -192,4 +191,148 @@ class UserController extends BaseController {
                         ->with('global-class','danger');
     }
     
+    public function forgotUsernameView(){
+        return View::make("users/forgotUsername");
+    }
+    
+    public function forgotUsernameData(){
+        
+        $email = Input::get('email');
+        
+        $checkUser = User::where("email", "=", $email);
+        
+        if($checkUser->count() == 1){
+            $user = $checkUser->first();
+            Mail::send('emails/forgotUsername',
+                    array(
+                        'username' => $user->username,
+                        'link' => URL::route('loginView')
+                    ),
+                    function($message) use ($user){
+                        $message->to($user->email,$user->username)->subject("Forgot username");
+                    });
+            
+            return Redirect::route("forgot-username")
+                        ->with('global-title','Username sent!')
+                        ->with('global-text','We have sent you your username on your e-mail address. Please check your Inbox/Spam/Junk folders for it.')
+                        ->with('global-class','success');
+         
+            
+        }
+        else{
+            return Redirect::route("forgot-username")
+                        ->with('global-title','Invalid e-mail')
+                        ->with('global-text','There is no account with this e-mail!')
+                        ->with('global-class','danger');
+        }
+        
+        return Redirect::route("index")
+                        ->with('global-title','Error')
+                        ->with('global-text','You have encountered an error!')
+                        ->with('global-class','danger');
+    }
+    
+    public function forgotPasswordView(){
+        return View::make("users/forgotPassword");        
+    }
+    
+    public function forgotPasswordData(){
+         $email = Input::get('email');
+        
+        $checkUser = User::where("email", "=", $email);
+        
+        if($checkUser->count() == 1){
+            $user = $checkUser->first();
+            
+            $code = str_random(50);
+            
+            $user->code = $code;
+            
+            if($user->save()){           
+            
+            Mail::send('emails/forgotPassword',
+                    array(
+                        'username' => $user->username,
+                        'link' => URL::route('password-recovery',$code)
+                    ),
+                    function($message) use ($user){
+                        $message->to($user->email,$user->username)->subject("Password recovery");
+                    });
+            
+            return Redirect::route("forgot-username")
+                        ->with('global-title','E-mail has been sent!')
+                        ->with('global-text','We have sent you e-mail with instructions to recover your password. Please check your e-mail inbox.')
+                        ->with('global-class','success');
+            }
+            
+        }
+        else{
+            return Redirect::route("forgot-password")
+                        ->with('global-title','Invalid e-mail')
+                        ->with('global-text','There is no account with this e-mail!')
+                        ->with('global-class','danger');
+        }
+        
+        return Redirect::route("index")
+                        ->with('global-title','Error')
+                        ->with('global-text','You have encountered an error! Your password was not changed!')
+                        ->with('global-class','danger');
+    }
+    
+    public function passwordRecoveryView($code){
+        
+        $userObj = User::where("code","=",$code);
+        
+        if($userObj->count() == 1){
+            return View::make("users/newPassword",array("code" => $code));
+        }
+        
+        return Redirect::route("index")
+                        ->with('global-title','Error')
+                        ->with('global-text','You have encountered an error! Your password was not changed!')
+                        ->with('global-class','danger');
+    }
+    
+    public function passwordRecoveryData($code){
+        
+        $validator = Validator::make(Input::all(), array(
+            'username' => 'required',
+            'new_password' => 'required|min:6',
+            'repeat_new_password' => 'required|same:new_password'
+        ));
+        
+        if($validator->fails()){
+            return Redirect::route("password-recovery",$code)
+                    ->withErrors($validator);
+        }
+        else{
+            $user = User::where("code","=",$code)->first();
+            
+            if($user->username != Input::get('username')){
+                return Redirect::route("password-recovery",$code)
+                        ->with('global-title','Error')
+                        ->with('global-text','Invalid username!')
+                        ->with('global-class','danger');
+            }
+            else{
+                $user->password = Hash::make(Input::get('new_password'));
+                $user->code = "";
+                if($user->save()){
+                    return Redirect::route("loginView")
+                        ->with('global-title','Password successfully changed!')
+                        ->with('global-text','You have successfully changed your password, proceed to login now .')
+                        ->with('global-class','success');
+                }
+                else{
+                    return Redirect::route("index")
+                        ->with('global-title','Error')
+                        ->with('global-text','You have encountered an error! Your password was not changed!')
+                        ->with('global-class','danger');
+                }
+                
+            }
+            
+        }
+        
+    }
 }

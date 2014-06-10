@@ -178,67 +178,6 @@ Route::group(array('before' => "admin"), function(){
     ));  
 });
 
-/**
- * 
- * PUBLIC ROUTES
- * 
- */
-Route::get('/', array(
-    'as' => 'index',
-    'uses' => 'HomeController@index'
-));
-
-/**
- *  Tournament routes 
- */
-Route::get("/tournaments",array(
-    "as" => "tournaments",
-    "uses" => "TournamentController@allTournaments"
-));
-
-Route::get("/tournament/{id}",array(
-    "as" => "tournament",
-    "uses" => "TournamentController@tournament"
-));
-
-
-/**
- *  Match routes
- */
-Route::get("/matches", array(
-    "as" => "matches",
-    "uses" => "MatchController@matches"
-));
-
-
-/**
- *  Team routes
- */
-Route::get('teams',array(
-    'as' => 'teams',
-    'uses' => "TeamController@allTeams"
-));
-
-Route::get('team/{id}',array(
-    'as' => 'team',
-    'uses' => "TeamController@teamProfile"
-));
-
-
-
-/**
- * player routes 
- */
-Route::get('player/{id}', array(
-        'as' => "player-profile",
-        'uses' => "PlayerController@showProfile"
-)); 
-
-// All players list
-Route::get('players', array(
-        'as' => "players",
-        'uses' => "PlayerController@allTeams"
-)); 
 
 
 /**
@@ -263,6 +202,21 @@ Route::group(array('before' => "guest"), function() {
             'as' => "loginData",
             'uses' => "UserController@loginData"
         ));
+        
+        Route::post("forgot/username",array(
+            'as' => "forgot-username",
+            'uses' => "UserController@forgotUsernameData"
+        ));
+        
+        Route::post("forgot/password",array(
+            'as' => "forgot-password",
+            'uses' => "UserController@forgotPasswordData"
+        ));
+         
+         Route::post('password-recovery/{link}',array(
+            'as' => "password-recovery",
+            'uses' => "UserController@passwordRecoveryData"
+        ));
     });
     
     
@@ -279,10 +233,86 @@ Route::group(array('before' => "guest"), function() {
         'uses' => "UserController@activate"
     ));
     
+    Route::get('password-recovery/{link}',array(
+       'as' => "password-recovery",
+       'uses' => "UserController@passwordRecoveryView"
+    ));
     
     Route::get('login', array(
     'as' => "loginView",
     'uses' => "UserController@loginView"
     ));
     
+    Route::get("forgot/username",array(
+        'as' => "forgot-username",
+        'uses' => "UserController@forgotUsernameView"
+    ));
+    
+    Route::get("forgot/password",array(
+        'as' => "forgot-password",
+        'uses' => "UserController@forgotPasswordView"
+    ));
+    
+    
 });
+
+
+/*
+ * 
+ * PUBLIC ROUTES
+ * 
+ */
+Route::get('/', array(
+    'as' => 'index',
+    'uses' => 'HomeController@index'
+));
+
+/**
+ *  Tournament routes 
+ */
+Route::get("/tournaments",array(
+    "as" => "tournaments",
+    "uses" => "TournamentController@allTournaments"
+));
+
+Route::get("/tournament/{id}",array(
+    "as" => "tournament",
+    "uses" => "TournamentController@tournament"
+));
+
+/*
+ *  Match routes
+ */
+Route::get("/matches", array(
+    "as" => "matches",
+    "uses" => "MatchController@matches"
+));
+
+/*
+ *  Team routes
+ */
+Route::get('teams',array(
+    'as' => 'teams',
+    'uses' => "TeamController@allTeams"
+));
+
+Route::get('team/{id}',array(
+    'as' => 'team',
+    'uses' => "TeamController@teamProfile"
+));
+
+/*
+ *  Player routes 
+ */
+Route::get('player/{id}', array(
+        'as' => "player-profile",
+        'uses' => "PlayerController@showProfile"
+)); 
+
+// All players list
+Route::get('players', array(
+        'as' => "players",
+        'uses' => "PlayerController@allTeams"
+)); 
+
+

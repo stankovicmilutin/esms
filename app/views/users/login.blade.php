@@ -36,8 +36,8 @@ Login
                     </div>
                 </div>
                 <div class="form-group">
-                    <label><a href="#">Forgot username?</a></label><br>
-                    <label><a href="#">Forgot password?</a></label>
+                    <label><a href="{{ URL::route('forgot-username') }}">Forgot username?</a></label><br>
+                    <label><a href="{{ URL::route('forgot-password') }}">Forgot password?</a></label>
                 </div>
                 <button type="submit" class="btn btn-default">Login</button>
                 {{ Form::token() }}
