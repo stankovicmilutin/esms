@@ -35,6 +35,10 @@ Login
                         </label>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label><a href="#">Forgot username?</a></label><br>
+                    <label><a href="#">Forgot password?</a></label>
+                </div>
                 <button type="submit" class="btn btn-default">Login</button>
                 {{ Form::token() }}
             </form>
