@@ -23,12 +23,24 @@ class TeamController extends BaseController {
                         ->paginate(5);
         
 
-        $team->wins = Match::where('winnerID', '=', $id)->count();
-        $team->lost = Match::where('winnerID', '<>', $id)->whereNotNull('winnerID')->count();
-        $total = $team->wins + $team->lost;
-        //DOPRAVI WIN RATE
-        $wr = $team->wins/$total*100;
+        $team->won = Match::where('winnerID', '=', $id)->count();
+        $team->lost = Match::whereNotNull('winnerID')
+                            ->where('winnerID', '!=', $id)
+                            ->where(function($query) use($id){
+                                $query->where("host", "=",$id)
+                                        ->orWhere("guest","=",$id);  
+                            })
+                            ->count();
         
+        $total = $team->won + $team->lost;
+       
+        
+        if($total == 0)
+            $wr = 0;
+        else
+            $wr =  $team->won/$total*100; 
+       
+       
         $captain = false;
         $currentUser = null;
         $currentPlayer = null;

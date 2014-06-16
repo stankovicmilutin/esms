@@ -65,7 +65,7 @@
                     <tr><th></th><th></th></tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-thumbs-up"></i>Won: </td>
-                        <td>{{$team->wins}}</td>
+                        <td>{{$team->won}}</td>
                     </tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-thumbs-down"></i>Lost: </td>
