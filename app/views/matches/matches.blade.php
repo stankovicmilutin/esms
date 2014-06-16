@@ -29,8 +29,8 @@ Matches
                     <td>TBA</td>
                     @endif
                     <td>vs</td>
-                    @if ($match->hostTeam)
-                    <td><a href="{{URL::Route('team', $match->hostTeam->teamID)}}">{{ $match->guestTeam->name }}</a></td>
+                    @if ($match->guestTeam)
+                    <td><a href="{{URL::Route('team', $match->guestTeam->teamID)}}">{{ $match->guestTeam->name }}</a></td>
                     @else 
                     <td>TBA</td>
                     @endif
@@ -47,7 +47,7 @@ Matches
                     <td>Not Played</td>
                     @endif
                     @if ($match->hostTeam && ($match->guestTeam))
-                    <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
+                    <td><a href="{{URL::Route('match', $match->matchID)}}"><button type="button" class="btn btn-info">View Details</button></a></td>
                     @else
                     <td></td>
                     @endif

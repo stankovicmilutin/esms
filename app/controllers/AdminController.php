@@ -79,9 +79,64 @@ class AdminController extends BaseController {
         }
     }
 
+    public function saveTournamentData($id) {
+        $tour = Tournament::find($id);
+        $validator = Validator::make(Input::all(), array(
+                    'name' => "required|max:80|min:3|unique:tournaments,name," . $tour->name . ",name",
+                    'image' => "image|mimes:jpeg,bmp,png|max:512",
+                    'starting' => "required"
+        ));
+
+        if ($validator->fails()) {
+            return Redirect::route('adminEditTournament', $id)
+                            ->withErrors($validator);
+        } else {
+
+            $starting = date("Y-m-d", strtotime(input::get('starting')));
+            $name = input::get('name');
+            $prize = input::get('prize');
+
+
+            $filename = $tour->cover;
+            if (Input::hasFile('image')) {
+                $file = Input::file('image');
+
+                $destinationPath = public_path() . '/uploads/';
+                $filename = str_random(12) . '.' . $file->getClientOriginalExtension();
+                $extension = $file->getClientOriginalExtension();
+                var_dump($filename);
+                $file->move($destinationPath, $filename);
+            }
+
+            $tour->starting = $starting;
+            $tour->name = $name;
+            $tour->prizepool = $prize;
+            $tour->cover = $filename;
+
+            if (Input::get('winner') == -1) 
+                $tour->winnerID = NULL;
+            else
+                $tour->winnerID = Input::get('winner');
+
+            if ($tour->save()) {
+
+                return Redirect::route('adminEditTournament', $id)
+                                ->with('global-title', 'Success')
+                                ->with('global-text', 'You you have successfully edited this tournament.')
+                                ->with('global-class', 'success');
+            } else {
+                return Redirect::route('adminEditTournament', $id)
+                                ->with('global-title', 'Tournament couldn\'t be created.')
+                                ->with('global-text', 'Internal error, please contact support.')
+                                ->with('global-class', 'error');
+            }
+        }
+    }
+
     public function editTournamentView($id) {
         $tour = Tournament::find($id);
-        return View::make("tournaments/edit", array("tour" => $tour));
+        $teams = $tour->teams;
+        return View::make("tournaments/edit", array("tour" => $tour, 'teams' => $teams));
     }
 
     public function tourApplies($id) {
@@ -204,8 +259,91 @@ class AdminController extends BaseController {
     public function editMatch($id) {
         $match = Match::with('hostTeam')->with('guestTeam')->find($id);
 
+        if ($match->hostTeam && $match->guestTeam) {
+            $match->playersHost = Player::where('teamID', '=', $match->hostTeam->teamID)
+                                        ->with(array ('scores' => function($query) use ($id) {
+                                            $query->where('matchID', '=', $id);
+                                        }))
+                                        ->get();
+            $match->playersGuest = Player::where('teamID', '=', $match->guestTeam->teamID) 
+                                        ->with(array ('scores' => function($query) use ($id)  {
+                                            $query->where('matchID', '=', $id);
+                                        }))
+                                        ->get();
+        }
 
+        //if (isset($match->playersHost[0]->scores)) echo true; echo false;die();
         return View::make("admin/admineditmatch", array("match" => $match));
     }
 
+    public function saveMatchInfo($id) {
+        $match = Match::find($id);
+        $match->time = Input::get('datetime');
+        $parents = Match::where('child_match_a', '=', $id)->where('child_match_B', '=', $id, 'OR')->get();
+
+
+        $winnerID = Input::get('winner');
+
+        if (Input::get('winner') == '-1') {
+            $match->winnerID = NULL;
+            $match->save();
+
+            //set match participants in parent match (for knockout tour)
+            foreach ($parents as $parent) {
+                if ($parent && $parent->child_match_a == $id) {
+                    $parent->host = NULL;
+                    $parent->save();
+                } elseif ($parent && $parent->child_match_b == $id) {
+                    $parent->guest = NULL;
+                    $parent->save();
+                }
+            }
+        }
+        else {
+            $match->winnerID = $winnerID;
+            $match->save();
+
+            //set match participants in parent match (for knockout tour)
+            foreach ($parents as $parent) {
+                if ($parent && $parent->child_match_a == $id) {
+                    $parent->host = $match->host;
+                    $parent->save();
+                } elseif ($parent && $parent->child_match_b == $id) {
+                    $parent->guest = $match->guest;
+                    $parent->save();
+                }
+            }
+        }
+
+        return Redirect::route('adminEditMatch', $id)
+                        ->with('global-title', 'Success')
+                        ->with('global-text', 'Match succesffully saved')
+                        ->with('global-class', 'success');    
+    }
+
+    function savePlayerStats($matchID, $tourID) {
+        $stats = Input::get('stats');
+
+        $playerscores = array();
+
+        foreach ($stats as $playerid => $stat) {
+            array_push($playerscores, array(
+                'tournamentID' => $tourID,
+                'matchID' => $matchID,
+                'playerID' => $playerid,
+                'k' => $stat['kills'],
+                'cs' => $stat['cs'],
+                'd' => $stat['deaths'],
+                'a' => $stat['asssts'],
+                'entity' => $stat['hero']
+            ));
+        }
+
+        DB::table("player_scores")->insert($playerscores);
+
+        return Redirect::route('adminEditMatch', $matchID)
+                        ->with('global-title', 'Success')
+                        ->with('global-text', 'Match succesffully saved')
+                        ->with('global-class', 'success');    
+    }
 }

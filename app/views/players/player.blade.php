@@ -19,7 +19,7 @@
                 <h2>{{$player->nick}}</h2>
                 <p>{{$player->bio}}</p>
             </div>
-            @if(Auth::user()->player->playerID == $player->playerID)
+            @if(Auth::check() && Auth::user()->player->playerID == $player->playerID)
             <div class="col-md-2">
                 <ul class="nav nav-pills">
                     <div class="btn-group">
