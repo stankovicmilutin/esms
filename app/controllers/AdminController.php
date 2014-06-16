@@ -302,6 +302,25 @@ class AdminController extends BaseController {
         $winnerID = Input::get('winner');
 
         if (Input::get('winner') == '-1') {
+            if ($match->winnerID) {
+                $applyH = TourApply::where('team', '=', $match->host)->where('tournament', '=', $match->tournamentID, 'AND')->get();
+                $applyG = TourApply::where('team', '=', $match->guest)->where('tournament', '=', $match->tournamentID, 'AND')->get();
+                $applyH = $applyH[0]; $applyG = $applyG[0];
+                if ($match->winnerID == $match->host) {
+                    $applyH->played--;
+                    $applyH->won--;
+                    $applyG->played--;
+                    $applyG->lost--;
+                } elseif ($match->winnerID == $match->guest) {
+                    $applyH->played--;
+                    $applyH->lost--;
+                    $applyG->played--;
+                    $applyG->won--;                    
+                }
+                $applyG->save();
+                $applyH->save();
+            }
+
             $match->winnerID = NULL;
             $match->save();
 
@@ -317,6 +336,46 @@ class AdminController extends BaseController {
             }
         }
         else {
+            if ($match->winnerID) {
+                $applyH = TourApply::where('team', '=', $match->host)->where('tournament', '=', $match->tournamentID, 'AND')->get();
+                $applyG = TourApply::where('team', '=', $match->guest)->where('tournament', '=', $match->tournamentID, 'AND')->get();
+                $applyH = $applyH[0]; $applyG = $applyG[0];
+                if (Input::get('winner') == $match->host && $match->winnerID == $match->guest) {
+                    //$applyH->played--;
+                    //$applyH->played--;
+                    $applyH->lost--;
+                    $applyH->won++;
+                    //$applyG->played--;
+                    $applyG->lost++;
+                    $applyG->won--;
+                } elseif (Input::get('winner') == $match->guest && $match->winnerID == $match->host) {
+                    //$applyH->played--;
+                    $applyH->lost++;
+                    $applyH->won--;
+                    //$applyG->played--;
+                    $applyG->lost--;
+                    $applyG->won++;               
+                }
+                $applyG->save();
+                $applyH->save();
+            } else {
+                $applyH = TourApply::where('team', '=', $match->host)->where('tournament', '=', $match->tournamentID, 'AND')->get();
+                $applyG = TourApply::where('team', '=', $match->guest)->where('tournament', '=', $match->tournamentID, 'AND')->get();
+                $applyH = $applyH[0]; $applyG = $applyG[0];
+                if (Input::get('winner') == $match->host) {
+                    $applyH->played++;
+                    $applyH->won++;
+                    $applyG->played++;
+                    $applyG->lost++;
+                } elseif (Input::get('winner') == $match->guest) {
+                    $applyH->played++;
+                    $applyH->lost++;
+                    $applyG->played++;
+                    $applyG->won++;                    
+                }
+                $applyG->save();
+                $applyH->save();                
+            }
             $match->winnerID = $winnerID;
             $match->save();
 
