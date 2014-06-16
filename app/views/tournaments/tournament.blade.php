@@ -1,5 +1,13 @@
 @extends("template/main")
 
+@section ("extra-css")
+{{ HTML::style('css/jquery.bracket.min.css'); }}
+@stop
+
+@section ("extra-js")
+{{ HTML::script('js/jquery.bracket.min.js'); }}
+@stop
+
 @section("page_title")
 {{ $tournament->name }}
 @stop
@@ -57,7 +65,9 @@
             <div class="clearfix"></div>
         </div>
         <div class="well">
+            
             <h2 class="notopmargin">Standings</h2>
+            @if($tournament->type == "League System")
             <table class="table table-hover esmsTable">
                 <tr>
                     <th>Position</th>
@@ -79,6 +89,9 @@
                 <?php $c++; ?>
                 @endforeach
             </table>
+            @else
+            @include('tournaments/treeview')
+            @endif
         </div>
 
         <div class="well">

@@ -34,7 +34,7 @@ class AdminController extends BaseController {
             if (input::get('type') == "league")
                 $type = "League System";
             if (input::get('type') == "knockout")
-                $type = "Knockout system";
+                $type = "Knockout System";
 
             $maxTeams = input::get('max-teams');
             $starting = date("Y-m-d", strtotime(input::get('starting')));
