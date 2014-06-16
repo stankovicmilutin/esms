@@ -27,7 +27,7 @@ class TeamController extends BaseController {
         $team->lost = Match::where('winnerID', '<>', $id)->whereNotNull('winnerID')->count();
         $total = $team->wins + $team->lost;
         //DOPRAVI WIN RATE
-        $wr = 
+        $wr = $team->wins/$total*100;
         
         $captain = false;
         $currentUser = null;
@@ -46,7 +46,8 @@ class TeamController extends BaseController {
                     'player' => $currentPlayer, 
                     'team' => $team, 
                     'captain' => $captain,
-                    'matches' => $matches 
+                    'matches' => $matches,
+                    'wr' => $wr
                 ));
     }
 

@@ -16,7 +16,6 @@
                 <li><a href="{{ URL::route('teams') }}">Teams</a></li>
                 <li><a href="{{ URL::route('players') }}">Players</a></li>
                 <li><a href="{{ URL::route('matches') }}">Matches</a></li>
-                <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::check())

@@ -73,7 +73,7 @@
                     </tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-shield"></i>Win Rate: </td>
-                        <td>100%</td>
+                        <td>{{$wr}}%</td>
                     </tr>
                 </table>
             </div>
@@ -87,14 +87,14 @@
             <h2 class="notopmargin">Team Players</h2>
             <div class="spacer30"></div>
             <table class="table table-hover esmsTable">
-                <tr><th>Name</th><th>Position</th><th><abbr title="Kills / Deaths / Assissts Ratio" class="initialism">K / D / A</abbr></th></tr>
+                <tr><th>Name</th><th>Position</th><th>Country</th></tr>
                 @foreach ($team->getPlayers() as $player)
                 <tr>
                     <td><strong><a href="{{ URL::route('player-profile',$player->playerID) }}">{{$player->nick }}</a></strong>
                         <br/>{{ $player->name, " ", $player->last_name }}
                     </td>
                     <td>{{$player->position}}</td>
-                    <td>6.4 / 1.8 / 9.2</td>
+                    <td>{{$player->country}}</td>
                 </tr>
                 @endforeach
             </table>
