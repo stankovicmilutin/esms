@@ -60,8 +60,8 @@ $teamNum = count($teams);
                     <td>TBA</td>
                     @endif
                     <td>vs</td>
-                    @if ($match->hostTeam)
-                    <td><a href="{{URL::Route('team', $match->hostTeam->teamID)}}">{{ $match->guestTeam->name }}</a></td>
+                    @if ($match->guestTeam)
+                    <td><a href="{{URL::Route('team', $match->guestTeam->teamID)}}">{{ $match->guestTeam->name }}</a></td>
                     @else 
                     <td>TBA</td>
                     @endif

@@ -40,4 +40,8 @@ class Player extends Eloquent {
             return false;
          
     }
+
+    public function scores() {
+        return $this->hasMany('PlayerScore', 'playerID', 'playerID');
+    }
 }

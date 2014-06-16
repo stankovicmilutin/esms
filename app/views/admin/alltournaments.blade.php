@@ -11,7 +11,7 @@ All Tournaments
         <div class="well well-sm">
             <h2 class="notopmargin">All Tournaments</h2>
         </div>
-        <table class="table table-striped table-hover " style="background-color:#222222 ">
+        <table class="table table-striped table-hover esmsTable " style="background-color:#222222 ">
             <thead>
                 <tr>
                     <th>#</th>

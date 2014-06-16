@@ -13,6 +13,7 @@ class Team extends Eloquent {
         return $this->hasOne('Player', 'playerID', 'captain');
     }
 
+    
     public function getPlayers()
     {
         $players = Player::where("teamID","=",  $this->teamID)->get();

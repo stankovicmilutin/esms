@@ -13,7 +13,7 @@ Edit Tournament
         </div>
     <div class="panel-body">
         </br>
-        <form class="form-horizontal" method="post" action="">
+        <form class="form-horizontal" method="post" action="{{URL::Route('adminSaveTournament', $tour->tournamentID)}}">
             <div class="form-group">
                 <label for="name" class="col-lg-3 control-label">Name</label>
                 <div class="col-lg-8">
@@ -58,6 +58,19 @@ Edit Tournament
                     @endif
                 </div>
             </div>
+            @if ($tour->reg_open == 0)
+            <div class="form-group">
+                <label for="winner" class="col-lg-3 control-label">Winner</label>
+                <div class="col-lg-8">
+                    <select name="winner" id="winner" class="form-control">
+                        <option value="-1" @if (!$tour->winnerID) selected @endif>None</option>
+                        @foreach ($teams as $team)
+                            <option value="{{$team->teamID}}" @if ($tour->winnerID == $team->teamID) selected @endif >{{$team->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            @endif
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-4">
                     <button type="submit" class="btn btn-primary">Submit</button>

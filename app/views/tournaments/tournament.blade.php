@@ -34,6 +34,10 @@
                 <p>Teams: {{ $tournament->max_teams }}</p>
                 <p>Prize Money: ${{  number_format((int)$tournament->prizepool, 0, ',', ', ')   }}</p>
                 <p>Starting on: {{ date("d. M Y", strtotime($tournament->starting))}}</p>
+                <p>Format: {{ $tournament->type }}</p>
+                @if ($tournament->winnerID)
+                <p>Winner: <a href="{{URL::Route('team', $tournament->winnerID)}}">{{Team::find($tournament->winnerID)->name}}</a></p>
+                @endif
                 @if ($currentPlayer && $tournament->reg_open == 1)
                     @if ( $currentPlayer->isCaptain() )
                     <p><a data-toggle="modal" data-target="#apply" role="button" class="btn btn-success btn-lg" href="#">Apply for this Tournament</a></p>
@@ -97,8 +101,8 @@
                     <td>TBA</td>
                     @endif
                     <td>vs</td>
-                    @if ($match->hostTeam)
-                    <td><a href="{{URL::Route('team', $match->hostTeam->teamID)}}">{{ $match->guestTeam->name }}</a></td>
+                    @if ($match->guestTeam)
+                    <td><a href="{{URL::Route('team', $match->guestTeam->teamID)}}">{{ $match->guestTeam->name }}</a></td>
                     @else 
                     <td>TBA</td>
                     @endif
@@ -114,7 +118,7 @@
                     <td>Not Played</td>
                     @endif
                     @if ($match->hostTeam && ($match->guestTeam))
-                    <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
+                    <td><a href="{{URL::Route('match', $match->matchID)}}"><button type="button" class="btn btn-info">View Details</button></a></td>
                     @else
                     <td></td>
                     @endif

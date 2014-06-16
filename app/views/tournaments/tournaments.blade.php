@@ -17,6 +17,10 @@ Tournaments
                 <p>Teams: {{ $t->max_teams }}</p>
                 <p>Prize Money: ${{  number_format((int)$t->prizepool, 0, ',', ', ')   }}</p>
                 <p>Starting on: {{ date("d. M Y", strtotime($t->starting))}}</p>
+                <p>Format: {{ $t->type }}</p>
+                @if ($t->winnerID)
+                <p>Winner: <a href="{{URL::Route('team', $t->winnerID)}}">{{Team::find($t->winnerID)->name}}</a></p>
+                @endif
                 <p><a class="btn btn-primary btn-lg" role="button" href="{{ URL::route('tournament',$t->tournamentID)}}">View Tournament</a>
                 </p>
             </div>

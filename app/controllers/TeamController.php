@@ -133,12 +133,11 @@ class TeamController extends BaseController {
         {
             return View::make("teams/edit", array( "team" => $team, "captain" => $player, "teamPlayers" => $teamPlayers));
         }
-        else{
+        else {
             return Redirect::route("index")
                         ->with('global-title', 'Error!')
                         ->with('global-text', 'You have no permission to edit this team! If you belive this is an error, please contact support!')
                         ->with('global-class', 'danger');
-        
          }
     }
 

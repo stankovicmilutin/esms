@@ -145,7 +145,12 @@ Route::group(array('before' => "admin"), function(){
         "as" => "adminEditTournament",
         "uses" => "AdminController@editTournamentView"
     ));
-    
+
+    Route::post('admin/tournament/{id}/save', array(
+        "as" => "adminSaveTournament",
+        "uses" => "AdminController@saveTournamentData"
+    ));
+
     Route::get('admin/tournament/{id}/applies',array(
        "as" => "adminTournamentApplies",
        "uses" => "AdminController@tourApplies"
@@ -164,6 +169,15 @@ Route::group(array('before' => "admin"), function(){
     Route::get('admin/match/{id}/edit',array(
        "as" => "adminEditMatch",
        "uses" => "AdminController@editMatch"
+    ));  
+
+    Route::post('admin/match/{id}/saveinfo',array(
+       "as" => "adminSaveMatchInfo",
+       "uses" => "AdminController@saveMatchInfo"
+    ));  
+    Route::post('admin/match/{matchID}/{tourID}/savestats',array(
+       "as" => "adminSavePlayerStats",
+       "uses" => "AdminController@savePlayerStats"
     ));  
 });
 
@@ -228,6 +242,13 @@ Route::get('players', array(
         'as' => "players",
         'uses' => "PlayerController@allTeams"
 )); 
+
+
+//match routes
+Route::get('match/{id}',array(
+    'as' => 'match',
+    'uses' => "MatchController@match"
+));
 
 
 /**

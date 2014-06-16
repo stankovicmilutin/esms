@@ -10,7 +10,7 @@ if (!$con)
  {die('Could not connect: ' . mysql_error());} 
  	
  	mysqli_query($con, "CREATE DATABASE IF NOT EXISTS `esms`");
-        mysqli_select_db($con, $database); 
+    mysqli_select_db($con, $database); 
     
 	mysqli_query($con, "SET character_set_results=utf8");
 	mb_language('uni'); 
@@ -133,10 +133,10 @@ if (!$con)
 					`tournamentID` bigint(12) NOT NULL,
 					`matchID` bigint(12) NOT NULL,
 					`playerID` bigint(12) NOT NULL,
-					`k` int(5) NULL,
-					`d` int(5) NULL,
-					`a` int(5) NULL,
-					`cs` int(5) NULL,
+					`k` int(5) NULL DEFAULT 0,
+					`d` int(5) NULL DEFAULT 0,
+					`a` int(5) NULL DEFAULT 0,
+					`cs` int(5) NULL DEFAULT 0,
 					`entity` varchar(30) NULL,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -182,7 +182,7 @@ if (!$con)
 					DEFAULT CHARACTER SET = utf8
 				");
         
-        mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_brackets` (
+        /*mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_brackets` (
 					`locID` bigint(12) NOT NULL AUTO_INCREMENT,
 					`tournament` bigint(12) NOT NULL,
 					`matchID` bigint(12) NOT NULL,
@@ -195,4 +195,4 @@ if (!$con)
 					FOREIGN KEY(`matchID`) REFERENCES esms_matches(matchID) ON DELETE CASCADE ON UPDATE CASCADE
 					)
 					DEFAULT CHARACTER SET = utf8
-				");
+				");*/
