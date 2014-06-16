@@ -92,6 +92,7 @@
             @else
             @include('tournaments/treeview')
             @endif
+            <div class="clearfix"></div>
         </div>
 
         <div class="well">

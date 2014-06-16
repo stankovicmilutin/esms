@@ -15,18 +15,20 @@
     }
 
     function printMatch($match) {
-        echo '<div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">'. $match->tournament_phase .'</h3>
-                </div>
-                <div class="panel-body">';
+        echo '<div class="col-md-2">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">'. $match->tournament_phase .'</h3>
+                    </div>
+                    <div class="panel-body">';
         
-               if($match->hostTeam != null)
-                   echo $match->hostTeam->name,"</br>";
-               if($match->guestTeam != null)
-                   echo $match->guestTeam->name;
+                if($match->hostTeam != null)
+                    echo $match->hostTeam->name,"<hr>";
+                if($match->guestTeam != null)
+                    echo $match->guestTeam->name;
                
-        echo  '</div>
+        echo  '     </div>
+                </div>
               </div>';
     }
     ?>
