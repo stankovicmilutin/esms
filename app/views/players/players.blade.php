@@ -11,7 +11,7 @@ Players
             <h2 class="notopmargin">All Teams</h2>
             <div class="spacer30"></div>
             <table class="table table-hover esmsTable">
-                <tr><th>Name</th><th>Country</th><th>Team</th><th>Position</th><th>K / D / A</th></tr>
+                <tr><th>Name</th><th>Country</th><th>Team</th><th>Position</th></tr>
                 
                 @foreach ($players as $player)
                 <tr>
@@ -23,7 +23,6 @@ Players
                     <td class="text-danger">(no team)</td>
                     @endif
                     <td>{{$player->position}}</td>
-                    <td>2 / 2 / 2</td>
                 </tr>
                 @endforeach
                 

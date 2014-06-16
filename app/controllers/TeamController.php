@@ -22,6 +22,13 @@ class TeamController extends BaseController {
                         ->orderby('matchID', 'desc')
                         ->paginate(5);
         
+
+        $team->wins = Match::where('winnerID', '=', $id)->count();
+        $team->lost = Match::where('winnerID', '<>', $id)->whereNotNull('winnerID')->count();
+        $total = $team->wins + $team->lost;
+        //DOPRAVI WIN RATE
+        $wr = 
+        
         $captain = false;
         $currentUser = null;
         $currentPlayer = null;

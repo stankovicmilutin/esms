@@ -64,7 +64,7 @@ class PlayerController extends BaseController {
         $currentPlayer->twitter = Input::get('twpro');
         $currentPlayer->website = Input::get('weblink');
 
-        //DOPRAVI VALIDACIJU ZA SLIKE
+        
         if (Input::hasFile('image')) {
             $file = Input::file('image');
 
@@ -72,7 +72,7 @@ class PlayerController extends BaseController {
             $filename = str_random(12) . '.' . $file->getClientOriginalExtension();
             $extension = $file->getClientOriginalExtension();
 
-            $currentPlayer->avatar = asset('uploads/' . $filename);
+            $currentPlayer->avatar = $filename;
 
             $file->move($destinationPath, $filename);
         }

@@ -57,10 +57,7 @@
                         <td class="text-info"><i class="fa fa-calendar"></i>Website: </td>
                         <td><a href="{{$team->website}}">{{$team->website}}</a></td>
                     </tr>
-                    <tr>
-                        <td class="text-info"><i class="fa fa-trophy"></i>Top Result: </td>
-                        <td>TI1 Winner</td>
-                    </tr>
+
                 </table>
             </div>
             <div class="col-md-6">
@@ -68,11 +65,11 @@
                     <tr><th></th><th></th></tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-thumbs-up"></i>Won: </td>
-                        <td>100</td>
+                        <td>{{$team->wins}}</td>
                     </tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-thumbs-down"></i>Lost: </td>
-                        <td>100</td>
+                        <td>{{$team->lost}}</td>
                     </tr>
                     <tr>
                         <td class="text-info"><i class="fa fa-shield"></i>Win Rate: </td>
