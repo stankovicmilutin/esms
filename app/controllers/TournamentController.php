@@ -24,7 +24,11 @@ class TournamentController extends BaseController {
         //ovakvo ucitavanje da se izbegne N+1 query problem
         //tj da se ne ucitava za svaki mec away team i guest team posebno 
         $matches = Match::with('hostTeam')->with('guestTeam')->where('tournamentID', '=', $id)->orderby('time', 'asc')->paginate(15);
-
+        if($tournament->type == "Knockout System")
+            $final = Match::where("tournamentID","=",$id)->orderby("matchID", "ASC")->get();
+        else 
+            $final = null;
+        
         if ( Auth::check())
             $currentPlayer = Auth::user()->player;
         else
@@ -32,7 +36,8 @@ class TournamentController extends BaseController {
         return View::make("tournaments/tournament",array("tournament" => $tournament, 
                                                         "currentPlayer" => $currentPlayer, 
                                                         "teams" => $teams,
-                                                        "matches" => $matches));
+                                                        "matches" => $matches,
+                                                        "final" => $final[0]->matchID));
     }
     
     public function applyTeam($tournamentID) {
