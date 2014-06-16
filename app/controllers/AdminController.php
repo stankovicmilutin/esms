@@ -324,6 +324,9 @@ class AdminController extends BaseController {
     function savePlayerStats($matchID, $tourID) {
         $stats = Input::get('stats');
 
+        //delete existing
+        $scoresDeleted = PlayerScore::where('matchID', '=', $matchID)->delete();
+
         $playerscores = array();
 
         foreach ($stats as $playerid => $stat) {

@@ -2,7 +2,7 @@
 	class EsmsHelper {
 
     /**
-     * rekurzivno generise stablo (bracket) turnira
+     * rekurzivno generise stablo (bracket) turnira za cuvanje u bazi
      * @param  EloquentCollection $teams       = lista modela timova
      * @param  EloquentModel $tournament       = model turnira
      * @param  int $caleID                     = roditeljski mec ID
@@ -69,9 +69,7 @@
             $parMatch->child_match_a = $newMatchA->matchID;
             $parMatch->child_match_b = $newMatchB->matchID;
             $parMatch->save();
-
         }
-
     }
 
 }
