@@ -71,7 +71,10 @@ $(document).ready(function() {
 
     /* TREEVIEW BRACKETS */
     $(function() {
-        $('div#big .demo').bracket({init: bracketsData})
+        $('div#big .demo').bracket({
+            init: bracketsData,
+            skipConsolationRound: true,
+        })
     })
 
 });
