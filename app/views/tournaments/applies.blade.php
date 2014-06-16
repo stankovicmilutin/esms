@@ -72,7 +72,7 @@ $teamNum = count($teams);
                     @if ($match->hostTeam && $match->winnerID == $match->hostTeam->teamID)
                     <td class="text-info">{{ $match->hostTeam->name }}</td>
                     @elseif ($match->guestTeam && $match->winnerID == $match->guestTeam->teamID)
-                    <td class="text-info">{{ $match->awayTeam->name }}</td>
+                    <td class="text-info">{{ $match->guestTeam->name }}</td>
                     @else
                     <td>Not Played</td>
                     @endif
