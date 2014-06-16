@@ -109,55 +109,21 @@
             <h2 class="notopmargin">Latest Matches</h2>
             <div class="spacer30"></div>
             <table class="table table-hover esmsTable">
-                <tr><th>Opponent</th><th>Tournament</th><th>Result</th><th></th></tr>
+                <tr><th>Host</th><th>Guest</th><th>Tournament</th><th>Result</th><th></th></tr>
+                @foreach($matches as $match)
                 <tr>
-                    <td><a href="#">Empire</a></td>
-                    <td>Joindota Open League IV</td>
-                    <td class="text-danger">Lost</td>
-                    <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">Alliance</a></td>
-                    <td>Joindota Open League IV</td>
+                    <td><a href="{{URL::route('team',$match->hostTeam->teamID)}}">{{"[",$match->hostTeam->tag,"]",$match->hostTeam->name}}</a></td>
+                    <td><a href="{{URL::route('team',$match->guestTeam->teamID)}}">{{"[",$match->guestTeam->tag,"]",$match->guestTeam->name}}</a></td>
+                    <td><a href="{{URL::route('tournament',$match->tournament->tournamentID)}}">{{$match->tournament->name }}</a></td>
+                    @if($match->winnerID == $team->teamID)
                     <td class="text-success">Won</td>
-                    <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">Empire</a></td>
-                    <td>Joindota Open League IV</td>
+                    @else
                     <td class="text-danger">Lost</td>
+                    @endif
                     <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
                 </tr>
-                <tr>
-                    <td><a href="#">Alliance</a></td>
-                    <td>Joindota Open League IV</td>
-                    <td class="text-success">Won</td>
-                    <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">Empire</a></td>
-                    <td>Joindota Open League IV</td>
-                    <td class="text-danger">Lost</td>
-                    <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">Alliance</a></td>
-                    <td>Joindota Open League IV</td>
-                    <td class="text-success">Won</td>
-                    <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">Empire</a></td>
-                    <td>Joindota Open League IV</td>
-                    <td class="text-danger">Lost</td>
-                    <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">Alliance</a></td>
-                    <td>Joindota Open League IV</td>
-                    <td class="text-success">Won</td>
-                    <td><a href="#"><button type="button" class="btn btn-info">View Details</button></a></td>
-                </tr>
+                @endforeach
+                
             </table>
         </div>
 

@@ -7,14 +7,21 @@ class TeamController extends BaseController {
 
 
         $teams = Team::paginate(15);
-
         return View::make("teams/teams", array('teams' => $teams));
     }
 
     public function teamProfile($id) {
 
         $team = Team::find($id);
-
+        
+        $matches = Match::whereNotNull('winnerID')
+                        ->where("host", "=",$id)
+                        ->orWhere("guest","=",$id)
+                        ->with('hostTeam')
+                        ->with('guestTeam')
+                        ->orderby('matchID', 'desc')
+                        ->paginate(5);
+        
         $captain = false;
         $currentUser = null;
         $currentPlayer = null;
@@ -26,7 +33,14 @@ class TeamController extends BaseController {
             if ($currentPlayer->playerID == $team->captain)
                 $captain = true;
         }
-        return View::make("teams/team", array('user' => $currentUser, 'player' => $currentPlayer, 'team' => $team, 'captain' => $captain));
+        
+        return View::make("teams/team", array(
+                    'user' => $currentUser, 
+                    'player' => $currentPlayer, 
+                    'team' => $team, 
+                    'captain' => $captain,
+                    'matches' => $matches 
+                ));
     }
 
     public function createData() {

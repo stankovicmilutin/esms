@@ -3,7 +3,24 @@
 class AdminController extends BaseController {
 
     public function dashboard() {
-        return View::make("admin/dashboard");
+        
+        $upcomingMatches = Match::with('hostTeam')
+                    ->with('guestTeam')
+                    ->whereNotNull('host')
+                    ->whereNotNull('guest')
+                    ->whereNull("winnerID")
+                    ->orderby('time', 'asc')
+                    ->paginate(5);
+        
+        $latestMatches = Match::with('hostTeam')
+                    ->with('guestTeam')
+                    ->whereNotNull('host')
+                    ->whereNotNull('guest')
+                    ->whereNotNull("winnerID")
+                    ->orderby('time', 'asc')
+                    ->paginate(5);
+        
+        return View::make("admin/dashboard", array("upcomingMatches" => $upcomingMatches, "latestMatches" => $latestMatches));
     }
 
     public function allTournaments() {
