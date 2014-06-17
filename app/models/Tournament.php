@@ -37,7 +37,8 @@ class Tournament extends Eloquent{
                     ->withPivot('played')
                     ->withPivot('won')
                     ->withPivot('lost')
-                    ->orderBy('won', 'desc');
+                    ->orderBy('won', 'desc')
+                    ->orderBy('lost', 'asc', 'AND');
     }
 
     public function matches() {

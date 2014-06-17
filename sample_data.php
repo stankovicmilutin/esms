@@ -1,6 +1,3 @@
-
-ALTER TABLE `esms_teams` MODIFY COLUMN `captain`  bigint(12) NULL AFTER `name`;
- 
 INSERT INTO `esms_users` (username, password, email, active) VALUES
     ("user1","$2y$10$KRbzptXNmuwQwWyFmNaHN.bwtvIFty9v6cK5PeRHq.HvKMRXNYvfC","mail@bla.com", 1),
     ("user2","$2y$10$KRbzptXNmuwQwWyFmNaHN.bwtvIFty9v6cK5PeRHq.HvKMRXNYvfC","mail@bla.com", 1),

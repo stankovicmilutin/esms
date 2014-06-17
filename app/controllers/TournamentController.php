@@ -26,7 +26,10 @@ class TournamentController extends BaseController {
         $matches = Match::with('hostTeam')->with('guestTeam')->where('tournamentID', '=', $id)->orderby('time', 'asc')->paginate(15);
         if($tournament->type == "Knockout System"){
             $finalA = Match::where("tournamentID","=",$id)->orderby("matchID", "ASC")->get();
+            if (isset($finalA[0]))
             $final = $finalA[0]->matchID;
+            else
+            $final = NULL;
         }
         else 
             $final = null;
