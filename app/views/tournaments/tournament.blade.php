@@ -37,7 +37,7 @@
 @endif
 <div class="row">
     <div class="col-md-12">
-        <div class="jumbotron tournCover" style="background-image: url({{ URL::asset('uploads/tournaments/'.$tournament->cover)}}); ">
+        <div class="jumbotron tournCover" style="background-image: url({{ URL::asset('uploads/'.$tournament->cover)}}); ">
             <div class="col-md-10"><h1 class="notopmargin">{{ $tournament->name}}</h1>
                 <p>Teams: {{ $tournament->max_teams }}</p>
                 <p>Prize Money: ${{  number_format((int)$tournament->prizepool, 0, ',', ', ')   }}</p>
@@ -89,7 +89,7 @@
                 <?php $c++; ?>
                 @endforeach
             </table>
-            @else
+            @elseif ($tournament->reg_open == 0)
             @include('tournaments/treeview')
             @endif
             <div class="clearfix"></div>
