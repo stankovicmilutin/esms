@@ -3,13 +3,13 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "esms";
+$database = "lolrs201_esms";
 
 $con = mysqli_connect($host, $user , $password);
 if (!$con)
  {die('Could not connect: ' . mysql_error());} 
  	
- 	mysqli_query($con, "CREATE DATABASE IF NOT EXISTS `esms`");
+ 	mysqli_query($con, "CREATE DATABASE IF NOT EXISTS `lolrs201_esms`");
     mysqli_select_db($con, $database); 
     
 	mysqli_query($con, "SET character_set_results=utf8");
@@ -28,7 +28,7 @@ if (!$con)
 					`code` varchar(80) NOT NULL,
 					`active` int(1) NOT NULL,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP,
 					`remember_token` varchar(100) NULL,
 					
 					PRIMARY KEY(`userID`),
@@ -50,7 +50,7 @@ if (!$con)
 					`country` varchar(255) NULL,
 
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP,
 
 					PRIMARY KEY (`teamID`),
 					UNIQUE(`name`,`tag`)
@@ -73,7 +73,7 @@ if (!$con)
 					`twitter` varchar(80) NULL,
 					`website` varchar(80) NULL,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP,
 
 					PRIMARY KEY(`playerID`),
 					FOREIGN KEY(`userID`) REFERENCES esms_users(userID) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -86,18 +86,18 @@ if (!$con)
 
 	mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_tournaments` (
 					`tournamentID` bigint(12) NOT NULL AUTO_INCREMENT,
-					`starting` TIMESTAMP NOT NULL,
+					`starting` TIMESTAMP NULL,
 					`max_teams` int(5) NULL,
 					`name` varchar(255) NULL,
 					`prizepool` varchar(255) NULL,
 					`reg_open` int(1) NULL,
-                                        `type` varchar(30) NOT NULL,
-                                        `cover` varchar(255) NULL,
+                    `type` varchar(30) NOT NULL,
+                    `cover` varchar(255) NULL,
 					`winnerID` bigint(12) NULL,
 					`second_place` bigint(12) NULL,
 					`third_place` bigint(12) NULL,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP,
 
 					PRIMARY KEY(`tournamentID`),
 					FOREIGN KEY(`winnerID`) REFERENCES esms_teams(teamID) ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -118,7 +118,7 @@ if (!$con)
 					`child_match_a` bigint(12) NULL,
 					`child_match_b` bigint(12) NULL,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP,
 
 					PRIMARY KEY(`matchID`),
 					FOREIGN KEY(`host`) REFERENCES esms_teams(teamID) ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -138,7 +138,7 @@ if (!$con)
 					`cs` int(5) NULL DEFAULT 0,
 					`entity` varchar(30) NULL,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP,
 
 					PRIMARY KEY(`locID`),
 					FOREIGN KEY(`tournamentID`) REFERENCES esms_tournaments(tournamentID) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -154,7 +154,7 @@ if (!$con)
 					`invited` bigint(12) NOT NULL,
 					`team` bigint(12) NOT NULL,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP,
 
 					PRIMARY KEY(`locID`),
 					FOREIGN KEY(`inviter`) REFERENCES esms_players(playerID) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -172,7 +172,7 @@ if (!$con)
 					`won` int(5) NULL DEFAULT 0,
 					`lost` int(5) NULL DEFAULT 0,
 					`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-					`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					`updated_at` TIMESTAMP,
 
 					PRIMARY KEY(`locID`),
 					FOREIGN KEY(`tournament`) REFERENCES esms_tournaments(tournamentID) ON DELETE CASCADE ON UPDATE CASCADE,

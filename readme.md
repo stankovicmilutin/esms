@@ -1,5 +1,5 @@
-eSports Management System - eSMS Team \n
-Dejan Stosic \n
+eSports Management System - eSMS Team </br> 
+Dejan Stosic </br>
 Bojan Adamovic  </br>
 Milutin Stankovic </br>
 Mario Zalac
