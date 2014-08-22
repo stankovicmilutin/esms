@@ -5,7 +5,7 @@ Please activate your account using the following link. </br></br>
 -----
 </br>
 
-{{ $link }} 
+<a href="{{ $link }}">{{$link}}</a> 
 
 </br>
 ---

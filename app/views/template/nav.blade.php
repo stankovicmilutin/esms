@@ -7,15 +7,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">eSports Management System</a>
+            <a class="navbar-brand" href="http://www.leagueoflegends.rs/">LeagueofLegends.rs</a>
         </div>
         <div id="navbar-main" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="{{ URL::route('index') }}">Home</a></li>
                 <li><a href="{{ URL::route('tournaments') }}">Tournaments</a></li>
                 <li><a href="{{ URL::route('teams') }}">Teams</a></li>
                 <li><a href="{{ URL::route('players') }}">Players</a></li>
                 <li><a href="{{ URL::route('matches') }}">Matches</a></li>
+                <li><a href="http://turnir.leagueoflegends.rs/help.html#getting-started">Help</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::check())
@@ -29,7 +29,7 @@
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->username }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ URL::route('player-profile', Auth::user()->userID) }}">My Profile</a></li>
+                        <li><a href="{{ URL::route('player-profile', Auth::user()->player->playerID) }}">My Profile</a></li>
                         @if (Auth::user()->player->teamID)
                         <li><a href="{{ URL::route('team', Auth::user()->player->teamID) }}">My Team</a></li>
                         @else

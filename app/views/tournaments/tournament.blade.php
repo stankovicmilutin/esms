@@ -13,7 +13,7 @@
 @stop
 
 @section("container")
-@if ($currentPlayer)
+@if ($currentPlayer != NULL)
 <div class="modal fade" id="apply">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -23,8 +23,10 @@
       </div>
       <div class="modal-body">
         <p>
-            Are you sure you would like to apply your {{"[",$currentPlayer->getTeam()->tag,"] ", $currentPlayer->getTeam()->name  }}
-            team for {{ $tournament->name}} ?
+            @if ($currentPlayer->teamID != NULL)
+                Are you sure you would like to apply your {{"[",$currentPlayer->getTeam()->tag,"] ", $currentPlayer->getTeam()->name  }}
+                team for {{ $tournament->name}} ?
+            @endif
         </p>
       </div>
       <div class="modal-footer">
@@ -46,7 +48,7 @@
                 @if ($tournament->winnerID)
                 <p>Winner: <a href="{{URL::Route('team', $tournament->winnerID)}}">{{Team::find($tournament->winnerID)->name}}</a></p>
                 @endif
-                @if ($currentPlayer && $tournament->reg_open == 1)
+                @if ($currentPlayer != NULL && $tournament->reg_open == 1)
                     @if ( $currentPlayer->isCaptain() )
                     <p><a data-toggle="modal" data-target="#apply" role="button" class="btn btn-success btn-lg" href="#">Apply for this Tournament</a></p>
                     @endif

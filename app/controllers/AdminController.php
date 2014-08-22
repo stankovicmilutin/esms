@@ -382,10 +382,10 @@ class AdminController extends BaseController {
             //set match participants in parent match (for knockout tour)
             foreach ($parents as $parent) {
                 if ($parent && $parent->child_match_a == $id) {
-                    $parent->host = $match->host;
+                    $parent->host = $match->winnerID;
                     $parent->save();
                 } elseif ($parent && $parent->child_match_b == $id) {
-                    $parent->guest = $match->guest;
+                    $parent->guest = $match->winnerID;
                     $parent->save();
                 }
             }

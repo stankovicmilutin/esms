@@ -6,17 +6,13 @@
 class PlayerController extends BaseController {
 
     public function showProfile($id) {
-        $user = User::find($id);
-
-        if (!$user)
-            App::abort(404);
-
-        $player = $user->player;
+      
+        $player = Player::find($id);
         $team = null;
         if ($player->teamID)
             $team = Team::find($player->teamID);
 
-        return View::make("players/player", array('user' => $user, 'player' => $player, 'team' => $team));
+        return View::make("players/player", array( 'player' => $player, 'team' => $team));
     }
 
     // Player profile edit view

@@ -15,7 +15,7 @@ Players
                 
                 @foreach ($players as $player)
                 <tr>
-                    <td><a href="{{ URL::route('player-profile', $player->userID) }}">{{$player->nick}}</a></td>
+                    <td><a href="{{ URL::route('player-profile', $player->playerID) }}">{{$player->nick}}</a></td>
                     <td>{{ $player->country }}</a></td>
                     @if ($player->teamID)
                     <td class="text-success"><a href="{{ URL::route('team', $player->teamID) }}">{{$player->teamName}}</a></td>

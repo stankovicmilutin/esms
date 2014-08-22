@@ -82,7 +82,7 @@ if (!$con)
 					DEFAULT CHARACTER SET = utf8
 				");
 
-	mysqli_query($con, "ALTER TABLE `esms_teams` ADD FOREIGN KEY (`captain`) REFERENCES esms_players(playerID) ");
+//	mysqli_query($con, "ALTER TABLE `esms_teams` ADD FOREIGN KEY (`captain`) REFERENCES esms_players(playerID) ");
 
 	mysqli_query($con, "CREATE TABLE IF NOT EXISTS `esms_tournaments` (
 					`tournamentID` bigint(12) NOT NULL AUTO_INCREMENT,

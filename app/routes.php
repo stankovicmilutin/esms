@@ -278,7 +278,7 @@ Route::group(array('before' => "guest"), function() {
  */
 Route::get('/', array(
     'as' => 'index',
-    'uses' => 'HomeController@index'
+    'uses' => 'TournamentController@allTournaments'
 ));
 
 /**

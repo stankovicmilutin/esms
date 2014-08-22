@@ -37,7 +37,7 @@ Edit profile {{$player->nick}}
             </div>
             <div class="form-group">
                 <label for="emailinput">Lastname:</label>
-                <input type="text" class="form-control" id="emailinput" name="lastname" placeholder="Enter Lastname" value="{{$player->lastname}}" >
+                <input type="text" class="form-control" id="emailinput" name="lastname" placeholder="Enter Lastname" value="{{$player->last_name}}" >
                 @if($errors->has('email'))
                 <label class="text-danger" for="inputError">
                     {{ $errors->first('email') }}

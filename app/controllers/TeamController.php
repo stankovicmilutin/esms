@@ -128,7 +128,7 @@ class TeamController extends BaseController {
                 $currentPlayer->teamID = $newTeam->teamID;
                 $currentPlayer->save();
 
-                return Redirect::route("my-team")
+                return Redirect::route("team", $newTeam->teamID)
                                 ->with('global-title', 'Your Team is created')
                                 ->with('global-text', 'You can now invite some players to join your team.')
                                 ->with('global-class', 'success');
